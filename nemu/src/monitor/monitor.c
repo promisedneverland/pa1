@@ -102,7 +102,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
   /* Parse arguments. */
-  parse_args(argc, argv);
+  parse_args(argc, argv);//getopt_long()
 
   /* Set random seed. */
   init_rand();
@@ -116,11 +116,13 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
 
-  /* Perform ISA dependent initialization. */
+  /* Perform ISA dependent initialization. ISa初始化*/
   init_isa();
-
+//将一个内置的客户程序读入到内存
+//初始化寄存器
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
+  //将一个有意义的客户程序从镜像文件读入，覆盖内置程序
 
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);

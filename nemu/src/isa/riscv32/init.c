@@ -25,11 +25,11 @@ static const uint32_t img [] = {
   0x00100073,  // ebreak (used as nemu_trap)
 };
 
-static void restart() {
+static void restart() {//初始化寄存器
   /* Set the initial program counter. */
-  cpu.pc = RESET_VECTOR;
+  cpu.pc = RESET_VECTOR;//让CPU从我们约定的内存位置开始执行客户程序
 
-  /* The zero register is always 0. */
+  /* 初始化 The zero register is always 0. */
   cpu.gpr[0] = 0;
 }
 
