@@ -75,7 +75,7 @@ static int cmd_help(char *args) {
   int i;
 
   if (arg == NULL) {
-    /* no argument given */
+    /* no argument given ， 打印所有指令和信息*/
     for (i = 0; i < NR_CMD; i ++) {
       printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
