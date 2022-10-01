@@ -49,7 +49,7 @@ static int cmd_c(char *args) {//cpu执行
 
 
 static int cmd_q(char *args) {
-  return -1;
+  return 0;// change from -1 to 0
 }
 
 static int cmd_help(char *args);
