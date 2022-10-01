@@ -106,7 +106,7 @@ void cpu_exec(uint64_t n) {//初始传-1，为无穷大
 
   uint64_t timer_start = get_time();
 
-  execute(n);
+  execute(n);//执行n次
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;//计算执行时间
