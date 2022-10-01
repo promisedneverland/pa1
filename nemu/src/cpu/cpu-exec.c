@@ -28,6 +28,7 @@
 CPU_state cpu = {};//创建一个cpu
 // word_t gpr[32];
 //  vaddr_t pc;//PC
+
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
@@ -119,7 +120,7 @@ void cpu_exec(uint64_t n) {//初始传-1，为无穷大
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
-          nemu_state.halt_pc);
+          nemu_state.halt_pc);//调了色
       // fall through
     case NEMU_QUIT: statistic();
   }
