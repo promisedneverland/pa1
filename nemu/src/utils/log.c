@@ -16,12 +16,13 @@
 #include <common.h>
 
 extern uint64_t g_nr_guest_inst;
-FILE *log_fp = NULL;
+FILE *log_fp = NULL;//file = iofile
 
 void init_log(const char *log_file) {
-  log_fp = stdout;
+  log_fp = stdout;// output log_fp
   if (log_file != NULL) {
-    FILE *fp = fopen(log_file, "w");
+    FILE *fp = fopen(log_file, "w");//create a file named log-file
+    //return NULL if error
     Assert(fp, "Can not open '%s'", log_file);
     log_fp = fp;
   }

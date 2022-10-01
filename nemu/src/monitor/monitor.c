@@ -68,7 +68,12 @@ static long load_img() {
   return size;
 }
 
-static int parse_args(int argc, char *argv[]) {
+static int parse_args(int argc, char *argv[]) {//处理输入参数
+  //const char *name 长命令名;
+  //int has_arg; 
+  //int *flag;若null,则返回val，否则0并指向
+  //int val 返回值;
+  //最后一行必须是0
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
     {"log"      , required_argument, NULL, 'l'},
@@ -78,14 +83,17 @@ static int parse_args(int argc, char *argv[]) {
     {0          , 0                , NULL,  0 },
   };
   int o;
+  
+  //如果没有更多字符option，则返回-1，否则返回字符j
+  //l: 说明 -l 需要参数
   while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
     switch (o) {
       case 'b': sdb_set_batch_mode(); break;
-      case 'p': sscanf(optarg, "%d", &difftest_port); break;
+      case 'p': sscanf(optarg, "%d", &difftest_port); break;//optarg 选项参数
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
       case 1: img_file = optarg; return 0;
-      default:
+      default://错误提示?
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
         printf("\t-l,--log=FILE           output log to FILE\n");
@@ -120,6 +128,7 @@ void init_monitor(int argc, char *argv[]) {
   init_isa();
 //将一个内置的客户程序读入到内存
 //初始化寄存器
+
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
   //将一个有意义的客户程序从镜像文件读入，覆盖内置程序

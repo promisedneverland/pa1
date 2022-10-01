@@ -18,9 +18,9 @@
 
 #include <common.h>
 
-typedef struct {
+typedef struct {//c语言中的结构体定义，类型名为riscv32_CPU_state
   word_t gpr[32];
-  vaddr_t pc;
+  vaddr_t pc;//PC
 } riscv32_CPU_state;
 
 // decode

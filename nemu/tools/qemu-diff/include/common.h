@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-typedef uint32_t paddr_t;
+typedef uint32_t paddr_t;//其实就是unsigned int
 
 #include "isa.h"
 #include "protocol.h"

@@ -31,17 +31,17 @@
 #include <stdlib.h>
 #endif
 
-#if CONFIG_MBASE + CONFIG_MSIZE > 0x100000000ul
-#define PMEM64 1
+#if CONFIG_MBASE + CONFIG_MSIZE > 0x100000000ul// unsinged long 8bytes
+#define PMEM64 1//说明是64位的pmem
 #endif
 
-typedef MUXDEF(CONFIG_ISA64, uint64_t, uint32_t) word_t;
+typedef MUXDEF(CONFIG_ISA64, uint64_t, uint32_t) word_t;//如果定义isa64则字长为64
 typedef MUXDEF(CONFIG_ISA64, int64_t, int32_t)  sword_t;
 #define FMT_WORD MUXDEF(CONFIG_ISA64, "0x%016"PRIx64, "0x%08"PRIx32)
 
 typedef word_t vaddr_t;
-typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
-#define FMT_PADDR MUXDEF(PMEM64, "0x%016"PRIx64, "0x%08"PRIx32)
+typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;//定义paddr_t的位数（32
+#define FMT_PADDR MUXDEF(PMEM64, "0x%016"PRIx64, "0x%08"PRIx32)//lx , x
 typedef uint16_t ioaddr_t;
 
 #include <debug.h>

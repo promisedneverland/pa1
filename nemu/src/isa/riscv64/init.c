@@ -28,15 +28,15 @@ static const uint32_t img [] = {
 
 static void restart() {//初始化寄存器
   /* Set the initial program counter. */
-  cpu.pc = RESET_VECTOR;
+  cpu.pc = RESET_VECTOR;//80000000=pmem[0]
 
   /* The zero register is always 0. */
   cpu.gpr[0] = 0;
 }
 
 void init_isa() {
-  /* Load built-in image. */
-  memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
+  /* Load built-in image. 内置的初始程序装载到pmem*/
+  memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));//约定80000000
 
   /* Initialize this virtual computer system. */
   restart();
