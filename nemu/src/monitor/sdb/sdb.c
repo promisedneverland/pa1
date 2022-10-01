@@ -80,7 +80,7 @@ static int cmd_help(char *args) {
       printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
     }
   }
-  else {//给了参数，打印指定指令信息
+  else {//给了参数，打印指定指令
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(arg, cmd_table[i].name) == 0) {
         printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
