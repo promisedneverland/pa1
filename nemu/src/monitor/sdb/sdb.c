@@ -102,7 +102,8 @@ void sdb_mainloop() {
     return;
   }
 
-  for (char *str; (str = rl_gets()) != NULL; ) {
+  for (char *str; (str = rl_gets()) != NULL; ) 
+  {
     char *str_end = str + strlen(str);//指向字符串末尾指针
 
     /* extract the first token as the command */
@@ -125,12 +126,14 @@ void sdb_mainloop() {
     int i;
     for (i = 0; i < NR_CMD; i++) {//扫描是否是某个命令
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args) < 0)
+          { return; }//执行命令
         break;
       }
     }
-
-    if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+    //不匹配任何已知命令
+    if (i == NR_CMD)
+      { printf("Unknown command '%s'\n", cmd); }
   }
 }
 
