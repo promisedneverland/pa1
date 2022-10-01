@@ -25,8 +25,8 @@ void init_regex();
 void init_wp_pool();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
-static char* rl_gets() {
-  printf("rlgets\n");
+static char* rl_gets() {//只要不输入q,就会一直进入
+  printf("rl gets\n");
   static char *line_read = NULL;
   //？一定为空
   if (line_read) {
