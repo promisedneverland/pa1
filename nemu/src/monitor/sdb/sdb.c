@@ -26,6 +26,7 @@ void init_wp_pool();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
+  printf("rlgets\n");
   static char *line_read = NULL;
   //？一定为空
   if (line_read) {
@@ -49,7 +50,7 @@ static int cmd_c(char *args) {//cpu执行
 
 
 static int cmd_q(char *args) {
-  return 0;// change from -1 to 0
+  return -1;//program wont end if =0
 }
 
 static int cmd_help(char *args);
