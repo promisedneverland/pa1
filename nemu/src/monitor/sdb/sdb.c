@@ -106,13 +106,13 @@ void sdb_mainloop() {
     char *str_end = str + strlen(str);//指向字符串末尾指针
 
     /* extract the first token as the command */
-    char *cmd = strtok(str, " ");
-    if (cmd == NULL) { continue; }
+    char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
+    if (cmd == NULL) { continue; }//若根本没有字符
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
      */
-    char *args = cmd + strlen(cmd) + 1;
+    char *args = cmd + strlen(cmd) + 1;//指向参数的第一个字符
     if (args >= str_end) {
       args = NULL;
     }
@@ -123,7 +123,7 @@ void sdb_mainloop() {
 #endif
 
     int i;
-    for (i = 0; i < NR_CMD; i ++) {
+    for (i = 0; i < NR_CMD; i++) {//扫描是否是某个命令
       if (strcmp(cmd, cmd_table[i].name) == 0) {
         if (cmd_table[i].handler(args) < 0) { return; }
         break;
