@@ -77,14 +77,15 @@ static int cmd_x(char *args) {
     printf("arguments??? \n");
     return 0;
   }  
-  printf("%s\n",args);
-  u_int32_t N = atoi(args);
-  printf("%s\n",args);
+  char* firstarg = strtok(args," ");
+  char* secondarg = strtok(NULL," ");
+  printf("%s\n",firstarg);
+  printf("%s\n",secondarg);
+  u_int32_t N = atoi(firstarg);
   printf("%d\n",N);
-  args = strtok(args, " ");
-  printf("%s\n",args);
+  
   u_int32_t start;
-  sscanf(args,"0x%x",&start);
+  sscanf(secondarg,"0x%x",&start);
   printf("%x",start);
   return 0;
 }
