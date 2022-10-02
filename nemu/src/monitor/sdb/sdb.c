@@ -80,6 +80,7 @@ static int cmd_x(char *args) {
   u_int32_t N = atoi(args);
   printf("%d\n",N);
   args = strtok(NULL, " ");
+  printf("%s\n",args);
   u_int32_t start;
   sscanf(args,"0x%x",&start);
   printf("%x",start);
