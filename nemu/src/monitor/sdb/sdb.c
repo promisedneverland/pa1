@@ -18,7 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-
+#include <memory/paddr.h>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -71,6 +71,7 @@ static int cmd_i(char *args) {
   return 0;//program wont end if =0
 
 }
+
 static int cmd_x(char *args) {
   if(args == NULL)
   {
@@ -82,9 +83,9 @@ static int cmd_x(char *args) {
   // printf("%s\n",firstarg);
   // printf("%s\n",secondarg);
   u_int32_t N = atoi(firstarg);
-  printf("N=%d\n",N);
+  // printf("N=%d\n",N);
   
-  u_int32_t start;
+  paddr_t start;
   // printf("%d\n",sscanf(secondarg,"0x%8x",&start));
   if(secondarg == NULL || sscanf(secondarg,"0x%8x",&start)<=0)
   {
@@ -93,7 +94,11 @@ static int cmd_x(char *args) {
   } 
   else
   {
-    
+     while(N--)
+     {
+      printf("0x%x         0x%x\n",start,paddr_read(start,4));
+      start += 4;
+     }
   }
   // printf("%x",start);
   return 0;

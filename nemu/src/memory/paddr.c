@@ -27,10 +27,11 @@ static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};//CONFIG_MSIZE = 128MB,pmem作�
 //猜测：paddr是+8000000的，v不加
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 //初始时，返回指针指向pmem[0]
+//返回pmem数组下标处
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
 static word_t pmem_read(paddr_t addr, int len) {
-  word_t ret = host_read(guest_to_host(addr), len);
+  word_t ret = host_read(guest_to_host(addr), len);//读取pmem值，paddr是+80000000的值，len是字节数
   return ret;
 }
 
