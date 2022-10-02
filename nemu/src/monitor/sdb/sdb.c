@@ -58,18 +58,28 @@ static int cmd_q(char *args) {
 static int cmd_i(char *args) {
   if(args == NULL)
   {
-    printf("arguments????? \n");
+    printf("arguments??? \n");
     return 0;
   }
-    
+  
   if(strcmp(args,"r")==0)
     isa_reg_display(); //printf 输出所有寄存器的值
+  else if(strcmp(args,"w")==0)
+  {
+    ;
+  }
   return 0;//program wont end if =0
 
 }
 static int cmd_x(char *args) {
-  return -1;//program wont end if =0
-
+  if(args == NULL)
+  {
+    printf("arguments??? \n");
+    return 0;
+  }  
+  u_int32_t N = atoi(args);
+  printf("%d",N);
+  return 0;
 }
 static int cmd_s(char *args) {//单步
   if(args)
