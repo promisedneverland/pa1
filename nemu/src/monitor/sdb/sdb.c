@@ -57,7 +57,11 @@ static int cmd_q(char *args) {
 }
 static int cmd_i(char *args) {
   if(args == NULL)
+  {
+    printf("arguments????? \n");
     return 0;
+  }
+    
   if(strcmp(args,"r")==0)
     isa_reg_display(); //printf 输出所有寄存器的值
   return 0;//program wont end if =0
