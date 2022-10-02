@@ -78,7 +78,11 @@ static int cmd_x(char *args) {
     return 0;
   }  
   u_int32_t N = atoi(args);
-  printf("%d",N);
+  printf("%d\n",N);
+  args = strtok(NULL, " ");
+  u_int32_t start;
+  sscanf(args,"0x%x",&start);
+  printf("%x",start);
   return 0;
 }
 static int cmd_s(char *args) {//单步
