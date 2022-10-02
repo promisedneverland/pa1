@@ -96,7 +96,7 @@ static int cmd_x(char *args) {
   {
      while(N--)
      {
-      printf("0x%x         0x%x\n",start,paddr_read(start,4));
+      printf("0x%08x         0x%08x\n",start,paddr_read(start,4));
       start += 4;
      }
   }
