@@ -82,11 +82,11 @@ static int cmd_x(char *args) {
   printf("%s\n",firstarg);
   printf("%s\n",secondarg);
   u_int32_t N = atoi(firstarg);
-  printf("%d\n",N);
+  printf("N=%d\n",N);
   
   u_int32_t start;
 
-  printf("%d",sscanf(secondarg,"0x%8x",&start));
+  printf("%d\n",sscanf(secondarg,"0x%8x",&start));
   // if(sscanf(secondarg,"0x%8x",&start)==EOF)
     // printf("no!");
   printf("%x",start);
