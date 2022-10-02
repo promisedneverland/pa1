@@ -89,7 +89,7 @@ static int cmd_x(char *args) {
   // printf("%d\n",sscanf(secondarg,"0x%8x",&start));
   if(secondarg == NULL || sscanf(secondarg,"0x%8x",&start)<=0)
   {
-    printf("format error\n");
+    printf("arguments??? \n");
     return 0;
   } 
   else
