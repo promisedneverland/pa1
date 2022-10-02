@@ -79,17 +79,23 @@ static int cmd_x(char *args) {
   }  
   char* firstarg = strtok(args," ");
   char* secondarg = strtok(NULL," ");
-  printf("%s\n",firstarg);
-  printf("%s\n",secondarg);
+  // printf("%s\n",firstarg);
+  // printf("%s\n",secondarg);
   u_int32_t N = atoi(firstarg);
   printf("N=%d\n",N);
   
   u_int32_t start;
-
-  printf("%d\n",sscanf(secondarg,"0x%8x",&start));
-  // if(sscanf(secondarg,"0x%8x",&start)==EOF)
-    // printf("no!");
-  printf("%x",start);
+  // printf("%d\n",sscanf(secondarg,"0x%8x",&start));
+  if(secondarg == NULL || sscanf(secondarg,"0x%8x",&start)<=0)
+  {
+    printf("format error\n");
+    return 0;
+  } 
+  else
+  {
+    
+  }
+  // printf("%x",start);
   return 0;
 }
 static int cmd_s(char *args) {//单步
