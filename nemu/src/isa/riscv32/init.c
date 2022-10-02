@@ -20,7 +20,7 @@
 // but it is ok since we do not access the array directly
 static const uint32_t img [] = {
   0x800002b7,  // lui t0,0x80000 
-  // 将指令中的16bit立即数保存到地址为rt的通用寄存器的高16位。另外，地址为rt的通用寄存器的低16位使用0填充。
+  // 将指令中的20bit立即数保存到地址为rt的通用寄存器的高20位。另外，地址为rt的通用寄存器的低16位使用0填充。
   // pmem[0] = 0xb7,pmem[3]=0x80
   0x0002a0a3,  // sw  zero,0(t0)
   0x0012a503,  // lw  a0,0(t0)
