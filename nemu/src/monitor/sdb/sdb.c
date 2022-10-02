@@ -55,7 +55,23 @@ static int cmd_q(char *args) {
   return -1;//program wont end if =0
 
 }
+static int cmd_i(char *args) {
+  return -1;//program wont end if =0
 
+}
+static int cmd_x(char *args) {
+  return -1;//program wont end if =0
+
+}
+static int cmd_s(char *args) {//单步
+  if(args)
+  {
+    cpu_exec(atoi(args));
+  }
+  else
+    cpu_exec(1);
+  return 0;  
+}
 static int cmd_help(char *args);
 
 static struct {//命令们
@@ -66,7 +82,9 @@ static struct {//命令们
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "step instruction", cmd_s },
+  { "info", "information reg/watchpoint", cmd_i },
+  { "x", "scan memory N*(4bytes) startindex", cmd_x },
   //命令 描述 函数
   /* TODO: Add more commands */
 
