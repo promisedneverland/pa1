@@ -85,7 +85,8 @@ static int cmd_x(char *args) {
   printf("%d\n",N);
   
   u_int32_t start;
-  sscanf(secondarg,"0x%x",&start);
+  if(sscanf(secondarg,"0x%x",&start)==EOF)
+    printf("no!");
   printf("%x",start);
   return 0;
 }
