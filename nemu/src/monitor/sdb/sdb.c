@@ -77,7 +77,9 @@ static int cmd_x(char *args) {
     printf("arguments??? \n");
     return 0;
   }  
+  printf("%s\n",args);
   u_int32_t N = atoi(args);
+  printf("%s\n",args);
   printf("%d\n",N);
   args = strtok(NULL, " ");
   printf("%s\n",args);
