@@ -45,12 +45,15 @@ static char* rl_gets() {//只要不输入q,就会一直进入
 
 static int cmd_c(char *args) {//cpu执行
   cpu_exec(-1);
+
   return 0;
 }
 
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;//program wont end if =0
+
 }
 
 static int cmd_help(char *args);
