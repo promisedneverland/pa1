@@ -38,6 +38,11 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
+  {"\\-", '-'},         // minus
+  {"\\*", '*'},         // minus
+  {"\\/", '/'},         // minus
+  {"\\(", '('},         // minus
+  {"\\)", ')'},         // minus
   {"==", TK_EQ},        // equal
 };
 
@@ -62,13 +67,13 @@ void init_regex() {
   }
 }
 
-typedef struct token {
+typedef struct token {//记录token信息
   int type;
-  char str[32];
+  char str[32];//token子串，需要缓冲溢出处理
 } Token;
 
 static Token tokens[32] __attribute__((used)) = {};
-static int nr_token __attribute__((used))  = 0;
+static int nr_token __attribute__((used))  = 0;//指示已经被识别出的token数目
 
 static bool make_token(char *e) {
   int position = 0;
@@ -102,7 +107,7 @@ static bool make_token(char *e) {
       }
     }
 
-    if (i == NR_REGEX) {
+    if (i == NR_REGEX) {//表达式分析失败，指示位置
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }

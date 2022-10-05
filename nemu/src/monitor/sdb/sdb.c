@@ -19,6 +19,8 @@
 #include <readline/history.h>
 #include "sdb.h"
 #include <memory/paddr.h>
+#include <utils.h>
+// #include <expr.c>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -112,7 +114,14 @@ static int cmd_s(char *args) {//单步
     cpu_exec(1);
   return 0;  
 }
+
 static int cmd_help(char *args);
+
+static int cmd_p(char *args)
+{
+  // make_token(args);
+  return 0;
+}
 
 static struct {//命令们
   const char *name;
@@ -125,6 +134,7 @@ static struct {//命令们
   { "si", "step instruction", cmd_s },
   { "info", "information reg/watchpoint", cmd_i },
   { "x", "scan memory N*(4bytes) startindex", cmd_x },
+  { "p", "calculate expression", cmd_p },
   //命令 描述 函数
   /* TODO: Add more commands */
 
