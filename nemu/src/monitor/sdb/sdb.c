@@ -19,6 +19,7 @@
 #include <readline/history.h>
 #include "sdb.h"
 #include <memory/paddr.h>
+#include <utils.h>
 // #include <expr.c>
 static int is_batch_mode = false;
 
