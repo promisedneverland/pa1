@@ -161,7 +161,7 @@ void pop()
 }
 bool empty()
 {
-  return cur;
+  return !cur;
 }
 bool check_parentheses(int p, int q,bool* success)
 {
