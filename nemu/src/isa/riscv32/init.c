@@ -26,6 +26,8 @@ static const uint32_t img [] = {
   //02 00 00 00
   0x0002a503,  // lw  a0,0(t0)
   0x00100073,  // ebreak (used as nemu_trap)
+  //乱改的话会hit bad trap
+  
 
 };
 
