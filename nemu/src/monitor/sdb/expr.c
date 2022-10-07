@@ -259,6 +259,7 @@ u_int32_t eval(int p,int q,bool* success) {
       }
       else if(tokens[i].type == ')'){
         pop();
+        printf("%d",cur);
         if(cur == 0)
         {
           act = 1;
