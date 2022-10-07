@@ -124,7 +124,7 @@ static bool make_token(char *e) {
           }
           case TK_NOTYPE:
           {
-            
+            nr_token--;
             break;
           }
           default:
@@ -196,7 +196,14 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
   printf("%u\n",eval(0,nr_token-1,success));
-  
+  for(int i=0;i<32;i++)
+  {
+    for(int j=0;j<32;j++)
+    {
+      tokens[i].str[j] = 0;
+    }
+    tokens[i].type = 0;
+  }
 
 
   return 0;
