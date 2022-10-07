@@ -119,7 +119,7 @@ static int cmd_help(char *args);
 
 static int cmd_p(char *args)
 {
-  bool state;
+  bool state = 1;
   expr(args,&state);
   // make_token(args);
   return 0;
