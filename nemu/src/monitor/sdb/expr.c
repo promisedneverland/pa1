@@ -60,7 +60,8 @@ void init_regex() {
   int ret;
 
   for (i = 0; i < NR_REGEX; i ++) {
-    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
+    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);//把rule编译，若执行成功返回0
+    //结果储存在re
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
       panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
@@ -86,23 +87,25 @@ static bool make_token(char *e) {
   while (e[position] != '\0') {
     if(nr_token == 32)
     {
-       Log("overflow");
+       Log("overflow too much token");
        break;
     }
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        char *substr_start = e + position;
-        int substr_len = pmatch.rm_eo;
+        //so是匹配结果的起始位置，eo是结束为止;1位pmatch数组长度，pmatch是struct
+        //regexec 返回0是匹配成功
+        char *substr_start = e + position;//子串开始的位置
+        int substr_len = pmatch.rm_eo;//子串长度
         if(substr_len > 32)
         {
-          Log("overflow");
+          Log("overflow string length");
           break;
         }
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
-        position += substr_len;
+        position += substr_len;//更新指向下一个位置
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
@@ -110,9 +113,23 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          case '+':
+          case TK_NUM:
+          {
+            for(int p=0;p<substr_len;p++)
+            {
+              tokens[nr_token].str[p] = *(substr_start + p);
+              tokens[nr_token].type = rules[i].token_type;
+            }
+            break;
+          }
+          case TK_NOTYPE:
           {
             
+            break;
+          }
+          default:
+          {
+            tokens[nr_token].type = rules[i].token_type;
             break;
           }
         }
