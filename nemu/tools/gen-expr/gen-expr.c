@@ -32,6 +32,11 @@ static char *code_format =
 "}";
 
 static void gen_rand_expr() {
+  switch (choose(3)) {
+    case 0: gen_num(); break;
+    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
   buf[0] = '\0';
 }
 
@@ -40,7 +45,7 @@ int main(int argc, char *argv[]) {
   srand(seed);
   int loop = 1;
   if (argc > 1) {
-    sscanf(argv[1], "%d", &loop);
+    sscanf(argv[1], "%d", &loop);//loop 是 生成数据数量
   }
   int i;
   for (i = 0; i < loop; i ++) {
@@ -54,7 +59,7 @@ int main(int argc, char *argv[]) {
     fclose(fp);
 
     int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
+    if (ret != 0) continue;//不成功
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
