@@ -71,10 +71,10 @@ void init_regex() {
 
 typedef struct token {//记录token信息
   int type;
-  char str[32];//token子串，需要缓冲溢出处理
+  char str[100];//token子串，需要缓冲溢出处理
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[100] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;//指示已经被识别出的token数目
 
 static bool make_token(char *e) {
