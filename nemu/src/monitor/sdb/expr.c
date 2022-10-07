@@ -232,7 +232,7 @@ u_int32_t eval(int p,int q,bool* success) {
     if(*success == 0)
       return 0;
     
-    printf("check parentheses is TRUE\n");
+    // printf("check parentheses is TRUE\n");
     return eval(p + 1, q - 1,success);
   }
   else {
@@ -269,7 +269,7 @@ u_int32_t eval(int p,int q,bool* success) {
     }
     u_int32_t val1 = eval(p, op - 1,success);
     u_int32_t val2 = eval(op + 1, q,success);
-
+    
     switch (tokens[op].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
