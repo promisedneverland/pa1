@@ -259,7 +259,8 @@ u_int32_t eval(int p,int q,bool* success) {
       }
       else if(tokens[i].type == ')'){
         pop();
-        if(empty()){
+        if(cur == 0)
+        {
           act = 1;
         }
       }
