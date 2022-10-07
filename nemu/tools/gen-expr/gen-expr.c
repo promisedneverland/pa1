@@ -48,7 +48,7 @@ void gen_num()
   }
 
 }
-char gen_rand_op()
+void gen_rand_op()
 {
   char opt;
   switch (choose(4)){
@@ -60,13 +60,29 @@ char gen_rand_op()
   buf[idx] = opt;
   idx++;
 }
+void gen_space()
+{
+  int length = rand() % maxdigit + 1;
+  for(int i=1;i<=length;i++)
+  {
+    buf[idx] = ' ';
+    idx++;
+  }
+
+}
+void gen(char c)
+{
+  buf[idx] = c;
+  idx++;
+}
 static void gen_rand_expr() {
+  gen_space();
   switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  // buf[0] = '\0';
+  buf[0] = '\0';
 }
 
 int main(int argc, char *argv[]) {
