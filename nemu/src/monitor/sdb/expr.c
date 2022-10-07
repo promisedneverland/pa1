@@ -148,8 +148,50 @@ static bool make_token(char *e) {
 
   return true;
 }
-bool check_parentheses(int p, int q)
+int s[100];
+int cur = 0;
+void push(int num)
 {
+  s[cur] = num;
+  ++cur;
+}
+void pop()
+{
+  --cur;
+}
+bool empty()
+{
+  return cur;
+}
+bool check_parentheses(int p, int q,bool* success)
+{
+  
+  for(int i=p;i<=q;i++)
+  {
+    if(tokens[i].type == '(')
+    {
+      push(1);
+    }
+    else if(tokens[i].type == ')')
+    {
+      if(empty())
+      {
+        printf("parentheses dismatch, ) more\n");
+        *success = 0;
+        return 0;
+      }
+      pop();
+    }
+    
+  }
+  if(!empty())
+  {
+    printf("parentheses dismatch, ( more\n");
+    *success = 0;
+    return 0;
+  }
+  if(tokens[p].type == '(' && tokens[q].type == ')')
+    return 1;
   return 0;
 }
 
@@ -179,15 +221,34 @@ u_int32_t eval(int p,int q,bool* success) {
       return 0;
     }
   }
-  else if (check_parentheses(p, q) == true) {
+  else if (check_parentheses(p, q,success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
+    if(*success == 0)
+    {
+      return 0;
+    }
     return eval(p + 1, q - 1,success);
   }
   else {
-    /* We should do more things here. */
+    int op = 1;
+    u_int32_t val1 = eval(p, op - 1,success);
+    u_int32_t val2 = eval(op + 1, q,success);
+
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: 
+      {
+        printf("type invalid\n");
+        assert(0);
+      }
+    }
   }
+  printf("no if matches\n");
   return 0;
 }
 word_t expr(char *e, bool *success) {
