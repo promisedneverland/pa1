@@ -234,7 +234,7 @@ u_int32_t eval(int p,int q,bool* success) {
     if(*success == 0)
       return 0;
     
-    printf("check parentheses is TRUE\n");
+    printf("check parentheses is TRUE (%d,%d)\n",p,q);
     return eval(p + 1, q - 1,success);
   }
   else {
