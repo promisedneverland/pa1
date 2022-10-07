@@ -196,8 +196,10 @@ bool check_parentheses(int p, int q,bool* success)
   }
   if(tokens[p].type == '(' && tokens[q].type == ')' ){
     for(int i=p+1;i<q;i++){
-      if(tokens[i].type == ')')
+      if(tokens[i].type == ')'){
+        printf("fake match\n");
         return 0;
+      }
     }
     return 1;
   }
