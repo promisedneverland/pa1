@@ -169,9 +169,10 @@ void clear()
 }
 bool check_parentheses(int p, int q,bool* success)
 {
-  
+  bool res = 1;
   for(int i=p;i<=q;i++)
   {
+
     if(tokens[i].type == '(')
     {
       push(1);
@@ -185,6 +186,10 @@ bool check_parentheses(int p, int q,bool* success)
         return 0;
       }
       pop();
+      if(empty() && i != q)
+      {
+        res = 0;
+      }
     }
     
   }
@@ -195,13 +200,14 @@ bool check_parentheses(int p, int q,bool* success)
     return 0;
   }
   if(tokens[p].type == '(' && tokens[q].type == ')' ){
-    for(int i=p+1;i<q;i++){
-      if(tokens[i].type == ')'){
-        printf("fake match (%d,%d)\n",p,q);
-        return 0;
-      }
-    }
-    return 1;
+    // for(int i=p+1;i<q;i++){
+    //   if(tokens[i].type == ')'){
+    //     printf("fake match (%d,%d)\n",p,q);
+    //     return 0;
+    //   }
+    // }
+    // return 1;
+    return res;
   }
     
   return 0;
