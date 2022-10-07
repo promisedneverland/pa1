@@ -21,6 +21,7 @@
 #include <string.h>
 
 // this should be enough
+const int maxdigit = 10;
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
@@ -30,14 +31,42 @@ static char *code_format =
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
+int idx = 0;
+uint32_t choose(uint32_t n)
+{
+  srand(time(0));
+  return rand() % n;
+}
+void gen_num()
+{
+  
+  int length = rand() % maxdigit + 1;
+  for(int i=1;i<=length;i++)
+  {
+    buf[idx] = rand() % 10 + '0';
+    idx++;
+  }
 
+}
+char gen_rand_op()
+{
+  char opt;
+  switch (choose(4)){
+    case 0: opt = '+'; break;
+    case 1: opt = '-'; break;
+    case 2: opt = '*'; break;
+    case 3: opt = '/'; break;
+  }
+  buf[idx] = opt;
+  idx++;
+}
 static void gen_rand_expr() {
   switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  buf[0] = '\0';
+  // buf[0] = '\0';
 }
 
 int main(int argc, char *argv[]) {
@@ -58,10 +87,10 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
+    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");//expr是可执行文件
     if (ret != 0) continue;//不成功
 
-    fp = popen("/tmp/.expr", "r");
+    fp = popen("/tmp/.expr", "r");//fp 是 .expr 的输出
     assert(fp != NULL);
 
     int result;
