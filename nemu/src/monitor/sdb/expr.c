@@ -141,21 +141,63 @@ static bool make_token(char *e) {
 
     if (i == NR_REGEX) {//表达式分析失败，指示位置
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+      //第二个position 是width
       return false;
     }
   }
 
   return true;
 }
+bool check_parentheses(int p, int q)
+{
+  return 0;
+}
 
-
+u_int32_t eval(int p,int q,bool* success) {
+  if(*success == 0)
+  {
+    return 0;
+  }
+  if (p > q) {
+    *success = 0;
+    return 0;
+    /* Bad expression */
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    if(tokens[p].type == TK_NUM)
+    {
+      return atoi(tokens[p].str);
+    }
+    else
+    {
+      *success = 0;
+      printf("Single token %c but not num \n", tokens[p].type);
+      return 0;
+    }
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1,success);
+  }
+  else {
+    /* We should do more things here. */
+  }
+  return 0;
+}
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
-
+  printf("%u\n",eval(0,nr_token-1,success));
   
+
 
   return 0;
 }
