@@ -163,6 +163,10 @@ bool empty()
 {
   return !cur;
 }
+void clear()
+{
+  cur = 0;
+}
 bool check_parentheses(int p, int q,bool* success)
 {
   
@@ -206,16 +210,10 @@ u_int32_t eval(int p,int q,bool* success) {
     /* Bad expression */
   }
   else if (p == q) {
-        /* Single token.
-     * For now this token should be a number.
-     * Return the value of the number.
-     */
-    if(tokens[p].type == TK_NUM)
-    {
+    if(tokens[p].type == TK_NUM){
       return atoi(tokens[p].str);
     }
-    else
-    {
+    else{
       *success = 0;
       printf("Single token %c but not num \n", tokens[p].type);
       return 0;
@@ -226,14 +224,43 @@ u_int32_t eval(int p,int q,bool* success) {
      * If that is the case, just throw away the parentheses.
      */
     if(*success == 0)
-    {
       return 0;
-    }
+    
     printf("check parentheses is TRUE\n");
     return eval(p + 1, q - 1,success);
   }
   else {
-    int op = 1;
+    clear();
+    int op = -1, act = 1;
+    for(int i=p;i<=q;i++)
+    {
+      if(tokens[i].type == '+' || tokens[i].type == '-'){
+        if(act){
+          op = i;
+          break;
+        }
+      }
+      else if(tokens[i].type == '*' || tokens[i].type == '/'){
+        if(act){
+          op = i;
+        }
+      }
+      else if(tokens[i].type == '('){
+        push(1);
+        act = 0;
+      }
+      else if(tokens[i].type == ')'){
+        pop();
+        if(empty()){
+          act = 1;
+        }
+      }
+    }
+    if(op == -1){
+      printf("op incorrect, didn't update\n");
+      *success = 0;
+      return 0;
+    }
     u_int32_t val1 = eval(p, op - 1,success);
     u_int32_t val2 = eval(op + 1, q,success);
 
