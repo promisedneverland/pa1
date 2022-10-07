@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256, TK_EQ,TK_NUM
 
   /* TODO: Add more token types */
 
@@ -44,6 +44,7 @@ static struct rule {
   {"\\(", '('},         // minus
   {"\\)", ')'},         // minus
   {"==", TK_EQ},        // equal
+  {"\\[0-9\\]+",TK_NUM}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -83,12 +84,21 @@ static bool make_token(char *e) {
   nr_token = 0;
 
   while (e[position] != '\0') {
+    if(nr_token == 32)
+    {
+       Log("overflow");
+       break;
+    }
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-
+        if(substr_len > 32)
+        {
+          Log("overflow");
+          break;
+        }
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
@@ -100,9 +110,14 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          default: TODO();
+          case '+':
+          {
+            
+            break;
+          }
         }
-
+        nr_token++;
+        
         break;
       }
     }
