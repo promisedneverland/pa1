@@ -194,8 +194,14 @@ bool check_parentheses(int p, int q,bool* success)
     *success = 0;
     return 0;
   }
-  if(tokens[p].type == '(' && tokens[q].type == ')')
+  if(tokens[p].type == '(' && tokens[q].type == ')' ){
+    for(int i=p+1;i<q;i++){
+      if(tokens[i].type == ')')
+        return 0;
+    }
     return 1;
+  }
+    
   return 0;
 }
 
