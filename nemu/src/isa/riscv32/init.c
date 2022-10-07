@@ -22,10 +22,11 @@ static const uint32_t img [] = {
   0x800002b7,  // lui t0,0x80000 
   // 将指令中的20bit立即数保存到地址为rt的通用寄存器的高20位。另外，地址为rt的通用寄存器的低16位使用0填充。
   // pmem[0] = 0xb7,pmem[3]=0x80
-  0x0002a123,  // sw  zero,0(t0)
+  0x0002a023,  // sw  zero,0(t0)
   //02 00 00 00
-  0x0012a503,  // lw  a0,0(t0)
+  0x0002a503,  // lw  a0,0(t0)
   0x00100073,  // ebreak (used as nemu_trap)
+
 };
 
 static void restart() {//初始化寄存器
