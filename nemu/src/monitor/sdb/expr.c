@@ -88,7 +88,7 @@ static bool make_token(char *e) {
     if(nr_token == 32)
     {
        Log("overflow too much token");
-       break;
+       return 0;
     }
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -100,7 +100,7 @@ static bool make_token(char *e) {
         if(substr_len > 32)
         {
           Log("overflow string length");
-          break;
+          return 0;
         }
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
