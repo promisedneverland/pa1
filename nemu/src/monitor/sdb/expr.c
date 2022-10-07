@@ -229,6 +229,7 @@ u_int32_t eval(int p,int q,bool* success) {
     {
       return 0;
     }
+    printf("check parentheses is TRUE\n");
     return eval(p + 1, q - 1,success);
   }
   else {
