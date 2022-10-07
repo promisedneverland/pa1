@@ -164,7 +164,7 @@ u_int32_t eval(int p,int q,bool* success) {
     /* Bad expression */
   }
   else if (p == q) {
-    /* Single token.
+        /* Single token.
      * For now this token should be a number.
      * Return the value of the number.
      */
