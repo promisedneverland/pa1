@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr -Werror");//expr是可执行文件
+    int ret = system("gcc /tmp/.code.c -o /tmp/.expr -Werror=div-by-zero");//expr是可执行文件
     if (ret != 0){
       idx = 0;
       memset(buf,0,65536);
