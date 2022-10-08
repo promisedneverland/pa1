@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
   assert(fp != NULL);
   while(fscanf(fp, "%d%s", &result,expression) != EOF){
     success = 1;
+    printf("unit\n");
     expect = expr(expression,&success);
     if(!success)
       printf("failed\n");
