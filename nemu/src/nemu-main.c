@@ -32,23 +32,21 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  FILE *fp = fopen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
-  assert(fp != NULL);
-  while(fscanf(fp, "%d%s", &result,expression) != EOF){
-    success = 1;
-    // printf("start\n");
-    expect = expr(expression,&success);
-    if(!success)
-      printf("failed\n");
-    if(result != expect){
-      printf("WRONG answer , expression = %s\n  should = %u \n but = %u\n\n ",expression,result,expect);
-    }
-    // else{
-    //   printf("AC!\n");
-    // }
-  }
+  // FILE *fp = fopen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
+  // assert(fp != NULL);
+  // while(fscanf(fp, "%d%s", &result,expression) != EOF){
+  //   success = 1;
+  //   // printf("start\n");
+  //   expect = expr(expression,&success);
+  //   if(!success)
+  //     printf("failed\n");
+  //   if(result != expect){
+  //     printf("WRONG answer , expression = %s\n  should = %u \n but = %u\n\n ",expression,result,expect);
+  //   }
+    
+  // }
   
-  fclose(fp);
+  // fclose(fp);
  
   /* Start engine. */
   engine_start();
