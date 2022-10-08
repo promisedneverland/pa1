@@ -156,7 +156,7 @@ int s[NUM_TOKEN];
 int cur = 0;
 void push(int num)
 {
-  s[cur] = num;
+  // s[cur] = num;
   ++cur;
 }
 void pop()
