@@ -28,7 +28,7 @@ static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned result = %s; "
+"  unsigned result = %s ; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
@@ -57,6 +57,8 @@ void gen_num()
 }
 void gen_rand_op()
 {
+  if(flag == 0)
+    return ;
   char opt;
   switch (choose(4)){
     case 0: opt = '+'; break;
@@ -114,7 +116,7 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");//expr是可执行文件
+    int ret = system("gcc /tmp/.code.c -o /tmp/.expr -Werror");//expr是可执行文件
     if (ret != 0) continue;//不成功
 
     fp = popen("/tmp/.expr", "r");//fp 是 .expr 的输出
