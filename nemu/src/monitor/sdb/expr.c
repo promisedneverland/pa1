@@ -304,7 +304,7 @@ u_int32_t eval(int p,int q,bool* success) {
   printf("no if matches\n");
   return 0;
 }
-extern word_t expr(char *e, bool *success) {
+word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
