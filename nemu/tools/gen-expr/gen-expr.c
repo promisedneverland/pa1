@@ -50,8 +50,8 @@ void gen_num()
     buf[idx] = rand() % 10 + '0';
     idx++;
   }
-  buf[idx] = 'u';
-  idx++;
+  // buf[idx] = 'u';
+  // idx++;
   if(idx > overflow)
   {
     flag = 0;
