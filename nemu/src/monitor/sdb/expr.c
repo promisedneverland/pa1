@@ -24,7 +24,7 @@
 #define INT_DIGIT 50
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM
+  TK_NOTYPE = 256, TK_EQ,TK_NUM,DEREF,TK_NEGATIVE,TK_AND,TK_UEQ,TK_HNUM,TK_RG
 
   /* TODO: Add more token types */
 
@@ -46,8 +46,14 @@ static struct rule {
   {"\\/", '/'},         // minus
   {"\\(", '('},         // minus
   {"\\)", ')'},         // minus
-  {"==", TK_EQ},        // equal
-  {"[0-9]+",TK_NUM}
+  {"==", TK_EQ},    
+  {"!=", TK_UEQ},
+  {"&&", TK_AND},     
+  {"[0-9]+",TK_NUM},
+  {"$[A-Za-z0-9]+",TK_RG},
+  {"0x[A-Za-z0-9]+",TK_HNUM}
+  
+
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -147,6 +153,15 @@ static bool make_token(char *e) {
       //第二个position 是width
       return false;
     }
+    for (i = 0; i < nr_token; i ++) {
+      // if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
+      //   tokens[i].type = DEREF;
+      // }
+      if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
+        tokens[i].type = TK_NEGATIVE;
+      }
+    }
+    //untested
   }
 
   return true;
@@ -226,6 +241,11 @@ u_int32_t eval(int p,int q,bool* success) {
     *success = 0;
     return 0;
     /* Bad expression */
+  }
+  else if(p == q - 1)//
+  {
+    if(tokens[p].type == TK_NEGATIVE)
+      return -eval(p+1,q,success);
   }
   else if (p == q) {
     if(tokens[p].type == TK_NUM){

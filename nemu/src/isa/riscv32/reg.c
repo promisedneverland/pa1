@@ -31,5 +31,6 @@ void isa_reg_display() {//printf 输出所有寄存器的值
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  //它用于返回名字为s的寄存器的值, 并设置success指示是否成功.
   return 0;
 }
