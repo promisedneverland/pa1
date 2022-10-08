@@ -313,7 +313,8 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-  printf("%u\n",eval(0,nr_token-1,success));
+  // printf("%u\n",eval(0,nr_token-1,success));
+  word_t result = eval(0,nr_token-1,success);
   for(int i=0;i<NUM_TOKEN;i++)
   {
     for(int j=0;j<INT_DIGIT;j++)
@@ -324,5 +325,5 @@ word_t expr(char *e, bool *success) {
   }
 
 
-  return 0;
+  return result;
 }
