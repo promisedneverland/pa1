@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     if(!success)
       printf("failed\n");
     if(result != expect){
-      printf("WRONG answer , expression = %s\n , should = %u \n, but = %u\n ",expression,result,expect);
+      printf("WRONG answer , expression = %s\n  should = %u \n but = %u\n\n ",expression,result,expect);
     }
     // else{
     //   printf("AC!\n");
