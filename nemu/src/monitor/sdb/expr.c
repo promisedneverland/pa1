@@ -313,6 +313,7 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
+  clear();
   // printf("%u\n",eval(0,nr_token-1,success));
   word_t result = eval(0,nr_token-1,success);
   for(int i=0;i<NUM_TOKEN;i++)
