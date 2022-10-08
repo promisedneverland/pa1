@@ -298,17 +298,23 @@ u_int32_t eval(int p,int q,bool* success) {
     }
       
     
-    int op = -1, act = 1;
+    int op = -1, act = 1,addsub = 0;
     for(int i=q;i>=p;i--)
     {
-      if(tokens[i].type == '+' || tokens[i].type == '-'){
+      if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ || tokens[i].type == TK_AND){
         if(act){
           op = i;
           break;
         }
       }
-      else if(tokens[i].type == '*' || tokens[i].type == '/'){
+      else if(tokens[i].type == '+' || tokens[i].type == '-'){
         if(op == -1 && act){
+          op = i;
+          addsub = 1;
+        }
+      }
+      else if(tokens[i].type == '*' || tokens[i].type == '/'){
+        if(op == -1 && act && !addsub){
           op = i;
         }
       }
@@ -337,6 +343,9 @@ u_int32_t eval(int p,int q,bool* success) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
+      case TK_EQ: return val1 == val2;
+      case TK_UEQ: return val1 != val2;
+      case TK_AND: return val1 && val2;
       case '/': 
         if(val2 == 0)
         {
