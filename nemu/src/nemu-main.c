@@ -25,7 +25,7 @@ void engine_start();
 int is_exit_status_bad();
 
 int main(int argc, char *argv[]) {
-  FILE *fp = popen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
+  FILE *fp = fopen("nemu/tools/gen-expr/input", "r");
   assert(fp != NULL);
   while(fscanf(fp, "%d%s", &result,expression) != EOF){
     expect = expr(expression,&success);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     }
   }
   
-  pclose(fp);
+  fclose(fp);
   return 0;
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
