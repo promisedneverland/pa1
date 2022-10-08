@@ -32,10 +32,6 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-
-  /* Start engine. */
-  engine_start();
-
   FILE *fp = fopen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
   assert(fp != NULL);
   while(fscanf(fp, "%d%s", &result,expression) != EOF){
@@ -48,6 +44,9 @@ int main(int argc, char *argv[]) {
   }
   
   fclose(fp);
- 
+  return 0;
+  /* Start engine. */
+  engine_start();
+  
   return is_exit_status_bad();
 }
