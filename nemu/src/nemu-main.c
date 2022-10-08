@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
   FILE *fp = fopen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
   assert(fp != NULL);
   while(fscanf(fp, "%d%s", &result,expression) != EOF){
+    success = 1;
     expect = expr(expression,&success);
     if(!success)
       printf("failed\n");
