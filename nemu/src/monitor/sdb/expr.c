@@ -349,29 +349,29 @@ u_int32_t eval(int p,int q,bool* success) {
     }
       
     
-    int op = -1, act = 1,addsub = 0,and = 0;
+    int op = -1, act = 1,addsub = 0,eq = 0;
     for(int i=q;i>=p;i--)
     {
-      if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ){
+      if(tokens[i].type == TK_AND){
         if(act){
           op = i;
           break;
         }
       }
-      if(tokens[i].type == TK_AND){
+      if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ){
         if(act && op == -1){
           op = i;
-          and = 1;
+          eq = 1;
         }
       }
       else if(tokens[i].type == '+' || tokens[i].type == '-'){
-        if(op == -1 && act && !and){
+        if(op == -1 && act && !eq){
           op = i;
           addsub = 1;
         }
       }
       else if(tokens[i].type == '*' || tokens[i].type == '/'){
-        if(op == -1 && act && !addsub && !and){
+        if(op == -1 && act && !addsub && !eq){
           op = i;
         }
       }
