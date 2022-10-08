@@ -42,9 +42,9 @@ int main(int argc, char *argv[]) {
     if(result != expect){
       printf("WRONG answer , expression = %s\n , should = %u \n, but = %u\n ",expression,result,expect);
     }
-    else{
-      printf("AC!\n");
-    }
+    // else{
+    //   printf("AC!\n");
+    // }
   }
   
   fclose(fp);
