@@ -284,7 +284,7 @@ u_int32_t eval(int p,int q,bool* success) {
     
     int left = p;
     int sign = -1;
-    while(left < p - 2 && tokens[left].type == TK_NEGATIVE)
+    while(left < q - 2 && tokens[left].type == TK_NEGATIVE)
     {
       if(check_parentheses(left + 1, q, success) == true){
         if(sign > 0)
