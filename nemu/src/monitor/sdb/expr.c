@@ -20,7 +20,7 @@
  */
 #include <regex.h>
 
-#define NUM_TOKEN 50
+#define NUM_TOKEN 65536+128
 #define INT_DIGIT 50
 
 enum {
