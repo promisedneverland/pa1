@@ -71,10 +71,10 @@ void init_regex() {
 
 typedef struct token {//记录token信息
   int type;
-  char str[65536+128];//token子串，需要缓冲溢出处理
+  char str[32];//token子串，需要缓冲溢出处理
 } Token;
 
-static Token tokens[65536+1280] __attribute__((used)) = {};
+static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;//指示已经被识别出的token数目
 
 static bool make_token(char *e) {
@@ -85,7 +85,7 @@ static bool make_token(char *e) {
   nr_token = 0;
 
   while (e[position] != '\0') {
-    if(nr_token == 65536+128)
+    if(nr_token == 32)
     {
        Log("overflow too much token");
        break;
@@ -97,7 +97,7 @@ static bool make_token(char *e) {
         //regexec 返回0是匹配成功
         char *substr_start = e + position;//子串开始的位置
         int substr_len = pmatch.rm_eo;//子串长度
-        if(substr_len > 65536+128)
+        if(substr_len > 32)
         {
           Log("overflow string length");
           break;
