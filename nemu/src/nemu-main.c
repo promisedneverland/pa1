@@ -17,7 +17,7 @@
 u_int32_t result,expect;
 bool success;
 char expression[65536+128];
-word_t expr(char *e, bool *success);
+// word_t expr(char *e, bool *success);
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
