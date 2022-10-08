@@ -21,7 +21,8 @@
 #include <string.h>
 
 // this should be enough
-const int maxdigit = 10;
+int flag = 1;
+const int maxdigit = 9;
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
@@ -34,19 +35,25 @@ static char *code_format =
 int idx = 0;
 uint32_t choose(uint32_t n)
 {
-  srand(time(0));
+
   return rand() % n;
 }
 void gen_num()
 {
-  
+  buf[idx] = rand()%3+1+'0';
+  idx++;
   int length = rand() % maxdigit + 1;
   for(int i=1;i<=length;i++)
   {
     buf[idx] = rand() % 10 + '0';
     idx++;
   }
-
+  buf[idx] = 'u';
+  idx++;
+  if(idx > 60000)
+  {
+    flag = 0;
+  }
 }
 void gen_rand_op()
 {
@@ -56,6 +63,7 @@ void gen_rand_op()
     case 1: opt = '-'; break;
     case 2: opt = '*'; break;
     case 3: opt = '/'; break;
+    default : printf("wrong"); break;
   }
   buf[idx] = opt;
   idx++;
@@ -68,7 +76,7 @@ void gen_space()
     buf[idx] = ' ';
     idx++;
   }
-
+  
 }
 void gen(char c)
 {
@@ -76,13 +84,15 @@ void gen(char c)
   idx++;
 }
 static void gen_rand_expr() {
-  gen_space();
+  if(flag == 0)
+    return ;
+  // gen_space();
   switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  buf[0] = '\0';
+  // buf[0] = '\0';
 }
 
 int main(int argc, char *argv[]) {
@@ -94,8 +104,9 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
+    flag = 1;
     gen_rand_expr();
-
+    
     sprintf(code_buf, code_format, buf);
 
     FILE *fp = fopen("/tmp/.code.c", "w");
@@ -114,6 +125,8 @@ int main(int argc, char *argv[]) {
     pclose(fp);
 
     printf("%u %s\n", result, buf);
+    idx = 0;
+    memset(buf,0,65536);
   }
   return 0;
 }
