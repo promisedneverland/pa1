@@ -127,8 +127,17 @@ static bool make_token(char *e) {
             for(int p=0;p<substr_len;p++)
             {
               tokens[nr_token].str[p] = *(substr_start + p);
-              tokens[nr_token].type = rules[i].token_type;
             }
+            tokens[nr_token].type = rules[i].token_type;
+            break;
+          }
+          case TK_HNUM:
+          {
+            for(int p=2;p<substr_len;p++)
+            {
+              tokens[nr_token].str[p-2] = *(substr_start + p);
+            }
+            tokens[nr_token].type = rules[i].token_type;
             break;
           }
           case TK_NOTYPE:
@@ -249,8 +258,25 @@ u_int32_t eval(int p,int q,bool* success) {
     /* Bad expression */
   }
   else if (p == q) {
-    if(tokens[p].type == TK_NUM){
+    if(tokens[p].type == TK_NUM ){
       return atoi(tokens[p].str);
+    }
+    else if(tokens[p].type == TK_HNUM){
+
+      word_t res = 0;
+      char c;
+
+      for(int i=0;i<strlen(tokens[p].str);i++){
+        c = tokens[p].str[i];
+        if(c >= '0' && c <= '9'){
+          res += c - '0';
+        }
+        else{
+          res += c - 'a' + 10;
+        }
+        res <<= 4;
+      }
+      return res;
     }
     else{
       *success = 0;
