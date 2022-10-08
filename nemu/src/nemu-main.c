@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
   }
   
   fclose(fp);
-  return 0;
+ 
   /* Start engine. */
   engine_start();
   
