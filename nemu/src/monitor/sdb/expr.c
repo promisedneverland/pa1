@@ -291,6 +291,18 @@ u_int32_t eval(int p,int q,bool* success) {
       }
       return res;
     }
+    if(tokens[p].type == TK_RG ){
+      bool find = 1;
+      word_t res = isa_reg_str2val(tokens[p].str,&find);
+      if(find){
+        return res;
+      }
+      else{
+        printf("reg not found\n");
+        *success = 0;
+        return 0;
+      }
+    }
     else{
       *success = 0;
       printf("Single token %c but not num \n", tokens[p].type);
@@ -337,23 +349,29 @@ u_int32_t eval(int p,int q,bool* success) {
     }
       
     
-    int op = -1, act = 1,addsub = 0;
+    int op = -1, act = 1,addsub = 0,and = 0;
     for(int i=q;i>=p;i--)
     {
-      if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ || tokens[i].type == TK_AND){
+      if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ){
         if(act){
           op = i;
           break;
         }
       }
+      if(tokens[i].type == TK_AND){
+        if(act && op == -1){
+          op = i;
+          and = 1;
+        }
+      }
       else if(tokens[i].type == '+' || tokens[i].type == '-'){
-        if(op == -1 && act){
+        if(op == -1 && act && !and){
           op = i;
           addsub = 1;
         }
       }
       else if(tokens[i].type == '*' || tokens[i].type == '/'){
-        if(op == -1 && act && !addsub){
+        if(op == -1 && act && !addsub && !and){
           op = i;
         }
       }
