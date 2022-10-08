@@ -250,7 +250,7 @@ u_int32_t eval(int p,int q,bool* success) {
   else {
     clear();
     int op = -1, act = 1;
-    for(int i=q;i<=p;i--)
+    for(int i=q;i>=p;i--)
     {
       if(tokens[i].type == '+' || tokens[i].type == '-'){
         if(act){
