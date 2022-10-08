@@ -14,13 +14,29 @@
 ***************************************************************************************/
 
 #include <common.h>
-
+u_int32_t result,expect;
+bool success;
+char expression[65536+128];
+word_t expr(char *e, bool *success);
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
+
 int is_exit_status_bad();
 
 int main(int argc, char *argv[]) {
+  FILE *fp = popen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
+  assert(fp != NULL);
+  while(fscanf(fp, "%d%s", &result,expression) != EOF){
+    expect = expr(expression,&success);
+    if(!success)
+      printf("failed\n");
+    if(result != expect){
+      printf("WRONG answer , expression = %s\n , should = %u \n, but = %u\n ",expression,result,expect);
+    }
+  }
+  
+  pclose(fp);
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
   am_init_monitor();
