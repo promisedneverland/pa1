@@ -279,6 +279,9 @@ u_int32_t eval(int p,int q,bool* success) {
         if(c >= '0' && c <= '9'){
           res += c - '0';
         }
+        else if(c >= 'A' && c <= 'F'){
+          res += c - 'A' + 10;
+        }
         else{
           res += c - 'a' + 10;
         }
