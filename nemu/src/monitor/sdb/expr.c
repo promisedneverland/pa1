@@ -153,13 +153,20 @@ static bool make_token(char *e) {
       //第二个position 是width
       return false;
     }
+    int idx = 0;
     for (i = 0; i < nr_token; i ++) {
       // if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
       //   tokens[i].type = DEREF;
       // }
-      if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
-        tokens[i].type = TK_NEGATIVE;
+      if(idx >= 1 && tokens[idx-1].type == TK_NEGATIVE){
+        idx--;
+        if(idx == 1)
+        tokens[idx].type = '+';
       }
+      if (tokens[idx].type == '-' && (idx == 0 || (tokens[idx - 1].type != TK_NUM && tokens[idx - 1].type != ')')) ) {
+        tokens[idx].type = TK_NEGATIVE;
+      }
+      idx++;
     }
     //untested
   }
@@ -242,11 +249,6 @@ u_int32_t eval(int p,int q,bool* success) {
     return 0;
     /* Bad expression */
   }
-  else if(p == q - 1)//
-  {
-    if(tokens[p].type == TK_NEGATIVE)
-      return -eval(p+1,q,success);
-  }
   else if (p == q) {
     if(tokens[p].type == TK_NUM){
       return atoi(tokens[p].str);
@@ -269,6 +271,34 @@ u_int32_t eval(int p,int q,bool* success) {
   }
   else {
     clear();
+    if(tokens[q].type == TK_NUM){
+      int flag = 1;
+      for(int i=p;i<q;i++){
+        if(tokens[i].type != TK_NEGATIVE){
+          flag = 0;
+        }
+      }
+      if(flag){
+        return -eval(p+1,q,success);
+      }
+    }
+    
+    int left = p;
+    int sign = -1;
+    while(left < p - 2 && tokens[left].type == TK_NEGATIVE)
+    {
+      if(check_parentheses(left + 1, q, success) == true){
+        if(sign > 0)
+          return eval(left + 2, q - 1, success);
+        else
+          return -eval(left + 2, q - 1, success);
+      }
+      left++;
+      sign *= -1;
+        
+    }
+      
+    
     int op = -1, act = 1;
     for(int i=q;i>=p;i--)
     {
