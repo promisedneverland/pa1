@@ -22,7 +22,7 @@
 
 // this should be enough
 int flag = 1;
-const int maxdigit = 1;
+const int maxdigit = 2;
 const int overflow = 50000;
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
