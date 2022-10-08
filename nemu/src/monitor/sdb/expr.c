@@ -20,6 +20,9 @@
  */
 #include <regex.h>
 
+#define NUM_TOKEN 50
+#define INT_DIGIT 50
+
 enum {
   TK_NOTYPE = 256, TK_EQ,TK_NUM
 
@@ -71,10 +74,10 @@ void init_regex() {
 
 typedef struct token {//记录token信息
   int type;
-  char str[32];//token子串，需要缓冲溢出处理
+  char str[INT_DIGIT];//token子串，需要缓冲溢出处理
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[NUM_TOKEN] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;//指示已经被识别出的token数目
 
 static bool make_token(char *e) {
@@ -85,7 +88,7 @@ static bool make_token(char *e) {
   nr_token = 0;
 
   while (e[position] != '\0') {
-    if(nr_token == 32)
+    if(nr_token == NUM_TOKEN)
     {
        Log("overflow too much token");
        break;
@@ -97,7 +100,7 @@ static bool make_token(char *e) {
         //regexec 返回0是匹配成功
         char *substr_start = e + position;//子串开始的位置
         int substr_len = pmatch.rm_eo;//子串长度
-        if(substr_len > 32)
+        if(substr_len > INT_DIGIT)
         {
           Log("overflow string length");
           break;
@@ -148,7 +151,8 @@ static bool make_token(char *e) {
 
   return true;
 }
-int s[65536+128];
+
+int s[NUM_TOKEN];
 int cur = 0;
 void push(int num)
 {
@@ -310,9 +314,9 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
   printf("%u\n",eval(0,nr_token-1,success));
-  for(int i=0;i<32;i++)
+  for(int i=0;i<NUM_TOKEN;i++)
   {
-    for(int j=0;j<32;j++)
+    for(int j=0;j<INT_DIGIT;j++)
     {
       tokens[i].str[j] = 0;
     }
