@@ -15,7 +15,7 @@
 
 #include <common.h>
 u_int32_t result,expect;
-bool success;
+bool success = 1;
 char expression[65536+128];
 word_t expr(char *e, bool *success);
 void init_monitor(int, char *[]);
