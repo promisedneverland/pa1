@@ -44,12 +44,12 @@ void gen_num()
    
   buf[idx] = rand()%3+1+'0';
   idx++;
-  int length = rand() % maxdigit + 1;
-  for(int i=1;i<=length;i++)
-  {
-    buf[idx] = rand() % 10 + '0';
-    idx++;
-  }
+  // int length = rand() % maxdigit + 1;
+  // for(int i=1;i<=length;i++)
+  // {
+  //   buf[idx] = rand() % 10 + '0';
+  //   idx++;
+  // }
   // buf[idx] = 'u';
   // idx++;
   if(idx > overflow)
