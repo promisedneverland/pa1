@@ -250,7 +250,7 @@ u_int32_t eval(int p,int q,bool* success) {
   else {
     clear();
     int op = -1, act = 1;
-    for(int i=p;i<=q;i++)
+    for(int i=q;i<=p;i--)
     {
       if(tokens[i].type == '+' || tokens[i].type == '-'){
         if(act){
@@ -263,11 +263,11 @@ u_int32_t eval(int p,int q,bool* success) {
           op = i;
         }
       }
-      else if(tokens[i].type == '('){
+      else if(tokens[i].type == ')'){
         push(1);
         act = 0;
       }
-      else if(tokens[i].type == ')'){
+      else if(tokens[i].type == '('){
         pop();
         // printf("cur = %d\n",cur);
         if(cur == 0)
