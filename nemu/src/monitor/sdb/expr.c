@@ -153,20 +153,19 @@ static bool make_token(char *e) {
       //第二个position 是width
       return false;
     }
-    int idx = 0;
     for (i = 0; i < nr_token; i ++) {
       // if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
       //   tokens[i].type = DEREF;
       // }
-      if(idx >= 1 && tokens[idx-1].type == TK_NEGATIVE){
-        idx--;
-        if(idx == 1)
-        tokens[idx].type = '+';
+      // if(idx >= 1 && tokens[idx-1].type == TK_NEGATIVE){
+      //   idx--;
+      //   if(idx == 1)
+      //   tokens[idx].type = '+';
+      // }
+      if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
+        tokens[i].type = TK_NEGATIVE;
       }
-      if (tokens[idx].type == '-' && (idx == 0 || (tokens[idx - 1].type != TK_NUM && tokens[idx - 1].type != ')')) ) {
-        tokens[idx].type = TK_NEGATIVE;
-      }
-      idx++;
+      
     }
     //untested
   }
