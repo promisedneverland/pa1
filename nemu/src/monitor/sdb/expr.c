@@ -265,16 +265,23 @@ u_int32_t eval(int p,int q,bool* success) {
 
       word_t res = 0;
       char c;
+      c = tokens[p].str[0];
+      if(c >= '0' && c <= '9'){
+        res += c - '0';
+      }
+      else{
+        res += c - 'a' + 10;
+      }   
 
-      for(int i=0;i<strlen(tokens[p].str);i++){
+      for(int i=1;i<strlen(tokens[p].str);i++){
         c = tokens[p].str[i];
+        res <<= 4;
         if(c >= '0' && c <= '9'){
           res += c - '0';
         }
         else{
           res += c - 'a' + 10;
         }
-        res <<= 4;
       }
       return res;
     }
