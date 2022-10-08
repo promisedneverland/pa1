@@ -51,7 +51,7 @@ static struct rule {
   {"&&", TK_AND},     
   {"[0-9]+",TK_NUM},
   {"$[A-Za-z0-9]+",TK_RG},
-  {"0x[A-Za-z0-9]+",TK_HNUM}
+  {"0x[A-Fa-f0-9]+",TK_HNUM}
   
 
 };
