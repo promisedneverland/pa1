@@ -259,7 +259,7 @@ u_int32_t eval(int p,int q,bool* success) {
         }
       }
       else if(tokens[i].type == '*' || tokens[i].type == '/'){
-        if(act == -1){
+        if(op == -1){
           op = i;
         }
       }
