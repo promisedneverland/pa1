@@ -321,7 +321,7 @@ u_int32_t eval(int p,int q,bool* success) {
   }
   else {
     clear();
-    if(tokens[q].type == TK_NUM || tokens[q].type == TK_HNUM){
+    if(tokens[q].type == TK_NUM || tokens[q].type == TK_HNUM || tokens[q].type == TK_RG ){
       int flag = 1;
       for(int i=p;i<q;i++){
         if(tokens[i].type != TK_NEGATIVE){
