@@ -25,7 +25,8 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-int a[10];
+void add_wp(char* exp);
+void del_wp(int idx);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {//只要不输入q,就会一直进入
   //printf("rl gets\n");
@@ -130,8 +131,8 @@ static int cmd_w(char *args){
   //   printf("arguments??? \n");
   //   return 0;
   // }  
-  // char* firstarg = strtok(args," ");
-  printf("%d",a[15]);
+  char* firstarg = strtok(args," ");
+  add_wp(firstarg);
   return 0;
 }
 static int cmd_d(char *args){
@@ -142,7 +143,7 @@ static int cmd_d(char *args){
   }  
   char* firstarg = strtok(args," ");
   u_int32_t idx = atoi(firstarg);//字节数
-  printf("%d",idx);
+  del_wp(idx);
   return 0;
 }
 static struct {//命令们

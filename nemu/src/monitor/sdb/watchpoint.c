@@ -20,7 +20,8 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
+  char* expr;
+  word_t value;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -33,11 +34,36 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    //最后一个节点的next是NULL,其余是下一个
   }
 
   head = NULL;
   free_ = wp_pool;
 }
+extern void add_wp(char* expression){
+  
+  bool success = 1;
+  word_t res = expr(expression,&success);
 
+  if(success == 0){
+    printf("failed expression analysis\n");
+  }
+  if(free_ -> next == NULL){
+    printf("error no space for watchpoint \n");
+  }
+  if(head == NULL){
+    head = &wp_pool[0];
+    free_ = free_-> next;
+  }
+  else{
+    head = head -> next;
+    free_ = free_-> next;
+  }
+
+  head -> expr = expression;
+  head -> value = res;
+}
 /* TODO: Implement the functionality of watchpoint */
-
+extern void del_wp(int idx){
+  return ;
+}
