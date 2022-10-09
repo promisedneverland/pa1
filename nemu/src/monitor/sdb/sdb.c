@@ -124,7 +124,27 @@ static int cmd_p(char *args)
   // make_token(args);
   return 0;
 }
-
+static int cmd_w(char *args){
+  // if(args == NULL)
+  // {
+  //   printf("arguments??? \n");
+  //   return 0;
+  // }  
+  char* firstarg = strtok(args," ");
+  printf("%s",firstarg);
+  return 0;
+}
+static int cmd_d(char *args){
+  if(args == NULL)
+  {
+    printf("arguments??? \n");
+    return 0;
+  }  
+  char* firstarg = strtok(args," ");
+  u_int32_t idx = atoi(firstarg);//字节数
+  printf("%d",idx);
+  return 0;
+}
 static struct {//命令们
   const char *name;
   const char *description;
@@ -137,6 +157,8 @@ static struct {//命令们
   { "info", "information reg/watchpoint", cmd_i },
   { "x", "scan memory N*(4bytes) startindex", cmd_x },
   { "p", "calculate expression", cmd_p },
+  { "w", "set watchpoint EXPR", cmd_w },
+  { "d", "delete watchpoint id = N", cmd_d },
   //命令 描述 函数
   /* TODO: Add more commands */
 
