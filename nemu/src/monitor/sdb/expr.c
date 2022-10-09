@@ -384,13 +384,13 @@ u_int32_t eval(int p,int q,bool* success) {
         }
       }
       if(tokens[i].type == TK_EQ || tokens[i].type == TK_UEQ){
-        if(act && op == -1){
+        if(act && !eq){
           op = i;
           eq = 1;
         }
       }
       else if(tokens[i].type == '+' || tokens[i].type == '-'){
-        if(op == -1 && act && !eq){
+        if( act && !eq && !addsub){
           op = i;
           addsub = 1;
         }
