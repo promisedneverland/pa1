@@ -130,8 +130,8 @@ static int cmd_w(char *args){
   //   printf("arguments??? \n");
   //   return 0;
   // }  
-  char* firstarg = strtok(args," ");
-  printf("%s",firstarg);
+  // char* firstarg = strtok(args," ");
+  printf("%s",args);
   return 0;
 }
 static int cmd_d(char *args){
