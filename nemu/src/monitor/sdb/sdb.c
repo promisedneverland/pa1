@@ -25,7 +25,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-
+int a[10];
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {//只要不输入q,就会一直进入
   //printf("rl gets\n");
@@ -131,7 +131,7 @@ static int cmd_w(char *args){
   //   return 0;
   // }  
   // char* firstarg = strtok(args," ");
-  printf("%d",*args);
+  printf("%d",a[15]);
   return 0;
 }
 static int cmd_d(char *args){
