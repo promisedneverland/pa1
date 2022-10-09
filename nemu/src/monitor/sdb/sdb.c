@@ -131,7 +131,7 @@ static int cmd_w(char *args){
   //   return 0;
   // }  
   // char* firstarg = strtok(args," ");
-  printf("%s",args);
+  printf("%d",*args);
   return 0;
 }
 static int cmd_d(char *args){
