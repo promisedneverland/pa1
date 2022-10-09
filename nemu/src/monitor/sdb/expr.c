@@ -51,7 +51,7 @@ static struct rule {
   {"!=", TK_UEQ},
   {"&&", TK_AND},     
   {"[0-9]+",TK_NUM},
-  {"\\$[A-Za-z0-9]+",TK_RG}
+  {"\\$[\\$A-Za-z0-9]+",TK_RG}
   
 
 };
@@ -127,6 +127,15 @@ static bool make_token(char *e) {
             for(int p=0;p<substr_len;p++)
             {
               tokens[nr_token].str[p] = *(substr_start + p);
+            }
+            tokens[nr_token].type = rules[i].token_type;
+            break;
+          }
+          case TK_RG:
+          {
+            for(int p=1;p<substr_len;p++)
+            {
+              tokens[nr_token].str[p-1] = *(substr_start + p);
             }
             tokens[nr_token].type = rules[i].token_type;
             break;
