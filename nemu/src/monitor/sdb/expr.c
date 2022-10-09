@@ -15,6 +15,7 @@
 
 #include <isa.h>
 
+#include <memory/paddr.h>        
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -258,7 +259,22 @@ bool check_parentheses(int p, int q,bool* success)
     
   return 0;
 }
-
+word_t singleeval(int p,int q,word_t res,bool* success){
+  for(int i=q;i>=p;i--)
+  {
+    if(tokens[i].type == TK_NEGATIVE){
+      res = -res;
+    }
+    else if(tokens[i].type == DEREF){
+      res = paddr_read(res,4);
+    }
+    else{
+      *success = 0;
+      printf("not negative and deref detected\n");
+    }
+  }
+  return res;
+}
 u_int32_t eval(int p,int q,bool* success) {
   if(*success == 0)
   {
@@ -336,28 +352,25 @@ u_int32_t eval(int p,int q,bool* success) {
     if(tokens[q].type == TK_NUM || tokens[q].type == TK_HNUM || tokens[q].type == TK_RG ){
       int flag = 1;
       for(int i=p;i<q;i++){
-        if(tokens[i].type != TK_NEGATIVE){
+        if(tokens[i].type != TK_NEGATIVE && tokens[i].type != DEREF ){
           flag = 0;
         }
       }
       if(flag){
-        return -eval(p+1,q,success);
+        word_t res = eval(q,q,success);
+        return singleeval(p,q-1,res,success);
+        
       }
     }
     
     int left = p;
-    int sign = -1;
-    while(left < q - 2 && tokens[left].type == TK_NEGATIVE)
+    while(left < q - 2 && (tokens[left].type == TK_NEGATIVE || tokens[left].type == DEREF))
     {
       if(check_parentheses(left + 1, q, success) == true){
-        if(sign > 0)
-          return eval(left + 2, q - 1, success);
-        else
-          return -eval(left + 2, q - 1, success);
+        word_t res = eval(left + 1, q, success);
+        return singleeval(p, left, res, success);
       }
       left++;
-      sign *= -1;
-        
     }
       
     

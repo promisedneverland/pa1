@@ -84,10 +84,10 @@ static int cmd_x(char *args) {
   char* secondarg = strtok(NULL," ");
   // printf("%s\n",firstarg);
   // printf("%s\n",secondarg);
-  u_int32_t N = atoi(firstarg);
+  u_int32_t N = atoi(firstarg);//字节数
   // printf("N=%d\n",N);
   
-  paddr_t start;
+  paddr_t start;//开始地址
   // printf("%d\n",sscanf(secondarg,"0x%8x",&start));
   if(secondarg == NULL || sscanf(secondarg,"0x%8x",&start)<=0)
   {
