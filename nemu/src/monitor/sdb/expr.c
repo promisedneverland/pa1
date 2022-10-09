@@ -180,8 +180,11 @@ static bool make_token(char *e) {
       //   if(idx == 1)
       //   tokens[idx].type = '+';
       // }
-      if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != ')')) ) {
+      if (tokens[i].type == '-' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RG && tokens[i - 1].type != ')')) ) {
         tokens[i].type = TK_NEGATIVE;
+      }
+      if (tokens[i].type == '*' && (i == 0 || (tokens[i - 1].type != TK_NUM && tokens[i - 1].type != TK_HNUM && tokens[i - 1].type != TK_RG && tokens[i - 1].type != ')')) ) {
+        tokens[i].type = DEREF;
       }
       
     }
