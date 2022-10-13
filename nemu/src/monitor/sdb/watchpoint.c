@@ -99,14 +99,14 @@ void free_wp(int id)
 {
   if(wpnum == 0)
   {
-    printf("no watchpoint\n");
+    printf("there is no watchpoint\n");
     return ;
   }
   WP* iter = head;
   while(iter -> NO != id)
   {
     iter = iter -> next;
-    if(iter == NULL)
+    if(iter == NULL || iter == free_)
     {
       printf("Watchpoint notfound\n");
       return ;
