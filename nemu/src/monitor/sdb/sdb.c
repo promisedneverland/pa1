@@ -149,6 +149,7 @@ static int cmd_w(char *args){
   bool state = 1;
   
   WP* wp = new_wp(); 
+  assert(wp != NULL);
   strcpy(wp -> expr, args);
   wp -> value = expr(args,&state);
   if(state == 0)
