@@ -149,6 +149,10 @@ static int cmd_w(char *args){
   wp -> value = expr(args,&state);
   if(state == 0)
     printf("w cmd failed\n");
+  else
+  {
+    printf("watchpoint %s = %d", wp->expr, wp->value);
+  }
   return 0;
 }
 
