@@ -320,8 +320,13 @@ u_int32_t eval(int p,int q,bool* success) {
       return res;
     }
     if(tokens[p].type == TK_RG ){
+      if(strcmp(tokens[p].str,"pc") == 0)
+      {
+        return cpu.pc;
+      }
       bool find = 1;
       word_t res = isa_reg_str2val(tokens[p].str,&find);
+      
       if(find){
         return res;
       }
