@@ -150,6 +150,7 @@ static int cmd_w(char *args){
   
   WP* wp = new_wp(); 
   assert(wp != NULL);
+  assert(args != NULL);
   strcpy(wp -> expr, args);
   wp -> value = expr(args,&state);
   if(state == 0)
