@@ -14,7 +14,7 @@
 ***************************************************************************************/
 
 #include "sdb.h"
-
+#include<assert.h>
 #define NR_WP 32
 
 typedef struct watchpoint {
@@ -63,9 +63,20 @@ WP* new_wp()//完成对链表的操作，其中的值和expr不改变
 }
 void print_wp()
 {
-  if(wpnum == 0)
-    return ;
-  printf("Num   Expression          value");
+  if(wpnum == 0){
+    printf("No watchpoint\n");
+  }
+
+  printf("Num   Expression          value\n");
+  WP* iter = head;
+  while(iter != free_)
+  {
+    assert(iter != NULL);
+    printf("%5d%30s%10u\n",iter -> NO, iter -> expr , iter -> value);
+    iter = iter -> next;
+    
+  }
+  
 }
 bool check_wp()
 {
@@ -140,7 +151,7 @@ void free_wp(int id)
     free_ -> next = wp;
   }
   wpnum--;
-  printf("Deleted watchpoint %d\n", delid);
+  printf("Deleted watchpoint : %d\n", delid);
 }
 // extern void add_wp(char* expression){
   

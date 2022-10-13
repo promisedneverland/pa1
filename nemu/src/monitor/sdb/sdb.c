@@ -22,6 +22,8 @@
 #include <utils.h>
 // #include <expr.c>
 static int is_batch_mode = false;
+
+
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
@@ -35,6 +37,8 @@ void init_regex();
 void init_wp_pool();
 WP* new_wp();
 void free_wp(int id);
+void print_wp();
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {//只要不输入q,就会一直进入
   //printf("rl gets\n");
@@ -77,7 +81,7 @@ static int cmd_i(char *args) {
     isa_reg_display(); //printf 输出所有寄存器的值
   else if(strcmp(args,"w")==0)
   {
-    ;
+    print_wp();
   }
   return 0;//program wont end if =0
 
