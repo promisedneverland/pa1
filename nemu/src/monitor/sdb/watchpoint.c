@@ -61,10 +61,17 @@ WP* new_wp()//完成对链表的操作，其中的值和expr不改变
   }
   
 }
+void print_wp()
+{
+  if(wpnum == 0)
+    return ;
+  printf("Num   Expression          value");
+}
 bool check_wp()
 {
   if(wpnum == 0)
     return 1;
+
   WP* i = head;
   bool state = 1;
   word_t value;
@@ -77,7 +84,10 @@ bool check_wp()
     }
     if(i -> value != value)
     {
-      printf("watchpoint ");
+      printf("watchpoint %d  %s\n",i -> NO, i -> expr);
+      printf("Old value %u\n",i -> value);
+      printf("New value %u\n",value);
+      i -> value = value;
       return 0;
     }
     i = i -> next;
