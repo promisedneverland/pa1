@@ -73,7 +73,7 @@ void print_wp()
   while(iter != free_)
   {
     assert(iter != NULL);
-    printf("%3d%s%10u\n",iter -> NO, iter -> expr , iter -> value);
+    printf("%3d   %-s%10u\n",iter -> NO, iter -> expr , iter -> value);
     iter = iter -> next;
     
   }
