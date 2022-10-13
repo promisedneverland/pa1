@@ -20,6 +20,7 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
+  // struct watchpoint *prev;
   char* expr;
   word_t value;
   /* TODO: Add more members if necessary */
@@ -28,42 +29,100 @@ typedef struct watchpoint {
 
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
-
+static int wpnum = 0;
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+    // wp_pool[i].prev = (i == 0 ? NULL : &wp_pool[i - 1]);
     //最后一个节点的next是NULL,其余是下一个
   }
-
-  head = NULL;
   free_ = wp_pool;
 }
-extern void add_wp(char* expression){
+WP* new_wp()//完成对链表的操作，其中的值和expr不改变
+{
+  if(wpnum == NR_WP)//满了
+  {
+    printf("watchpoint pool is full\n");
+    return NULL;
+  }
+    
+  else//改变head，free
+  {
+    if(wpnum == 0)//一开始head = null
+    {
+      head = free_;
+    }
+    wpnum++;//wp计数器
+    WP* newwp = free_;
+    free_ = free_ -> next;//更新free
+    return newwp;
+  }
   
-  bool success = 1;
-  word_t res = expr(expression,&success);
-
-  if(success == 0){
-    printf("failed expression analysis\n");
-  }
-  if(free_ -> next == NULL){
-    printf("error no space for watchpoint \n");
-  }
-  if(head == NULL){
-    head = &wp_pool[0];
-    free_ = free_-> next;
-  }
-  else{
-    head = head -> next;
-    free_ = free_-> next;
-  }
-
-  head -> expr = expression;
-  head -> value = res;
 }
-/* TODO: Implement the functionality of watchpoint */
-extern void del_wp(int idx){
-  return ;
+void free_wp(WP *wp)
+{
+  WP* iter = head;
+  if(wp == head)
+  {
+    if(wpnum == 1)
+    {
+      free_ = head;
+      head = NULL;
+      
+    }
+    else
+    {
+      WP* nexthead = head -> next;
+      head -> next = free_ -> next;
+      free_ -> next = head;
+      head = nexthead;
+    }
+  }
+  else
+  {
+    while(iter -> next != wp)
+      iter = iter->next;
+    iter -> next = wp -> next;
+    wp -> next = free_ -> next;
+    free_ -> next = wp;
+  }
+  wpnum--;
+
 }
+// extern void add_wp(char* expression){
+  
+//   bool success = 1;
+//   word_t res = expr(expression,&success);
+  
+//   if(success == 0){
+//     printf("failed expression analysis\n");
+//   }
+//   if(free_ -> next == NULL){
+//     printf("error no space for watchpoint \n");
+//   }
+//   if(head == NULL){
+//     head = free_;
+    
+//   }
+ 
+
+//   free_ -> expr = expression;
+//   free_ -> value = res;
+//   free_ = free_-> next;
+// }
+// /* TODO: Implement the functionality of watchpoint */
+// extern void del_wp(int idx){
+//   if( wp_pool[idx - 1].prev){
+//     wp_pool[idx - 1].prev -> next = wp_pool[idx - 1].next;
+//     wp_pool[idx - 1].next = free_;
+//     free_->prev -> next = &wp_pool[idx - 1];
+//     free_ = & wp_pool[idx - 1];//没有加aasert
+//   }
+//   else{
+    
+//   }
+  
+//   return ;
+// }
