@@ -102,6 +102,11 @@ void free_wp(int id)
   while(iter -> NO != id)
   {
     iter = iter -> next;
+    if(iter == NULL)
+    {
+      printf("Watchpoint notfound\n");
+      return ;
+    }
   }
   WP* wp = iter;
   iter = head;
