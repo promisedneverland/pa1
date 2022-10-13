@@ -61,6 +61,30 @@ WP* new_wp()//完成对链表的操作，其中的值和expr不改变
   }
   
 }
+bool check_wp()
+{
+  if(wpnum == 0)
+    return 1;
+  WP* i = head;
+  bool state = 1;
+  word_t value;
+  while(i != free_){
+    state = 1;
+    value = expr(i->expr , &state);
+    if(state == 0){
+      printf("calculating expression failed while checking watchpoint\n");
+      return 0;
+    }
+    if(i -> value != value)
+    {
+      printf("watchpoint ");
+      return 0;
+    }
+    i = i -> next;
+  }
+  return 1;
+  
+}
 void free_wp(int id)
 {
 
