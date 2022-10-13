@@ -65,6 +65,7 @@ void print_wp()
 {
   if(wpnum == 0){
     printf("No watchpoint\n");
+    return ;
   }
 
   printf("Num   Expression          value\n");
