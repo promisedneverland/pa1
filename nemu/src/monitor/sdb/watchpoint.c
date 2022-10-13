@@ -97,7 +97,11 @@ bool check_wp()
 }
 void free_wp(int id)
 {
-
+  if(wpnum == 0)
+  {
+    printf("no watchpoint\n");
+    return ;
+  }
   WP* iter = head;
   while(iter -> NO != id)
   {
