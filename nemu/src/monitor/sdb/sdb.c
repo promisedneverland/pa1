@@ -151,7 +151,7 @@ static int cmd_w(char *args){
     printf("w cmd failed\n");
   else
   {
-    printf("watchpoint %s = %d", wp->expr, wp->value);
+    printf("watchpoint %d : %s = %u\n",wp -> NO, wp->expr, wp->value);
   }
   return 0;
 }
