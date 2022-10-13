@@ -147,10 +147,10 @@ static int cmd_w(char *args){
   //   return 0;
   // }  
   bool state = 1;
-  char* firstarg = strtok(args," ");
+  
   WP* wp = new_wp(); 
-  wp -> expr = firstarg;
-  wp -> value = expr(firstarg,&state);
+  wp -> expr = args;
+  wp -> value = expr(args,&state);
   if(state == 0)
     printf("w cmd failed\n");
   else
