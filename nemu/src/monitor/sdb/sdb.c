@@ -146,7 +146,7 @@ static int cmd_w(char *args){
   char* firstarg = strtok(args," ");
   WP* wp = new_wp(); 
   wp -> expr = firstarg;
-  wp -> value = expr(args,&state);
+  wp -> value = expr(firstarg,&state);
   if(state == 0)
     printf("w cmd failed\n");
   else
