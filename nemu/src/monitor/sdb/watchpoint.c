@@ -113,6 +113,7 @@ void free_wp(int id)
     }
   }
   WP* wp = iter;
+  int delid = wp -> NO;
   iter = head;
   if(wp == head)
   {
@@ -139,7 +140,7 @@ void free_wp(int id)
     free_ -> next = wp;
   }
   wpnum--;
-  printf("Deleted\n");
+  printf("Deleted watchpoint %d\n", delid);
 }
 // extern void add_wp(char* expression){
   
