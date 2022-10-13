@@ -22,11 +22,19 @@
 #include <utils.h>
 // #include <expr.c>
 static int is_batch_mode = false;
+typedef struct watchpoint {
+  int NO;
+  struct watchpoint *next;
+  // struct watchpoint *prev;
+  char* expr;
+  word_t value;
+  /* TODO: Add more members if necessary */
 
+} WP;
 void init_regex();
 void init_wp_pool();
-void add_wp(char* exp);
-void del_wp(int idx);
+WP* new_wp();
+void free_wp(int id);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {//只要不输入q,就会一直进入
   //printf("rl gets\n");
@@ -123,18 +131,27 @@ static int cmd_p(char *args)
   bool state = 1;
   printf("%u\n",expr(args,&state));
   // make_token(args);
+  if(state == 0)
+    printf("p cmd failed\n");
   return 0;
 }
+
 static int cmd_w(char *args){
   // if(args == NULL)
   // {
   //   printf("arguments??? \n");
   //   return 0;
   // }  
+  bool state = 1;
   char* firstarg = strtok(args," ");
-  add_wp(firstarg);
+  WP* wp = new_wp(); 
+  wp -> expr = firstarg;
+  wp -> value = expr(args,&state);
+  if(state == 0)
+    printf("w cmd failed\n");
   return 0;
 }
+
 static int cmd_d(char *args){
   if(args == NULL)
   {
@@ -143,9 +160,10 @@ static int cmd_d(char *args){
   }  
   char* firstarg = strtok(args," ");
   u_int32_t idx = atoi(firstarg);//字节数
-  del_wp(idx);
+  free_wp(idx);
   return 0;
 }
+
 static struct {//命令们
   const char *name;
   const char *description;

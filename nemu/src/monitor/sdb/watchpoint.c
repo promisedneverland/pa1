@@ -61,9 +61,16 @@ WP* new_wp()//完成对链表的操作，其中的值和expr不改变
   }
   
 }
-void free_wp(WP *wp)
+void free_wp(int id)
 {
+
   WP* iter = head;
+  while(iter -> NO != id)
+  {
+    iter = iter -> next;
+  }
+  WP* wp = iter;
+  iter = head;
   if(wp == head)
   {
     if(wpnum == 1)
@@ -89,7 +96,7 @@ void free_wp(WP *wp)
     free_ -> next = wp;
   }
   wpnum--;
-
+  printf("Deleted\n");
 }
 // extern void add_wp(char* expression){
   
