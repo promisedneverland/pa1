@@ -19,15 +19,15 @@
 #include <common.h>
 
 typedef struct {//c语言中的结构体定义，类型名为riscv32_CPU_state
-  word_t gpr[32];//寄存器？
+  word_t gpr[32];//通用目的寄存器
   vaddr_t pc;//PC
 } riscv32_CPU_state;
 
 // decode
 typedef struct {
   union {
-    uint32_t val;
-  } inst;
+    uint32_t val;//4字节信息
+  } inst;//inst 是 union类型变量名
 } riscv32_ISADecodeInfo;
 
 #define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)

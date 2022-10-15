@@ -18,8 +18,9 @@
 #include <memory/vaddr.h>
 
 static inline uint32_t inst_fetch(vaddr_t *pc, int len) {
-  uint32_t inst = vaddr_ifetch(*pc, len);
-  (*pc) += len;
+  //len = 4, pc = snpc 
+  uint32_t inst = vaddr_ifetch(*pc, len);//访问内存
+  (*pc) += len;//更新s->snpc
   return inst;
 }
 

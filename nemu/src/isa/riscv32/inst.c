@@ -45,7 +45,11 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
     case TYPE_S: src1R(); src2R(); immS(); break;
   }
 }
-
+  //指令名称在代码中仅当注释使用, 不参与宏展开
+  // 指令类型用于后续译码过程
+  //指令执行操作则是通过C代码来模拟指令执行的真正行为
+  //const void ** __instpat_end = &&__instpat_end_;
+  
 static int decode_exec(Decode *s) {
   int dest = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
@@ -56,7 +60,7 @@ static int decode_exec(Decode *s) {
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \
 }
-
+  
   INSTPAT_START();
   INSTPAT("??????? ????? ????? ??? ????? 01101 11", lui    , U, R(dest) = imm);
   INSTPAT("??????? ????? ????? 010 ????? 00000 11", lw     , I, R(dest) = Mr(src1 + imm, 4));
@@ -65,13 +69,15 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
-
+ 
   R(0) = 0; // reset $zero to 0
 
   return 0;
 }
 
-int isa_exec_once(Decode *s) {
-  s->isa.inst.val = inst_fetch(&s->snpc, 4);
+int isa_exec_once(Decode *s)
+{
+  //snpc = pc(execute 传入的 参数)
+  s->isa.inst.val = inst_fetch(&s->snpc, 4);//取指令,存到val中
   return decode_exec(s);
 }

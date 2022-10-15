@@ -19,7 +19,7 @@
 #include <common.h>
 
 static inline int check_reg_idx(int idx) {
-  //检查idx是否指向了一个reg
+  //检查一下idx是否指向了一个reg
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
   return idx;
 }

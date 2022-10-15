@@ -19,8 +19,8 @@
 #include <isa.h>
 
 typedef struct Decode {
-  vaddr_t pc;
-  vaddr_t snpc; // static next pc
+  vaddr_t pc;//当前指令pc
+  vaddr_t snpc; // static next pc,下一条指令的PC
   vaddr_t dnpc; // dynamic next pc
   ISADecodeInfo isa;
   IFDEF(CONFIG_ITRACE, char logbuf[128]);
@@ -30,7 +30,11 @@ typedef struct Decode {
 __attribute__((always_inline))
 static inline void pattern_decode(const char *str, int len,
     uint64_t *key, uint64_t *mask, uint64_t *shift) {
+  //将模式字符串转换成3个数
   uint64_t __key = 0, __mask = 0, __shift = 0;
+  //key代表01串组成的整形数大小
+  //mask 表示 key 的掩码， 是1代表key有效（不是问号）
+  //shift 表示 opcode 距离最低位的比特数，用于帮助编译器优化（低位?数量）
 #define macro(i) \
   if ((i) >= len) goto finish; \
   else { \
@@ -57,8 +61,10 @@ finish:
   *key = __key >> __shift;
   *mask = __mask >> __shift;
   *shift = __shift;
-}
 
+}
+//如果c是1，则key最低位赋1并左移
+//下面是对64位
 __attribute__((always_inline))
 static inline void pattern_decode_hex(const char *str, int len,
     uint64_t *key, uint64_t *mask, uint64_t *shift) {
