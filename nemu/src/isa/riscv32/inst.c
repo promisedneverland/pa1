@@ -33,7 +33,10 @@ enum {
 #define immU() do { *imm = SEXT(BITS(i, 31, 12), 20) << 12; } while(0)
 #define immS() do { *imm = (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); } while(0)
 
-static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
+static void decode_operand(Decode *s, int *dest, word_t *src1,
+ word_t *src2, word_t *imm, int type) {
+  //根据type进行操作数解析
+  //dest代表目的操作数
   uint32_t i = s->isa.inst.val;
   int rd  = BITS(i, 11, 7);
   int rs1 = BITS(i, 19, 15);
@@ -53,7 +56,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
 static int decode_exec(Decode *s) {
   int dest = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
-  s->dnpc = s->snpc;
+  s->dnpc = s->snpc;//要维护dnpc
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
@@ -67,11 +70,11 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw     , S, Mw(src1 + imm, 4, src2));
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
+  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));//非法指令
   INSTPAT_END();
  
   R(0) = 0; // reset $zero to 0
-
+  //在哪里执行的、？
   return 0;
 }
 
