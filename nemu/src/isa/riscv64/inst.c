@@ -24,7 +24,7 @@
 
 enum {
   TYPE_I, TYPE_U, TYPE_S,
-  TYPE_N, // none
+  TYPE_N, TYPE_J, TYPE_R  // none
 };
 
 #define src1R() do { *src1 = R(rs1); } while (0)
