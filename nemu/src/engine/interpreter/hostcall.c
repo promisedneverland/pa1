@@ -29,7 +29,7 @@ __attribute__((noinline))
 void invalid_inst(vaddr_t thispc) {
   uint32_t temp[2];
   vaddr_t pc = thispc;
-  temp[0] = inst_fetch(&pc, 4);
+  temp[0] = inst_fetch(&pc, 4);//pc + 4
   temp[1] = inst_fetch(&pc, 4);
 
   uint8_t *p = (uint8_t *)temp;
@@ -47,5 +47,5 @@ void invalid_inst(vaddr_t thispc) {
         "* The machine is always right!\n"
         "* Every line of untested code is always wrong!\n\n", ANSI_FG_RED), isa_logo);
 
-  set_nemu_state(NEMU_ABORT, thispc, -1);
+  set_nemu_state(NEMU_ABORT, thispc, -1);//halt.ret = -1;
 }
