@@ -54,6 +54,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s);//修改snpc为下一条指令的pc
   //snpc = dnpc= pc+4
   cpu.pc = s->dnpc;//根据dnpc 更新 pc
+
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);

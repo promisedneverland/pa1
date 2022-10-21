@@ -35,9 +35,9 @@ enum {
 
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
-  int rd  = BITS(i, 11, 7);
-  int rs1 = BITS(i, 19, 15);
-  int rs2 = BITS(i, 24, 20);
+  int rd  = BITS(i, 11, 7);//目标寄存器号
+  int rs1 = BITS(i, 19, 15);//源寄存器号
+  int rs2 = BITS(i, 24, 20);//源寄存器号
   *dest = rd;
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
@@ -63,7 +63,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd     , S, Mw(src1 + imm, 8, src2));
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
+  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));//无效指令
   INSTPAT_END();
 
   R(0) = 0; // reset $zero to 0
