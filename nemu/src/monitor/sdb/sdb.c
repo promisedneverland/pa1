@@ -102,12 +102,12 @@ static int cmd_x(char *args) {
   
   paddr_t start;//开始地址
   // printf("%d\n",sscanf(secondarg,"0x%8x",&start));
-  if(secondarg == NULL || sscanf(secondarg,"0x%8x",&start)<=0)
+  if(secondarg == NULL) 
   {
     printf("arguments??? \n");
     return 0;
   } 
-  else
+  if(sscanf(secondarg,"0x%8x",&start)<=0 || (sscanf(secondarg,"%u",&start)<=0))
   {
      while(N--)
      {
