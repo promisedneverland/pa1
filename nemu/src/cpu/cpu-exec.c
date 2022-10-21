@@ -23,7 +23,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 10
+#define MAX_INST_TO_PRINT 100
 
 CPU_state cpu = {};//创建一个cpu
 // word_t gpr[32];
