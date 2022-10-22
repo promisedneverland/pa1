@@ -107,7 +107,7 @@ static int cmd_x(char *args) {
     printf("arguments??? \n");
     return 0;
   } 
-  if(sscanf(secondarg,"0x%8x",&start)<=0 || (sscanf(secondarg,"%u",&start)<=0))
+  if(sscanf(secondarg,"0x%8x",&start)>0 || (sscanf(secondarg,"%u",&start)>0))
   {
      while(N--)
      {
