@@ -14,29 +14,29 @@ ifeq ($(MAKECMDGOALS),)
 endif
 
 ### Override checks when `make clean/clean-all/html`
-ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
+ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)#如果没找到clean|clean-all...
 
-### Print build info message
+### Print build info message(what is NAME AND ARCH?)
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 
 ### Check: environment variable `$AM_HOME` looks sane
-ifeq ($(wildcard $(AM_HOME)/am/include/am.h),)
+ifeq ($(wildcard $(AM_HOME)/am/include/am.h),) #检测文件是否存在？里面也没有通配符啊？可能有~需要展开？
   $(error $$AM_HOME must be an AbstractMachine repo)
 endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
-ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
-ifeq ($(filter $(ARCHS), $(ARCH)), )
+ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))#取各文件名前缀
+ifeq ($(filter $(ARCHS), $(ARCH)), )#从ARCHS 里找 ARCH
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
-
+#ARCH变量直接在命令行中定义
 ### Extract instruction set architecture (`ISA`) and platform from `$ARCH`. Example: `ARCH=x86_64-qemu -> ISA=x86_64; PLATFORM=qemu`
-ARCH_SPLIT = $(subst -, ,$(ARCH))
-ISA        = $(word 1,$(ARCH_SPLIT))
-PLATFORM   = $(word 2,$(ARCH_SPLIT))
+ARCH_SPLIT = $(subst -, ,$(ARCH))#-替换成空格
+ISA        = $(word 1,$(ARCH_SPLIT))#第一个词
+PLATFORM   = $(word 2,$(ARCH_SPLIT))#第二个词
 
 ### Check if there is something to build
-ifeq ($(flavor SRCS), undefined)
+ifeq ($(flavor SRCS), undefined)#SRCS的类别是不是undefined
   $(error Nothing to build)
 endif
 
@@ -46,13 +46,13 @@ endif
 ## 2. General Compilation Targets
 
 ### Create the destination directory (`build/$ARCH`)
-WORK_DIR  = $(shell pwd)
+WORK_DIR  = $(shell pwd)#abstract machine
 DST_DIR   = $(WORK_DIR)/build/$(ARCH)
-$(shell mkdir -p $(DST_DIR))
+$(shell mkdir -p $(DST_DIR))#parent directory 也创建
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = build/$(NAME)-$(ARCH)
-IMAGE     = $(abspath $(IMAGE_REL))
+IMAGE     = $(abspath $(IMAGE_REL))#绝对路径
 ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
