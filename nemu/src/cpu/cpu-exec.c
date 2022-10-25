@@ -47,11 +47,14 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
  
   IFDEF(CONFIG_ITRACE, sprintf(iringbuf[curIringIns],"%s",_this->logbuf));
   
-  for(int i = 0; i <= curIringIns ; i++)
+  for(int i = 0; i <= I_RING_INS_SIZE ; i++)
   {
-    printf("%d  ",curIringIns);
+    if(i == curIringIns)
+      printf("->%d  ",i);
+    else
+      printf("  %d  ",i);
     puts(iringbuf[i]);
-  
+
   }
   
   if(curIringIns == I_RING_INS_SIZE)
