@@ -51,7 +51,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   {
     printf("%d  ",curIringIns);
     puts(iringbuf[i]);
-    printf("\n");
+  
   }
   
   if(curIringIns == I_RING_INS_SIZE)
