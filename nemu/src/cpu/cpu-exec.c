@@ -44,22 +44,24 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
   //if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   //itrace
- 
-  IFDEF(CONFIG_ITRACE, sprintf(iringbuf[curIringIns],"%s",_this->logbuf));
-  
-  for(int i = 0; i < I_RING_INS_SIZE ; i++)
+  if(nemu_state.state != NEMU_RUNNING)//add
   {
-    if(i == curIringIns)
-      printf("->%d  ",i);
-    else
-      printf("  %d  ",i);
-    puts(iringbuf[i]);
-
+    IFDEF(CONFIG_ITRACE, sprintf(iringbuf[curIringIns],"%s",_this->logbuf));
+      
+    for(int i = 0; i < I_RING_INS_SIZE ; i++)
+    {
+      if(i == curIringIns)
+        printf("->%d  ",i);
+      else
+        printf("  %d  ",i);
+      puts(iringbuf[i]);
+    }
+    curIringIns++;
+    if(curIringIns == I_RING_INS_SIZE)
+        curIringIns = 0;
+      
   }
-  curIringIns++;
-  if(curIringIns == I_RING_INS_SIZE)
-    curIringIns = 0;
-  //add
+  
   
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
