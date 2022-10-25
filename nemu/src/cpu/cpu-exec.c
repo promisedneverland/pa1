@@ -51,7 +51,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   curIringBuf = strlen(_this->logbuf) + curIringBuf + 1;
   iringbuf[curIringBuf] = '\n';
   iringbuf[curIringBuf + 1] = '\0';
-  curIringBuf ++;
+
   curIringBuf %= 1280;
   //add
 
