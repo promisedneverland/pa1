@@ -46,7 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_ITRACE, sprintf(iringbuf + curIringBuf,"%s",_this->logbuf));
   
   puts(iringbuf);
-  
+  printf("%d",curIringBuf);
   curIringBuf = strlen(_this->logbuf) + curIringBuf + 1;
   curIringBuf %= 1280;
   //add
