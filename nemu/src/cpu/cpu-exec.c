@@ -47,17 +47,17 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
  
   IFDEF(CONFIG_ITRACE, sprintf(iringbuf[curIringIns],"%s",_this->logbuf));
   
-  for(int i = 0; i < curIringIns ; i++)
+  for(int i = 0; i <= curIringIns ; i++)
   {
     printf("%d  ",curIringIns);
     puts(iringbuf[i]);
     printf("\n");
   }
-
+  
   if(curIringIns == I_RING_INS_SIZE)
     curIringIns = 0;
   //add
-
+  curIringIns++;
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
   if(!check_wp())
