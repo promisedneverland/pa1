@@ -52,7 +52,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
       if(i == curIringIns)
         printf("->%4d  ",i);
       else
-        printf("%2d  ",i);
+        printf("%5d  ",i);
       puts(iringbuf[i]);
     }
   }
