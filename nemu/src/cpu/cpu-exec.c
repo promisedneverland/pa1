@@ -29,7 +29,7 @@ CPU_state cpu = {};//创建一个cpu
 // word_t gpr[32];
 //  vaddr_t pc;//PC
 
-char iringbuf[128];
+char iringbuf[1280];
 int curIringBuf = 0;
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
@@ -49,7 +49,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   curIringBuf = strlen(_this->logbuf) + curIringBuf;
   curIringBuf %= 128;
   //add
-  
+
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
   if(!check_wp())
