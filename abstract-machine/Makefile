@@ -47,7 +47,7 @@ endif
 
 ### Create the destination directory (`build/$ARCH`)
 WORK_DIR  = $(shell pwd)#abstract machine
-DST_DIR   = $(WORK_DIR)/build/$(ARCH)
+DST_DIR   = $(WORK_DIR)/build/$(ARCH)#abstract-machine/build/risc32
 $(shell mkdir -p $(DST_DIR))#parent directory 也创建
 
 ### Compilation targets (a binary image or archive)
