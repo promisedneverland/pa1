@@ -79,7 +79,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
-  unsigned int* us = s;
+  unsigned int* us = (unsigned int*)s;
   for(int i = 0; i < n ;i++)
   {
     us[i] = (unsigned int)c;
@@ -88,7 +88,20 @@ void *memset(void *s, int c, size_t n) {
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-  panic("Not implemented");
+  unsigned int* us = (unsigned int*)src;
+  unsigned int* ud = (unsigned int*)dst;
+  unsigned int* tmp = (unsigned int*)malloc(n*4);
+  for(int i = 0; i < n ;i++)
+  {
+    tmp[i] = us[i];
+  }
+  for(int i = 0; i < n ;i++)
+  {
+    ud[i] = tmp[i];
+  }
+  free(tmp);
+  return dst;
+
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
