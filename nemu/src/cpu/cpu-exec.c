@@ -24,13 +24,14 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 1000
-
+#define I_RING_BUF_SIZE 64
+#define I_RING_INS_SIZE 12
 CPU_state cpu = {};//创建一个cpu
 // word_t gpr[32];
 //  vaddr_t pc;//PC
 
-char iringbuf[1280];
-int curIringBuf = 0;
+char iringbuf[I_RING_INS_SIZE][I_RING_BUF_SIZE];
+int curIringIns = 0;
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
@@ -43,16 +44,18 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
   //if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   //itrace
-  IFDEF(CONFIG_ITRACE, sprintf(iringbuf + curIringBuf,"%s",_this->logbuf));
+ 
+  IFDEF(CONFIG_ITRACE, sprintf(iringbuf[curIringIns],"%s",_this->logbuf));
   
-  puts(iringbuf);
+  for(int i = 0; i < curIringIns ; i++)
+  {
+    printf("%d  ",curIringIns);
+    puts(iringbuf[i]);
+    printf("\n");
+  }
 
-  printf("%d",curIringBuf);
-  curIringBuf = strlen(_this->logbuf) + curIringBuf + 1;
-  iringbuf[curIringBuf] = '\n';
-  iringbuf[curIringBuf + 1] = '\0';
-
-  curIringBuf %= 1280;
+  if(curIringIns == I_RING_INS_SIZE)
+    curIringIns = 0;
   //add
 
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
