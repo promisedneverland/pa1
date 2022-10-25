@@ -44,14 +44,16 @@ char *strcat(char *dst, const char *src) {
 
 int strcmp(const char *s1, const char *s2) {
   int res = 0;
-  for(int i = 0 ; s1[i] != '\0' || s2[i] != '\0' ; i++)
+  unsigned char* u1 = (unsigned char*)s1;
+  unsigned char* u2 = (unsigned char*)s2;
+  for(int i = 0 ; (u1[i] != '\0' || u2[i] != '\0') ; i++)
   {
-    if(s1[i] > s2[i])
+    if(u1[i] > u2[i])
     {
       res = 1;
       break;
     }
-    if(s1[i] < s2[i])
+    if(u1[i] < u2[i])
     {
       res = -1;
       break;
@@ -62,14 +64,16 @@ int strcmp(const char *s1, const char *s2) {
 
 int strncmp(const char *s1, const char *s2, size_t n) {
   int res = 0;
-  for(int i = 0 ; (s1[i] != '\0' || s2[i] != '\0') && i < n ; i++)
+  unsigned char* u1 = (unsigned char*)s1;
+  unsigned char* u2 = (unsigned char*)s2;
+  for(int i = 0 ; (u1[i] != '\0' || u2[i] != '\0') && i < n ; i++)
   {
-    if(s1[i] > s2[i])
+    if(u1[i] > u2[i])
     {
       res = 1;
       break;
     }
-    if(s1[i] < s2[i])
+    if(u1[i] < u2[i])
     {
       res = -1;
       break;
@@ -79,18 +83,18 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
-  unsigned int* us = (unsigned int*)s;
+  unsigned char* us = (unsigned char*)s;
   for(int i = 0; i < n ;i++)
   {
-    us[i] = (unsigned int)c;
+    us[i] = (unsigned char)c;
   }
   return s;
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-  unsigned int* us = (unsigned int*)src;
-  unsigned int* ud = (unsigned int*)dst;
-  unsigned int* tmp = (unsigned int*)malloc(n*4);
+  unsigned char* us = (unsigned char*)src;
+  unsigned char* ud = (unsigned char*)dst;
+  unsigned char* tmp = (unsigned char*)malloc(n);
   for(int i = 0; i < n ;i++)
   {
     tmp[i] = us[i];
@@ -105,11 +109,33 @@ void *memmove(void *dst, const void *src, size_t n) {
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
-  panic("Not implemented");
+  unsigned char* ui = (unsigned char*)in;
+  unsigned char* uo = (unsigned char*)out;
+  for(int i = 0; i < n ;i++)
+  {
+    uo[i] = ui[i];
+  }
+  return out;
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  panic("Not implemented");
+  int res = 0;
+  unsigned char* u1 = (unsigned char*)s1;
+  unsigned char* u2 = (unsigned char*)s2;
+  for(int i = 0 ; i < n ; i++)
+  {
+    if(u1[i] > u2[i])
+    {
+      res = 1;
+      break;
+    }
+    if(u1[i] < u2[i])
+    {
+      res = -1;
+      break;
+    }
+  }
+  return res;
 }
 
 #endif
