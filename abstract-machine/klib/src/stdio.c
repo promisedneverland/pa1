@@ -8,13 +8,83 @@
 int printf(const char *fmt, ...) {
   panic("Not implemented");
 }
+void swap(char* a, char* b)
+{
+  char tmp = *a;
+  *a = *b;
+  *b = tmp;
 
+}
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
+void itoa(int integer, char* out, int base)//only base = 10 is valid
+{
+  int charout = 0, start = 0;
+  if(integer < 0)
+  {
+    out[0] = '-';
+    charout = 1; 
+    start = 1;
+  }
 
+  //if(integer == (1 << 63)) todo
+  while(integer > 0)
+  {
+    out[charout] = (integer % base) + '0';
+    integer /= base; 
+    charout++;
+  }
+  
+  for(int i = start; i < charout - i - 1 + start; i++)
+  {
+    swap(&out[i], &out[charout - i - 1 + start]);
+  }
+}
 int sprintf(char *out, const char *fmt, ...) {
-  panic("Not implemented");
+  int charout = 0;
+  va_list ap;
+  int d;
+  char c;
+  char *s;
+  char buffer[33];
+  va_start(ap, fmt);
+  while (*fmt)
+  {
+    if(*fmt == '%')
+    {
+      fmt++;
+      switch (*fmt) {
+      case 's':              /* string */
+        s = va_arg(ap, char *);
+        strcpy(out+charout,s);
+        charout += strlen(s) + 1;//\0
+        break;
+      case 'd':              /* int */
+        d = va_arg(ap, int);
+        itoa(d,buffer,10);
+        strcpy(out+charout,buffer);
+        charout += strlen(buffer) + 1;
+        break;
+      case 'c':              /* char */
+        /* need a cast here since va_arg only takes fully promoted types */
+        c = (char) va_arg(ap, int);
+        out[charout] = c;
+        charout++;
+        break;
+      }
+      fmt++;
+    }
+    else
+    {
+      out[charout] = *fmt;
+      fmt++;
+      charout++;
+    }
+  }
+  va_end(ap);
+  out[charout] = '\0';
+  return charout;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
