@@ -41,13 +41,17 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
-  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+  //if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   //itrace
   IFDEF(CONFIG_ITRACE, sprintf(iringbuf + curIringBuf,"%s",_this->logbuf));
   
   puts(iringbuf);
+
   printf("%d",curIringBuf);
   curIringBuf = strlen(_this->logbuf) + curIringBuf + 1;
+  iringbuf[curIringBuf] = '\n';
+  iringbuf[curIringBuf + 1] = '\0';
+  curIringBuf ++;
   curIringBuf %= 1280;
   //add
 
