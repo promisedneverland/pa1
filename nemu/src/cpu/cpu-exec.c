@@ -50,7 +50,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
     for(int i = 0; i < I_RING_INS_SIZE ; i++)
     {
       if(i == curIringIns)
-        printf("->%4d",i);
+        printf("->%4d  ",i);
       else
         printf("%6d  ",i);
       puts(iringbuf[i]);
