@@ -150,7 +150,7 @@ void cpu_exec(uint64_t n) {//初始传-1，为无穷大
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);//调了色
-      printf("$a0 = %d",cpu.gpr[10]);
+      printf("$a0 = %d\n",cpu.gpr[10]);
       // fall through
     case NEMU_QUIT: statistic();
   }
