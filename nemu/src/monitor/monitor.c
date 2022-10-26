@@ -192,7 +192,7 @@ void init_elf()
   Elf32_Ehdr elfHeader;
   fread(&elfHeader,1,sizeof(elfHeader),fp);
   printf("size = %d\n",sizeof(elfHeader));
-  if(elfHeader.e_type == 0x7f &&
+  if(elfHeader.e_ident[0] == 0x7f &&
        elfHeader.e_ident[1] == 'E' &&
        elfHeader.e_ident[2] == 'L' &&
        elfHeader.e_ident[3] == 'F') 
