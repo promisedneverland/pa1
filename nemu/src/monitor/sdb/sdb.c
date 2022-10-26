@@ -240,7 +240,7 @@ void sdb_mainloop() {
 
     /* extract the first token as the command */
     
-    if (str == NULL) 
+    if (*str == 0) 
     { 
       if(lastCMD[0] != '\0')
       {
