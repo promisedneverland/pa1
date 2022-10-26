@@ -245,7 +245,7 @@ void sdb_mainloop() {
       if(lastCMD[0] != '\0')
       {
         strncpy(cmd,lastCMD,128);
-        printf("%s\n",lastCMD);
+        
       }
       else
         continue;
@@ -254,7 +254,7 @@ void sdb_mainloop() {
     {
       strncpy(lastCMD,cmd,128);
     }
-
+    printf("%s\n",lastCMD); 
     /* treat the remaining string as the arguments,
      * which may need further parsing
      */
