@@ -208,7 +208,7 @@ void init_elf()
       c = fgetc (fp);
       printf("%02x ",c);
     } while (c != EOF);
-    printf("%c\n",elfHeader.e_type);
+    printf("etype = %c\n",elfHeader.e_type);
     printf("it is not ELF FILE");
   }
 
