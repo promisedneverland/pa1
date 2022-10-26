@@ -23,7 +23,7 @@ compile_git:
 $(BINARY): compile_git
 
 # Some convenient rules
-TEST_HOME=$(HOME)/ics2022/am-kernels/test/cpu-tests
+TEST_HOME=$(HOME)/ics2022/am-kernels/tests/cpu-tests
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += $(ARGS_DIFF)
 override ARGS += --elf=$(TEST_HOME)/build/add-riscv32-nemu.elf
