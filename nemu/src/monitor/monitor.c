@@ -191,14 +191,16 @@ void init_elf()
   fseek(fp, 0, SEEK_SET);
   Elf32_Ehdr elfHeader;
   fread(&elfHeader,1,sizeof(elfHeader),fp);
-  
+
   if(elfHeader.e_type == 0x7f &&
        elfHeader.e_ident[1] == 'E' &&
        elfHeader.e_ident[2] == 'L' &&
        elfHeader.e_ident[3] == 'F') 
   {
-    printf("success");
+    printf("it is ELF FILE");
   }
+  else 
+    printf("it is not ELF FILE");
 
   fclose(fp);
  
