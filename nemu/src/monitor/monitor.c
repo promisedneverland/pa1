@@ -197,10 +197,15 @@ void init_elf()
        elfHeader.e_ident[2] == 'L' &&
        elfHeader.e_ident[3] == 'F') 
   {
+    
     printf("it is ELF FILE");
   }
   else 
+  {
+    printf("%x\n",elfHeader.e_type);
     printf("it is not ELF FILE");
+  }
+
 
   fclose(fp);
  
