@@ -217,7 +217,7 @@ void init_elf()
   {
     fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
     fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
-    printf("%ld",sectionHeader[i].sh_type);
+    printf("%ld\n",sectionHeader[i].sh_type);
   }
   
   fclose(fp);
