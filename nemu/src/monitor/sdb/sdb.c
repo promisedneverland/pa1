@@ -244,7 +244,7 @@ void sdb_mainloop() {
     { 
       if(lastisSI)
       {
-        strcpy(str,"si");
+        str = "si";
         cmd = str;
       }
       else
