@@ -202,6 +202,7 @@ void init_elf()
   }
   else 
   {
+    fseek(fp, 0, SEEK_SET);
     int c;
     do {
       c = fgetc (fp);
