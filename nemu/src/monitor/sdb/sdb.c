@@ -233,7 +233,7 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
-  char* lastCMD = NULL;
+  char lastCMD[128] = {};
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
@@ -242,16 +242,16 @@ void sdb_mainloop() {
     char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
     if (cmd == NULL) 
     { 
-      if(lastCMD != NULL)
+      if(lastCMD[0] != '\0')
       {
-        cmd = lastCMD;
+        strncpy(cmd,lastCMD,128);
       }
       else
         continue;
     }//若根本没有字符,则执行上一条指令
     else// 若不空，则更新lastcmd
     {
-      lastCMD = cmd;
+      strncpy(lastCMD,cmd,128);
     }
 
     /* treat the remaining string as the arguments,
