@@ -229,18 +229,28 @@ void sdb_set_batch_mode() {
 }
 
 void sdb_mainloop() {
-  if (is_batch_mode) {//什么时候set batch mode 了
+  if (is_batch_mode) {
     cmd_c(NULL);
     return;
   }
-
+  char* lastCMD = NULL;
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
-    if (cmd == NULL) { continue; }//若根本没有字符
+    if (cmd == NULL) 
+    { 
+      if(lastCMD != NULL)
+      {
+        cmd = lastCMD;
+      }
+    }//若根本没有字符,则执行上一条指令
+    else// 若不空，则更新lastcmd
+    {
+      lastCMD = cmd;
+    }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
