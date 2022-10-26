@@ -186,7 +186,7 @@ void init_elf()
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
 
-  Log("The elf is %s, size = %ld", elf_file, size);
+  printf("The elf is %s, size = %ld", elf_file, size);
 
   fseek(fp, 0, SEEK_SET);
   Elf32_Ehdr elfHeader;
