@@ -233,7 +233,7 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
-  char lastCMD[128] = {};
+  char lastCMD[128];
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
