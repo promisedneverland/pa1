@@ -234,7 +234,6 @@ void sdb_mainloop() {
     return;
   }
   bool lastisSI = 0;
-  char lastarg[128] = {};
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
@@ -246,7 +245,7 @@ void sdb_mainloop() {
       if(lastisSI)
       {
         strcpy(str,"si");
-        cmd = strtok(str, " ");
+        strcpy(cmd,"si");
       }
       else
         continue;
