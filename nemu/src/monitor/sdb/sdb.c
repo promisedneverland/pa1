@@ -233,19 +233,19 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
-  char lastCMD[128];
+  char lastCMD[128] = {};
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
 
     /* extract the first token as the command */
-    char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
-    if (cmd == NULL) 
+    
+    if (str == NULL) 
     { 
       if(lastCMD[0] != '\0')
       {
         strncpy(str,lastCMD,128);
-        cmd = strtok(str, " ");
+        
       }
       else
         continue;
@@ -254,7 +254,8 @@ void sdb_mainloop() {
     {
       strncpy(lastCMD,str,128);
     }
-    printf("%s\n",lastCMD); 
+
+    char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
     /* treat the remaining string as the arguments,
      * which may need further parsing
      */
