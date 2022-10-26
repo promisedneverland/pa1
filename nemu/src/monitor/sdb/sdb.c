@@ -253,7 +253,7 @@ void sdb_mainloop() {
     else// 若不空，则更新lastcmd
     {
       strncpy(lastCMD,str,128);
-      printf("%s",lastCMD);
+      printf("%s\n",lastCMD);
     }
 
     
