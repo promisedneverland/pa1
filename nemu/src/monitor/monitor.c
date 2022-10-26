@@ -239,7 +239,7 @@ void init_elf()
     printf("%08x\n",symTab[i].st_value);
     if(ELF32_ST_TYPE(symTab[i].st_info) == STT_FUNC)
     {
-      //printf("  %d  ",i);
+      printf("  %d  ",i);
     }
     
   }
