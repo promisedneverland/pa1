@@ -202,7 +202,7 @@ void init_elf()
   }
   else 
   {
-    printf("%x\n",elfHeader.e_type);
+    printf("%c\n",elfHeader.e_type);
     printf("it is not ELF FILE");
   }
 
