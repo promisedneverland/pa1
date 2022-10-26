@@ -38,6 +38,7 @@ void init_wp_pool();
 WP* new_wp();
 void free_wp(int id);
 void print_wp();
+void print_Ftrace();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {//只要不输入q,就会一直进入
@@ -132,6 +133,11 @@ static int cmd_help(char *args);
 
 static int cmd_p(char *args)
 {
+  if(strcmp(args,"f") == 0)
+  {
+    print_Ftrace();
+    return 0;
+  }
   bool state = 1;
   printf("%u   0x%08x\n",expr(args,&state),expr(args,&state));
   // make_token(args);

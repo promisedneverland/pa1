@@ -151,7 +151,10 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-
+void print_Ftrace()
+{
+  ;
+}
 int isa_exec_once(Decode *s)
 {
   //snpc = pc(execute 传入的 参数)
