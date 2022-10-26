@@ -245,7 +245,6 @@ void sdb_mainloop() {
       if(lastCMD[0] != '\0')
       {
         strncpy(str,lastCMD,128);
-        
       }
       else
         continue;
