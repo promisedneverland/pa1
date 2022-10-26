@@ -15,7 +15,7 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
-
+#include <elf.h>
 void init_rand();
 void init_log(const char *log_file);
 void init_mem();
@@ -172,3 +172,36 @@ void am_init_monitor() {
   welcome();
 }
 #endif
+
+void init_elf()
+{
+  if (elf_file == NULL) {
+    Log("No elf is given\n");
+    return ;
+  }
+
+  FILE *fp = fopen(elf_file, "rb");
+  Assert(fp, "Can not open '%s'", elf_file);
+
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+
+  Log("The elf is %s, size = %ld", elf_file, size);
+
+  fseek(fp, 0, SEEK_SET);
+  Elf32_Ehdr elfHeader;
+  fread(&elfHeader,1,sizeof(elfHeader),fp);
+  
+  if(elfHeader.e_type == 0x7f &&
+       elfHeader.e_ident[1] == 'E' &&
+       elfHeader.e_ident[2] == 'L' &&
+       elfHeader.e_ident[3] == 'F') 
+  {
+    printf("success");
+  }
+
+  fclose(fp);
+ 
+  
+
+}

@@ -23,9 +23,10 @@ compile_git:
 $(BINARY): compile_git
 
 # Some convenient rules
-
+TEST_HOME=$(HOME)/ics2022/am-kernels/test/cpu-tests
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += $(ARGS_DIFF)
+override ARGS += -e=$(TEST_HOME)/build/add-riscv32-nemu.elf
 #override ARGS += -b
 
 # Command to execute NEMU
