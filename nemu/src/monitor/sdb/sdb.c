@@ -233,7 +233,8 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
-  char lastCMD[128] = {};
+  bool lastisSI = 0;
+  char lastarg[128] = {};
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
@@ -242,9 +243,9 @@ void sdb_mainloop() {
     char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
     if (cmd == 0) 
     { 
-      if(lastCMD[0] != '\0')
+      if(lastisSI)
       {
-        str = lastCMD;
+        strcpy(str,"si");
         cmd = strtok(str, " ");
       }
       else
@@ -252,8 +253,10 @@ void sdb_mainloop() {
     }//若根本没有字符,则执行上一条指令
     else// 若不空，则更新lastcmd
     {
-      strncpy(lastCMD,str,128);
-      printf("%s\n",lastCMD);
+      if(strcmp(cmd,"si") == 0)
+        lastisSI = 1;
+      else
+        lastisSI = 0;
     }
 
     
