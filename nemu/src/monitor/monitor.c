@@ -239,7 +239,7 @@ void init_funcTab(FILE* fp)
   {
     if(ELF32_ST_TYPE(symTab[i].st_info) == STT_FUNC)
     {
-      i = funcID[id];
+      funcID[id] = i;
       id++;
     }
   }
