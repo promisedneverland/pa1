@@ -183,22 +183,22 @@ void init_elf()
   FILE *fp = fopen(elf_file, "rb");
   Assert(fp, "Can not open '%s'", elf_file);
 
+  //统计elf的size
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
-
   printf("The elf is %s, size = %ld", elf_file, size);
 
+  //初始化ELF_HEADER，并检查是不是ELF文件
   fseek(fp, 0, SEEK_SET);
   Elf32_Ehdr elfHeader;
   fread(&elfHeader,1,sizeof(elfHeader),fp);
-  printf("size = %d\n",sizeof(elfHeader));
+  printf("elfheader size = %d\n",sizeof(elfHeader));
   if(elfHeader.e_ident[0] == 0x7f &&
        elfHeader.e_ident[1] == 'E' &&
        elfHeader.e_ident[2] == 'L' &&
        elfHeader.e_ident[3] == 'F') 
   {
-    
-    printf("it is ELF FILE");
+    printf("it is ELF FILE\n");
   }
   else 
   {
@@ -208,11 +208,17 @@ void init_elf()
     // //   c = fgetc (fp);
     // //   printf("%02x ",c);
     // // } while (c != EOF);
-    printf("etype = %c\n",elfHeader.e_type);
-    printf("it is not ELF FILE");
+    printf("it is not ELF FILE\n");
   }
 
-
+  Elf32_Shdr sectionHeader;
+  fseek(fp, elfHeader.e_shoff, SEEK_SET);
+  fread(&sectionHeader,1,sizeof(sectionHeader),fp);
+  printf("sectionheader size = %d\n",sizeof(sectionHeader));
+  for(int i = 0; i < sizeof(sectionHeader); i++)
+  {
+    printf("%x ",*(&sectionHeader + 1));
+  }
   fclose(fp);
  
   
