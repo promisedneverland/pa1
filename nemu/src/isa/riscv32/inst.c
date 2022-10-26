@@ -61,8 +61,8 @@ static void decode_operand(Decode *s, int *dest, word_t *src1,
   //const void ** __instpat_end = &&__instpat_end_;
   
 
-static word_t jumpTo[256];  
-static word_t jumpFrom[256];  
+static word_t jumpTo[2560];  
+static word_t jumpFrom[2560];  
 static int jumpid = 0;
 
 static void jump_inst_record(const Decode *s)
@@ -71,7 +71,7 @@ static void jump_inst_record(const Decode *s)
   jumpTo[jumpid] = s -> dnpc;
   //printf("jumpid = %d, from 0x%08x to 0x%08x\n",jumpid,jumpFrom[jumpid],jumpTo[jumpid]);
   jumpid++;
-  assert(jumpid < 256);
+  assert(jumpid < 2560);
   
 }
 static int decode_exec(Decode *s) {
