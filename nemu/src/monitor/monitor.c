@@ -211,16 +211,15 @@ void init_elf()
     printf("it is not ELF FILE\n");
   }
 
-  Elf32_Shdr sectionHeader;
+  Elf32_Shdr sectionHeader[64];
   printf("elfHeader.e_shoff = %x\n", elfHeader.e_shoff);
-  fseek(fp, elfHeader.e_shoff, SEEK_SET);
-  fread(&sectionHeader,1,sizeof(sectionHeader),fp);
-  printf("sectionheader size = %d\n",sizeof(sectionHeader));
-  for(int i = 0; i < elfHeader.e_shnum; i+=40)
+  for(int i = 0 ; i < elfHeader.e_shnum ; i++)
   {
-    // printf("%d\n",);
-    ;
+    fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
+    fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
+    printf("%ld",sectionHeader[i].sh_type);
   }
+  
   fclose(fp);
  
   
