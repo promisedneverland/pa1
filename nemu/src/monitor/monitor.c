@@ -173,25 +173,43 @@ void am_init_monitor() {
 }
 #endif
 
-void init_elf()
+static int strTabOffset;
+static int symtabID;
+static Elf32_Shdr sectionHeader[64];
+static Elf32_Ehdr elfHeader;
+static Elf32_Sym symTab[128];
+static symTabNum;
+void  init_symTab(FILE* fp)
 {
-  if (elf_file == NULL) {
-    Log("No elf is given\n");
-    return ;
+  symTabNum = sectionHeader[symtabID].sh_size / sectionHeader[symtabID].sh_entsize;
+  for(int i = 0 ; i < symTabNum; i++)
+  {
+    fseek(fp, sectionHeader[symtabID].sh_offset, SEEK_SET);
+    fread(&symTab,1,sizeof(symTab),fp);   
   }
+}
 
-  FILE *fp = fopen(elf_file, "rb");
-  Assert(fp, "Can not open '%s'", elf_file);
+void init_strTab()
+{
+  strTabOffset = sectionHeader[sectionHeader[symtabID].sh_link].sh_offset;
+}
 
-  //统计elf的size
-  fseek(fp, 0, SEEK_END);
-  long size = ftell(fp);
-  printf("The elf is %s, size = %ld", elf_file, size);
+void init_section_Header(FILE* fp)
+{
+  for(int i = 0 ; i < elfHeader.e_shnum ; i++)
+  {
+    fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
+    fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
+    //printf("%ld\n",sectionHeader[i].sh_type);
+    if(sectionHeader[i].sh_type == SHT_SYMTAB)
+    {
+      symtabID = i;
+    }
+  }
+}
 
-  //初始化ELF_HEADER，并检查是不是ELF文件
-  fseek(fp, 0, SEEK_SET);
-  Elf32_Ehdr elfHeader;
-  fread(&elfHeader,1,sizeof(elfHeader),fp);
+void checkELF()
+{
   printf("elfheader size = %d\n",sizeof(elfHeader));
   if(elfHeader.e_ident[0] == 0x7f &&
        elfHeader.e_ident[1] == 'E' &&
@@ -210,40 +228,52 @@ void init_elf()
     // // } while (c != EOF);
     printf("it is not ELF FILE\n");
   }
+}
 
-  Elf32_Shdr sectionHeader[64];
-  int symtabid = 0, strtabid = 0;
-  //printf("elfHeader.e_shoff = %x\n", elfHeader.e_shoff);
-  for(int i = 0 ; i < elfHeader.e_shnum ; i++)
-  {
-    fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
-    fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
-    //printf("%ld\n",sectionHeader[i].sh_type);
-    if(sectionHeader[i].sh_type == SHT_SYMTAB)
-    {
-      symtabid = i;
-    }
-    if(sectionHeader[i].sh_type == SHT_STRTAB)
-    {
-      strtabid = i;//可能有多个strtab
-    }
-  }
-
-  Elf32_Sym symTab[128];
-  int symTabNum = sectionHeader[symtabid].sh_size / sectionHeader[symtabid].sh_entsize;
+int funcID[128] = {};
+int funcNum = 0;
+void init_funcTab(FILE* fp)
+{
+  int id = 0;
   for(int i = 0 ; i < symTabNum; i++)
   {
-    fseek(fp, sectionHeader[symtabid].sh_offset, SEEK_SET);
-    fread(&symTab,1,sizeof(symTab),fp);   
-
-    printf("%08x\n",symTab[i].st_value);
     if(ELF32_ST_TYPE(symTab[i].st_info) == STT_FUNC)
     {
-      printf("  %d  ",i);
+      i = funcID[id];
+      id++;
     }
-    
   }
- 
+  funcNum = id;
+}
+
+void init_elf()
+{
+  if (elf_file == NULL) {
+    Log("No elf is given\n");
+    return ;
+  }
+  FILE *fp = fopen(elf_file, "rb");
+  Assert(fp, "Can not open '%s'", elf_file);
+
+  //统计elf的size
+  fseek(fp, 0, SEEK_END);
+  long size = ftell(fp);
+  printf("The elf is %s, size = %ld", elf_file, size);
+
+  //初始化ELF_HEADER，并检查是不是ELF文件
+  fseek(fp, 0, SEEK_SET);
+  fread(&elfHeader,1,sizeof(elfHeader),fp);
+
+  checkELF();
+  
+  init_section_Header(fp);
+
+  init_strTab();
+  
+  init_symTab(fp);
+  
+  init_funcTab(fp);
+
   fclose(fp);
  
   
