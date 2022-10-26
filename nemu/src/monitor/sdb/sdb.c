@@ -244,14 +244,14 @@ void sdb_mainloop() {
     { 
       if(lastCMD[0] != '\0')
       {
-        strncpy(cmd,lastCMD,12);
+        strncpy(cmd,lastCMD,128);
       }
       else
         continue;
     }//若根本没有字符,则执行上一条指令
     else// 若不空，则更新lastcmd
     {
-      strncpy(lastCMD,cmd,12);
+      strncpy(lastCMD,cmd,128);
     }
 
     /* treat the remaining string as the arguments,
