@@ -133,7 +133,7 @@ static int cmd_help(char *args);
 static int cmd_p(char *args)
 {
   bool state = 1;
-  printf("%u\n",expr(args,&state));
+  printf("%u   0x%08x\n",expr(args,&state),expr(args,&state));
   // make_token(args);
   if(state == 0)
     printf("p cmd failed\n");
