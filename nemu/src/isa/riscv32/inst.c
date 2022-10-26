@@ -153,7 +153,10 @@ static int decode_exec(Decode *s) {
 }
 void print_Ftrace()
 {
-  ;
+  for(int i = 0 ; i < jumpid ; i++)
+  {
+    printf("jumpid = %d, from 0x%08x to 0x%08x\n",jumpid,jumpFrom[jumpid],jumpTo[jumpid]);
+  }
 }
 int isa_exec_once(Decode *s)
 {
