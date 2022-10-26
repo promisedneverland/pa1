@@ -213,7 +213,7 @@ void init_elf()
 
   Elf32_Shdr sectionHeader[64];
   int symtabid = 0, strtabid = 0;
-  printf("elfHeader.e_shoff = %x\n", elfHeader.e_shoff);
+  //printf("elfHeader.e_shoff = %x\n", elfHeader.e_shoff);
   for(int i = 0 ; i < elfHeader.e_shnum ; i++)
   {
     fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
@@ -236,7 +236,7 @@ void init_elf()
     fseek(fp, sectionHeader[symtabid].sh_offset, SEEK_SET);
     fread(&symTab,1,sizeof(symTab),fp);   
 
-    printf("%x\n",symTab[i].st_value);
+    printf("%08x\n",symTab[i].st_value);
     if(ELF32_ST_TYPE(symTab[i].st_info) == STT_FUNC)
     {
       //printf("  %d  ",i);
