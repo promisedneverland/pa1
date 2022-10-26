@@ -244,8 +244,8 @@ void sdb_mainloop() {
     { 
       if(lastisSI)
       {
-        str = "si";
-        cmd = str;
+        cmd_s(0);
+        continue;
       }
       else
         continue;
