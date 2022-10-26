@@ -246,6 +246,8 @@ void sdb_mainloop() {
       {
         cmd = lastCMD;
       }
+      else
+        continue;
     }//若根本没有字符,则执行上一条指令
     else// 若不空，则更新lastcmd
     {
