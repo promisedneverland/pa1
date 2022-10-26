@@ -245,6 +245,7 @@ void sdb_mainloop() {
       if(lastCMD[0] != '\0')
       {
         strncpy(cmd,lastCMD,128);
+        printf("%s\n",lastCMD);
       }
       else
         continue;
