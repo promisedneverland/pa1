@@ -212,14 +212,38 @@ void init_elf()
   }
 
   Elf32_Shdr sectionHeader[64];
+  int symtabid = 0, strtabid = 0;
   printf("elfHeader.e_shoff = %x\n", elfHeader.e_shoff);
   for(int i = 0 ; i < elfHeader.e_shnum ; i++)
   {
     fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
     fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
-    printf("%ld\n",sectionHeader[i].sh_type);
+    //printf("%ld\n",sectionHeader[i].sh_type);
+    if(sectionHeader[i].sh_type == SHT_SYMTAB)
+    {
+      symtabid = i;
+    }
+    if(sectionHeader[i].sh_type == SHT_STRTAB)
+    {
+      strtabid = i;//可能有多个strtab
+    }
   }
-  
+
+  Elf32_Sym symTab[128];
+  int symTabNum = sectionHeader[symtabid].sh_size / sectionHeader[symtabid].sh_entsize;
+  for(int i = 0 ; i < symTabNum; i++)
+  {
+    fseek(fp, sectionHeader[symtabid].sh_offset, SEEK_SET);
+    fread(&symTab,1,sizeof(symTab),fp);   
+
+    printf("%x\n",symTab[i].st_value);
+    if(ELF32_ST_TYPE(symTab[i].st_info) == STT_FUNC)
+    {
+      printf("  %d  ",i);
+    }
+    
+  }
+ 
   fclose(fp);
  
   
