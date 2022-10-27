@@ -197,7 +197,7 @@ static struct {//命令们
   { "si", "step instruction", cmd_s },
   { "info", "information reg/watchpoint", cmd_i },
   { "x", "scan memory N*(4bytes) startindex", cmd_x },
-  { "p", "calculate expression", cmd_p },
+  { "p", "calculate expression f: Ftrace", cmd_p },
   { "w", "set watchpoint EXPR", cmd_w },
   { "d", "delete watchpoint id = N", cmd_d },
   //命令 描述 函数
