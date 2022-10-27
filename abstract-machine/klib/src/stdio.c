@@ -4,7 +4,14 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-
+void printstr(char* str)
+{
+  for(int i = 0 ; *(str + i) != 0 ; i++)
+  {
+    putch(*(str + i));
+  }
+  putch('\n');
+}
 int printf(const char *fmt, ...) {
   panic("Not implemented");
 }
@@ -84,6 +91,8 @@ int sprintf(char *out, const char *fmt, ...) {
   }
   va_end(ap);
   out[charout] = '\0';
+  
+  printstr(out);
   return charout;
 }
 
