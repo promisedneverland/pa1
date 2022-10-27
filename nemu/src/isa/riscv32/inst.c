@@ -177,16 +177,7 @@ void print_Ftrace()
   
   for(int i = 0 ; i < jumpid ; i++)
   {
-    if(jumpType[i] == CALL)
-    {
-      strcpy(s,"call");
-      space++;
-    }
-    else
-    {
-      strcpy(s,"ret ");
-      space--;
-    }
+    
 
     name = get_func_name(jumpTo[i]);
 
@@ -199,6 +190,16 @@ void print_Ftrace()
       printf(" ");
     }
     printf("%s [ %s @ 0x%08x ] \n", s, name, jumpTo[i]);
+    if(jumpType[i] == CALL)
+    {
+      strcpy(s,"call");
+      space++;
+    }
+    else
+    {
+      strcpy(s,"ret ");
+      space--;
+    }
     //printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
