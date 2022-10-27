@@ -197,7 +197,7 @@ void init_strTab(FILE* fp)
   func_strTabID =  sectionHeader[symtabID].sh_link;
   strTabOffset = sectionHeader[sectionHeader[symtabID].sh_link].sh_offset;
   fseek(fp, strTabOffset, SEEK_SET);
-  fread(&strTab,1,sizeof(sectionHeader[func_strTabID].sh_size),fp);   
+  fread(&strTab,1,sectionHeader[func_strTabID].sh_size,fp);   
 }
 
 void init_section_Header(FILE* fp)
