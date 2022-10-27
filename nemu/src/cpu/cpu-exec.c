@@ -23,7 +23,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INST_TO_PRINT 1000
+#define MAX_INST_TO_PRINT 10000
 #define I_RING_BUF_SIZE 64
 #define I_RING_INS_SIZE 12
 CPU_state cpu = {};//创建一个cpu
