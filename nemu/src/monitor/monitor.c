@@ -173,13 +173,16 @@ void am_init_monitor() {
 }
 #endif
 
-static int strTabOffset;
-static int symtabID;
+static word_t strTabOffset;
+static char strTab[65536] = {};
+static int symtabID = 0;
 static Elf32_Shdr sectionHeader[64];
 static Elf32_Ehdr elfHeader;
 static Elf32_Sym symTab[128];
 static int symTabNum = 0;
-void  init_symTab(FILE* fp)
+static int func_strTabID = 0;
+
+void init_symTab(FILE* fp)
 {
   symTabNum = sectionHeader[symtabID].sh_size / sectionHeader[symtabID].sh_entsize;
   for(int i = 0 ; i < symTabNum; i++)
@@ -189,9 +192,12 @@ void  init_symTab(FILE* fp)
   }
 }
 
-void init_strTab()
+void init_strTab(FILE* fp)
 {
+  func_strTabID =  sectionHeader[symtabID].sh_link;
   strTabOffset = sectionHeader[sectionHeader[symtabID].sh_link].sh_offset;
+  fseek(fp, strTabOffset, SEEK_SET);
+  fread(&strTab,1,sizeof(sectionHeader[func_strTabID].sh_size),fp);   
 }
 
 void init_section_Header(FILE* fp)
@@ -254,6 +260,14 @@ bool is_func_start(word_t addr)
   }
   return false;
 }
+char* get_func_name(word_t addr)
+{
+  for(int i = 0 ; i < funcNum ; i++)
+  {
+    if(symTab[funcID[i]].st_value >= addr && symTab[funcID[i]].st_value + symTab[funcID[i]].st_size < addr)
+      return strTab + symTab[funcID[i]].st_name;
+  }
+}
 void init_elf()
 {
   if (elf_file == NULL) {
@@ -276,7 +290,7 @@ void init_elf()
   
   init_section_Header(fp);
 
-  init_strTab();
+  init_strTab(fp);
   
   init_symTab(fp);
   

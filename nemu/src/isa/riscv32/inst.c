@@ -166,18 +166,33 @@ void init_jumpType()
       jumpType[i] = RET;
   }
 }
+char* get_func_name(word_t to);
 void print_Ftrace()
 {
   init_jumpType();
   char s[6];
+  int space = 0;
+  char* name;
   for(int i = 0 ; i < jumpid ; i++)
   {
     if(jumpType[i] == CALL)
+    {
       strcpy(s,"call");
+      space++;
+    }
     else
+    {
       strcpy(s,"ret ");
-    printf("%4d 0x%08x : to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
+      space--;
+    }
+    name = get_func_name(jumpTo[i]);
 
+    printf("%4d 0x%08x : ",i,jumpFrom[i]);
+    for(int j = 0 ; j < space ; j++)
+    {
+      printf(" ");
+    }
+    printf("%s [ %s @ 0x%08x ] \n", s, name, jumpTo[i]);
     //printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
