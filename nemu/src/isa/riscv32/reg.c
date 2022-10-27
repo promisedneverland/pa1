@@ -28,7 +28,7 @@ extern int used_rs2;
 void isa_reg_display() {//printf 输出所有寄存器的值
   for(int i=0;i<32;i++)
   {
-    Log("nemu: %s at pc = ",ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN));
+    Log("nemu: %s at pc = ",ANSI_FMT("regs", ANSI_FG_GREEN));
     printf("%10s 0x%08x %u\n",regs[i],cpu.gpr[i],cpu.gpr[i]);
   }  
 }
