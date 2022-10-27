@@ -267,6 +267,7 @@ char* get_func_name(word_t addr)
     if(symTab[funcID[i]].st_value >= addr && symTab[funcID[i]].st_value + symTab[funcID[i]].st_size < addr)
       return strTab + symTab[funcID[i]].st_name;
   }
+  return NULL;
 }
 void init_elf()
 {

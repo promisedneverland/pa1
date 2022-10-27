@@ -185,7 +185,9 @@ void print_Ftrace()
       strcpy(s,"ret ");
       space--;
     }
+    
     name = get_func_name(jumpTo[i]);
+    assert(name);
 
     printf("%4d 0x%08x : ",i,jumpFrom[i]);
     for(int j = 0 ; j < space ; j++)
