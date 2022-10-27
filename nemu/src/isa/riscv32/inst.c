@@ -51,8 +51,8 @@ static void decode_operand(Decode *s, int *dest, word_t *src1,
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
 
-  used_rs1 = 0;
-  used_rs2 = 0;
+  used_rs1 = -1;
+  used_rs2 = -1;
   used_rd = rd;
 
   *dest = rd;
