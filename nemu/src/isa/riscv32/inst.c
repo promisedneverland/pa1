@@ -29,9 +29,9 @@ enum {
   TYPE_N,  TYPE_J, TYPE_R, TYPE_B// none
 };
 
-int used_rs1 = 0;
-int used_rs2 = 0;
-int used_rd = 0;
+int used_rs1 = -1;
+int used_rs2 = -1;
+int used_rd = -1;
 #define src1R() do { *src1 = R(rs1); used_rs1 = rs1; } while (0)
 #define src2R() do { *src2 = R(rs2); used_rs2 = rs2;} while (0)
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
