@@ -22,7 +22,7 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-void init_jumpType();
+bool is_func_start(word_t w);
 
 enum {
   TYPE_I, TYPE_U, TYPE_S,
