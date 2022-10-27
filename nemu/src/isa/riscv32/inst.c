@@ -170,9 +170,11 @@ char* get_func_name(word_t to);
 void print_Ftrace()
 {
   init_jumpType();
+
   char s[6];
   int space = 0;
   char* name;
+  
   for(int i = 0 ; i < jumpid ; i++)
   {
     if(jumpType[i] == CALL)
@@ -185,9 +187,11 @@ void print_Ftrace()
       strcpy(s,"ret ");
       space--;
     }
-    
+
     name = get_func_name(jumpTo[i]);
+
     assert(name);
+    assert(space >= 0);
 
     printf("%4d 0x%08x : ",i,jumpFrom[i]);
     for(int j = 0 ; j < space ; j++)
