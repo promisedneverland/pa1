@@ -22,6 +22,8 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
+void init_jumpType();
+
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_N,  TYPE_J, TYPE_R, TYPE_B// none
