@@ -172,7 +172,7 @@ void print_Ftrace()
 
   for(int i = 0 ; i < jumpid ; i++)
   {
-    printf("jumpid = %3d, from 0x%08x to 0x%08x\n, type = %d",i,jumpFrom[i],jumpTo[i], jumpType[i]);
+    printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
 int isa_exec_once(Decode *s)
