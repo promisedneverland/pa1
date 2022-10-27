@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-void printstr(char* str)
+void printstr(const char* str)
 {
   for(int i = 0 ; *(str + i) != 0 ; i++)
   {
@@ -56,6 +56,7 @@ int sprintf(char *out, const char *fmt, ...) {
   char *s;
   char buffer[33];
   va_start(ap, fmt);
+  //printstr(fmt);
   while (*fmt)
   {
     if(*fmt == '%')
@@ -68,10 +69,16 @@ int sprintf(char *out, const char *fmt, ...) {
         charout += strlen(s) + 1;//\0
         break;
       case 'd':              /* int */
+        //putch('d');
+        //putch(':');
         d = va_arg(ap, int);
         itoa(d,buffer,10);
+        //printstr("buffer = ");
+        //printstr(buffer);
         strcpy(out+charout,buffer);
-        charout += strlen(buffer) + 1;
+        //printstr("out = ");
+        //printstr(out);
+        charout += strlen(buffer) ;
         break;
       case 'c':              /* char */
         /* need a cast here since va_arg only takes fully promoted types */
@@ -92,7 +99,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_end(ap);
   out[charout] = '\0';
   
-  printstr(out);
+  //printstr(out);
   return charout;
 }
 
