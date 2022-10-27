@@ -198,7 +198,7 @@ void print_Ftrace()
     {
       printf(" ");
     }
-    printf("%s [ %s @ 0x%08x ] \n", s, name, jumpTo[i]);
+    printf("%s [ %10s @ 0x%08x ] \n", s, name, jumpTo[i]);
     if(jumpType[i] == CALL)
     {
       space++;
