@@ -185,7 +185,7 @@ void print_Ftrace()
     else
     {
       strcpy(s,"ret ");
-    
+      space--;
     }
 
     name = get_func_name(jumpTo[i]);
