@@ -245,7 +245,15 @@ void init_funcTab(FILE* fp)
   }
   funcNum = id;
 }
-
+bool is_func_start(word_t addr)
+{
+  for(int i = 0 ; i < funcNum ; i++)
+  {
+    symTab[funcID[i]].st_value == addr;
+    return true;
+  }
+  return false;
+}
 void init_elf()
 {
   if (elf_file == NULL) {

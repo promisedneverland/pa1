@@ -60,9 +60,10 @@ static void decode_operand(Decode *s, int *dest, word_t *src1,
   //指令执行操作则是通过C代码来模拟指令执行的真正行为
   //const void ** __instpat_end = &&__instpat_end_;
   
-
+enum {CALL,RET};
 static word_t jumpTo[2560];  
 static word_t jumpFrom[2560];  
+static bool jumpType[2560];  
 static int jumpid = 0;
 
 static void jump_inst_record(const Decode *s)
@@ -151,11 +152,25 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-void print_Ftrace()
+void init_jumpType()
 {
   for(int i = 0 ; i < jumpid ; i++)
   {
-    printf("jumpid = %3d, from 0x%08x to 0x%08x\n",i,jumpFrom[i],jumpTo[i]);
+    if(is_func_start(jumpTo[i]))
+    {
+      jumpType[i] = CALL;
+    }
+    else
+      jumpType[i] = RET;
+  }
+}
+void print_Ftrace()
+{
+  init_jumpType();
+
+  for(int i = 0 ; i < jumpid ; i++)
+  {
+    printf("jumpid = %3d, from 0x%08x to 0x%08x\n, type = %d",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
 int isa_exec_once(Decode *s)
