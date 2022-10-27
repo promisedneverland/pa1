@@ -38,7 +38,7 @@ void isa_reg_display() {//printf 输出所有寄存器的值
   for(int i=0;i<32;i++)
   {
     
-    printf(RED "%10s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
+    printf(RED "%5s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
   }  
 }
 
