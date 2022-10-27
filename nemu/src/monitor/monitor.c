@@ -249,8 +249,8 @@ bool is_func_start(word_t addr)
 {
   for(int i = 0 ; i < funcNum ; i++)
   {
-    symTab[funcID[i]].st_value == addr;
-    return true;
+    if(symTab[funcID[i]].st_value == addr)
+      return true;
   }
   return false;
 }
