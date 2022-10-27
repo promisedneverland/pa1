@@ -169,10 +169,16 @@ void init_jumpType()
 void print_Ftrace()
 {
   init_jumpType();
-
+  char s[6];
   for(int i = 0 ; i < jumpid ; i++)
   {
-    printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
+    if(jumpType[i] == CALL)
+      strcpy(s,"call");
+    else
+      strcpy(s,"ret ");
+    printf("%4d 0x%08x : to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
+
+    //printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
 int isa_exec_once(Decode *s)
