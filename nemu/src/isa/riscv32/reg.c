@@ -16,6 +16,15 @@
 #include <isa.h>
 #include "local-include/reg.h"
 
+#define RED   "\x1B[31m"
+#define GRN   "\x1B[32m"
+#define YEL   "\x1B[33m"
+#define BLU   "\x1B[34m"
+#define MAG   "\x1B[35m"
+#define CYN   "\x1B[36m"
+#define WHT   "\x1B[37m"
+#define RESET "\x1B[0m"
+
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
@@ -28,8 +37,8 @@ extern int used_rs2;
 void isa_reg_display() {//printf 输出所有寄存器的值
   for(int i=0;i<32;i++)
   {
-    Log("nemu: %s at pc = ",ANSI_FMT("regs", ANSI_FG_GREEN));
-    printf("%10s 0x%08x %u\n",regs[i],cpu.gpr[i],cpu.gpr[i]);
+    
+    printf(RED "%10s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
   }  
 }
 
