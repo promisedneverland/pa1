@@ -203,10 +203,7 @@ void print_Ftrace()
     {
       space++;
     }
-    else
-    {
-      space--;
-    }
+    
     //printf("jumpid = %3d, from 0x%08x to 0x%08x, type = %d\n",i,jumpFrom[i],jumpTo[i], jumpType[i]);
   }
 }
