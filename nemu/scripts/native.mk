@@ -26,7 +26,7 @@ $(BINARY): compile_git
 TEST_HOME=$(HOME)/ics2022/am-kernels/tests/cpu-tests
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += $(ARGS_DIFF)
-override ARGS += --elf=$(TEST_HOME)/build/add-riscv32-nemu.elf
+override ARGS += --elf=$(TEST_HOME)/build/$(ALL)-riscv32-nemu.elf
 #override ARGS += -b
 
 # Command to execute NEMU
