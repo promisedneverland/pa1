@@ -58,7 +58,7 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
   return ok;
 }
-
+//array和gpr+pc共用
 bool gdb_getregs(union isa_gdb_regs *r) {
   gdb_send(conn, (const uint8_t *)"g", 1);
   size_t size;
@@ -67,10 +67,11 @@ bool gdb_getregs(union isa_gdb_regs *r) {
   int i;
   uint8_t *p = reply;
   uint8_t c;
-  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
+  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {//33
     c = p[8];
     p[8] = '\0';
     r->array[i] = gdb_decode_hex_str(p);
+    //decode 8个字符
     p[8] = c;
     p += 8;
   }

@@ -34,13 +34,13 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
     assert(ok == 1);
   }
 }
-
+//qemu_r: pc+gpr
 void difftest_regcpy(void *dut, bool direction) {
   union isa_gdb_regs qemu_r;
-  gdb_getregs(&qemu_r);
-  if (direction == DIFFTEST_TO_REF) {
+  gdb_getregs(&qemu_r);//得到标准的状态并存到qemur
+  if (direction == DIFFTEST_TO_REF) {//设置REF寄存器为DUT
     memcpy(&qemu_r, dut, DIFFTEST_REG_SIZE);
-    gdb_setregs(&qemu_r);
+    gdb_setregs(&qemu_r);//
   } else {
     memcpy(dut, &qemu_r, DIFFTEST_REG_SIZE);
   }

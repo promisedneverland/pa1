@@ -88,7 +88,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
   ref_difftest_init(port);
   ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
-  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);//往REF拷贝DUT寄存器状态
 }
 
 static void checkregs(CPU_state *ref, vaddr_t pc) {
@@ -99,8 +99,8 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
   }
 }
 
-void difftest_step(vaddr_t pc, vaddr_t npc) {
-  CPU_state ref_r;
+void difftest_step(vaddr_t pc, vaddr_t npc) {//在cpu_exec中调用
+  CPU_state ref_r;//不是内置的cpu
 
   if (skip_dut_nr_inst > 0) {
     ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
@@ -123,7 +123,7 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
   }
 
   ref_difftest_exec(1);
-  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);//获取REF的寄存器，存到ref_r(新建的)，得到标准
 
   checkregs(&ref_r, pc);
 }

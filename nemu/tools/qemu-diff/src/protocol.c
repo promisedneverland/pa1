@@ -41,7 +41,7 @@ hex_nibble(uint8_t hex) {
   return isdigit(hex) ? hex - '0' : tolower(hex) - 'a' + 10;
 }
 
-uint8_t hex_encode(uint8_t digit) {
+uint8_t hex_encode(uint8_t digit) {//10 -> 'a', 5 -> '5'
   return digit > 9 ? 'a' + digit - 10 : '0' + digit;
 }
 
