@@ -214,27 +214,27 @@ void init_section_Header(FILE* fp)
   }
 }
 
-void checkELF()
-{
-  printf("elfheader size = %d\n",sizeof(elfHeader));
-  if(elfHeader.e_ident[0] == 0x7f &&
-       elfHeader.e_ident[1] == 'E' &&
-       elfHeader.e_ident[2] == 'L' &&
-       elfHeader.e_ident[3] == 'F') 
-  {
-    printf("it is ELF FILE\n");
-  }
-  else 
-  {
-    // fseek(fp, 0, SEEK_SET);
-    // int c;
-    // // do {
-    // //   c = fgetc (fp);
-    // //   printf("%02x ",c);
-    // // } while (c != EOF);
-    printf("it is not ELF FILE\n");
-  }
-}
+// void checkELF()
+// {
+//   printf("elfheader size = %d\n",sizeof(elfHeader));
+//   if(elfHeader.e_ident[0] == 0x7f &&
+//        elfHeader.e_ident[1] == 'E' &&
+//        elfHeader.e_ident[2] == 'L' &&
+//        elfHeader.e_ident[3] == 'F') 
+//   {
+//     printf("it is ELF FILE\n");
+//   }
+//   else 
+//   {
+//     // fseek(fp, 0, SEEK_SET);
+//     // int c;
+//     // // do {
+//     // //   c = fgetc (fp);
+//     // //   printf("%02x ",c);
+//     // // } while (c != EOF);
+//     printf("it is not ELF FILE\n");
+//   }
+// }
 
 int funcID[128] = {};
 int funcNum = 0;
