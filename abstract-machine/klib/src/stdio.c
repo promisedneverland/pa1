@@ -10,10 +10,16 @@ void printstr(const char* str)
   {
     putch(*(str + i));
   }
-  putch('\n');
+  //putch('\n');
 }
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  // char* str_tobe_print;
+  // va_list ap;
+  // va_start(ap, fmt);
+  // int len = sprintf(str_tobe_print, fmt, ...);
+  // printstr(str_tobe_print);
+  // return len;
+  return 1;
 }
 void swap(char* a, char* b)
 {
