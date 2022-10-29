@@ -23,6 +23,7 @@ uint8_t* new_space(int size);
 
 typedef struct {
   const char *name;
+  //名字, 映射的起始地址和结束地址, 映射的目标空间, 以及一个回调函数
   // we treat ioaddr_t as paddr_t here
   paddr_t low;
   paddr_t high;
