@@ -188,7 +188,8 @@ void init_symTab(FILE* fp)
   for(int i = 0 ; i < symTabNum; i++)
   {
     fseek(fp, sectionHeader[symtabID].sh_offset, SEEK_SET);
-    fread(&symTab,1,sizeof(symTab),fp);   
+    int ret = fread(&symTab,1,sizeof(symTab),fp);   
+    assert(ret == 1);
   }
 }
 
@@ -197,7 +198,8 @@ void init_strTab(FILE* fp)
   func_strTabID =  sectionHeader[symtabID].sh_link;
   strTabOffset = sectionHeader[sectionHeader[symtabID].sh_link].sh_offset;
   fseek(fp, strTabOffset, SEEK_SET);
-  fread(&strTab,1,sectionHeader[func_strTabID].sh_size,fp);   
+  int ret = fread(&strTab,1,sectionHeader[func_strTabID].sh_size,fp);   
+  assert(ret == 1);
 }
 
 void init_section_Header(FILE* fp)
@@ -205,7 +207,8 @@ void init_section_Header(FILE* fp)
   for(int i = 0 ; i < elfHeader.e_shnum ; i++)
   {
     fseek(fp, elfHeader.e_shoff + i * elfHeader.e_shentsize , SEEK_SET);
-    fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
+    int ret = fread(&sectionHeader[i],1,sizeof(sectionHeader),fp);   
+    assert(ret == 1);
     //printf("%ld\n",sectionHeader[i].sh_type);
     if(sectionHeader[i].sh_type == SHT_SYMTAB)
     {
@@ -285,8 +288,8 @@ void init_elf()
 
   //初始化ELF_HEADER，并检查是不是ELF文件
   fseek(fp, 0, SEEK_SET);
-  fread(&elfHeader,1,sizeof(elfHeader),fp);
-
+  int ret = fread(&elfHeader,1,sizeof(elfHeader),fp);
+  assert(ret == 1);
   //checkELF();
   
   init_section_Header(fp);
