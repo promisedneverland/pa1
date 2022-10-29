@@ -287,7 +287,7 @@ void init_elf()
   fseek(fp, 0, SEEK_SET);
   fread(&elfHeader,1,sizeof(elfHeader),fp);
 
-  checkELF();
+  //checkELF();
   
   init_section_Header(fp);
 
