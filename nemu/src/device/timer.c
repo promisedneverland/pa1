@@ -24,6 +24,7 @@ static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
   assert(offset == 0 || offset == 4);
   if (!is_write && offset == 4) {
     uint64_t us = get_time();
+    //更新设备寄存器
     rtc_port_base[0] = (uint32_t)us;//距离启动时间的微秒数低32位
     rtc_port_base[1] = us >> 32;//高32位
   }
