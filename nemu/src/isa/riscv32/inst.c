@@ -69,11 +69,11 @@ static void decode_operand(Decode *s, int *dest, word_t *src1,
   // 指令类型用于后续译码过程
   //指令执行操作则是通过C代码来模拟指令执行的真正行为
   //const void ** __instpat_end = &&__instpat_end_;
-  
+#define JUMP_BUF_SIZE 65536  
 enum {CALL,RET};
-static word_t jumpTo[2560];  
-static word_t jumpFrom[2560];  
-static bool jumpType[2560];  
+static word_t jumpTo[JUMP_BUF_SIZE];  
+static word_t jumpFrom[JUMP_BUF_SIZE];  
+static bool jumpType[JUMP_BUF_SIZE];  
 static int jumpid = 0;
 
 static void jump_inst_record(const Decode *s)
@@ -82,7 +82,7 @@ static void jump_inst_record(const Decode *s)
   jumpTo[jumpid] = s -> dnpc;
   //printf("jumpid = %d, from 0x%08x to 0x%08x\n",jumpid,jumpFrom[jumpid],jumpTo[jumpid]);
   jumpid++;
-  assert(jumpid < 2560);
+  assert(jumpid < JUMP_BUF_SIZE);
   
 }
 static int decode_exec(Decode *s) {
@@ -155,8 +155,8 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));//无效指令
   INSTPAT_END();
 
-  //if(isjump)
-  //  jump_inst_record(s);
+  if(isjump)
+    jump_inst_record(s);
   
   R(0) = 0; // reset $zero to 0
 
