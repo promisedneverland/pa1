@@ -3,6 +3,49 @@
 #include <klib-macros.h>
 #include <stdarg.h>
 
+#define PRINTF_HANDLE(charout) { \
+  va_list ap; \
+  int d; \
+  char c; \
+  char *s; \
+  char buffer[33]; \
+  va_start(ap, fmt); \
+  while (*fmt) \
+  {\
+    if(*fmt == '%')\
+    {\
+      fmt++;\
+      switch (*fmt) {\
+      case 's':\
+        s = va_arg(ap, char *);\
+        strcpy(out+charout,s);\
+        charout += strlen(s) + 1;\
+        break;\
+      case 'd':\
+        d = va_arg(ap, int);\
+        itoa(d,buffer,10);\
+        strcpy(out+charout,buffer);\
+        charout += strlen(buffer) ;\
+        break;\
+      case 'c':\
+        c = (char) va_arg(ap, int);\
+        out[charout] = c;\
+        charout++;\
+        break;\
+      }\
+      fmt++;\
+    }\
+    else\
+    {\
+      out[charout] = *fmt;\
+      fmt++;\
+      charout++;\
+    }\
+  }\
+  va_end(ap);\
+  out[charout] = '\0';\
+}
+
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 void printstr(const char* str)
 {
@@ -56,54 +99,56 @@ void itoa(int integer, char* out, int base)//only base = 10 is valid
 }
 int sprintf(char *out, const char *fmt, ...) {
   int charout = 0;
-  va_list ap;
-  int d;
-  char c;
-  char *s;
-  char buffer[33];
-  va_start(ap, fmt);
-  //printstr(fmt);
-  while (*fmt)
-  {
-    if(*fmt == '%')
-    {
-      fmt++;
-      switch (*fmt) {
-      case 's':              /* string */
-        s = va_arg(ap, char *);
-        strcpy(out+charout,s);
-        charout += strlen(s) + 1;//\0
-        break;
-      case 'd':              /* int */
-        //putch('d');
-        //putch(':');
-        d = va_arg(ap, int);
-        itoa(d,buffer,10);
-        //printstr("buffer = ");
-        //printstr(buffer);
-        strcpy(out+charout,buffer);
-        //printstr("out = ");
-        //printstr(out);
-        charout += strlen(buffer) ;
-        break;
-      case 'c':              /* char */
-        /* need a cast here since va_arg only takes fully promoted types */
-        c = (char) va_arg(ap, int);
-        out[charout] = c;
-        charout++;
-        break;
-      }
-      fmt++;
-    }
-    else
-    {
-      out[charout] = *fmt;
-      fmt++;
-      charout++;
-    }
-  }
-  va_end(ap);
-  out[charout] = '\0';
+  PRINTF_HANDLE(charout);
+  // int charout = 0;
+  // va_list ap;
+  // int d;
+  // char c;
+  // char *s;
+  // char buffer[33];
+  // va_start(ap, fmt);
+  // //printstr(fmt);
+  // while (*fmt)
+  // {
+  //   if(*fmt == '%')
+  //   {
+  //     fmt++;
+  //     switch (*fmt) {
+  //     case 's':              /* string */
+  //       s = va_arg(ap, char *);
+  //       strcpy(out+charout,s);
+  //       charout += strlen(s) + 1;//\0
+  //       break;
+  //     case 'd':              /* int */
+  //       //putch('d');
+  //       //putch(':');
+  //       d = va_arg(ap, int);
+  //       itoa(d,buffer,10);
+  //       //printstr("buffer = ");
+  //       //printstr(buffer);
+  //       strcpy(out+charout,buffer);
+  //       //printstr("out = ");
+  //       //printstr(out);
+  //       charout += strlen(buffer) ;
+  //       break;
+  //     case 'c':              /* char */
+  //       /* need a cast here since va_arg only takes fully promoted types */
+  //       c = (char) va_arg(ap, int);
+  //       out[charout] = c;
+  //       charout++;
+  //       break;
+  //     }
+  //     fmt++;
+  //   }
+  //   else
+  //   {
+  //     out[charout] = *fmt;
+  //     fmt++;
+  //     charout++;
+  //   }
+  // }
+  // va_end(ap);
+  // out[charout] = '\0';
   
   //printstr(out);
   return charout;
