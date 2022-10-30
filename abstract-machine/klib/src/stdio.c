@@ -55,7 +55,6 @@ void printstr(const char* str)
 {
   for(int i = 0 ; *(str + i) != '\0' ; i++)
   {
-    putch('1');
     putch(*(str + i));
   }
   //putch('\n');
@@ -67,7 +66,6 @@ int printf(const char *fmt, ...) {
   // int len = sprintf(str_tobe_print, fmt, ...);
   // printstr(str_tobe_print);
   // return len;
-  putch('1');
   int charout = 0;
   char out[65536];
   
@@ -163,6 +161,7 @@ int sprintf(char *out, const char *fmt, ...) {
   // out[charout] = '\0';
   
   //printstr(out);
+  printf("1");
   return charout;
 }
 
