@@ -70,8 +70,9 @@ int printf(const char *fmt, ...) {
   putch('1');
   int charout = 0;
   char out[65536];
-  putch('1');
+  
   PRINTF_HANDLE(charout,out);
+  putch('1');
   printstr(out);
   return charout;
 }
