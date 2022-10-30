@@ -161,7 +161,7 @@ int sprintf(char *out, const char *fmt, ...) {
   // out[charout] = '\0';
   
   //printstr(out);
-  printf("1");
+  
   return charout;
 }
 
