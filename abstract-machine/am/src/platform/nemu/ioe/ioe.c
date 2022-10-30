@@ -57,5 +57,6 @@ bool ioe_init() {
 }
 
 //强制类型转换？
+//读取抽象寄存器内容
 void ioe_read (int reg, void *buf) { ((handler_t)lut[reg])(buf); }
 void ioe_write(int reg, void *buf) { ((handler_t)lut[reg])(buf); }

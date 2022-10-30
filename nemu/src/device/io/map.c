@@ -70,10 +70,13 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   return ret;
 }
 
+//输入物理地址(待映射的mmio空间)，写入映射后的设备空间
+//space指向的空间就是设备寄存器空间？
 void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;
   host_write(map->space + offset, len, data);
+  //调用callback函数
   invoke_callback(map->callback, offset, len, true);
 }
