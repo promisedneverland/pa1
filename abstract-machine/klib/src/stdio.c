@@ -3,7 +3,11 @@
 #include <klib-macros.h>
 #include <stdarg.h>
 
-#define PRINTF_HANDLE(charout) { \
+void itoa(int integer, char* out, int base);//only base = 10 is valid
+void printstr(const char* str);
+void swap(char* a, char* b);
+
+#define PRINTF_HANDLE(charout,out) { \
   va_list ap; \
   int d; \
   char c; \
@@ -62,7 +66,11 @@ int printf(const char *fmt, ...) {
   // int len = sprintf(str_tobe_print, fmt, ...);
   // printstr(str_tobe_print);
   // return len;
-  return 1;
+  int charout = 0;
+  char out[65536];
+  PRINTF_HANDLE(charout,out);
+  printstr(out);
+  return charout;
 }
 void swap(char* a, char* b)
 {
@@ -99,7 +107,7 @@ void itoa(int integer, char* out, int base)//only base = 10 is valid
 }
 int sprintf(char *out, const char *fmt, ...) {
   int charout = 0;
-  PRINTF_HANDLE(charout);
+  PRINTF_HANDLE(charout,out);
   // int charout = 0;
   // va_list ap;
   // int d;
