@@ -53,7 +53,7 @@ void swap(char* a, char* b);
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 void printstr(const char* str)
 {
-  for(int i = 0 ; *(str + i) != 0 ; i++)
+  for(int i = 0 ; *(str + i) != '\0' ; i++)
   {
     putch(*(str + i));
   }
