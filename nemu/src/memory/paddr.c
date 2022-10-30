@@ -77,5 +77,6 @@ void paddr_write(paddr_t addr, int len, word_t data) {
     return; 
   }
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
+  //如果执行到这里，则说明越界
   out_of_bound(addr);
 }

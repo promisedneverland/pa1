@@ -36,8 +36,11 @@ static inline bool map_inside(IOMap *map, paddr_t addr) {
   return (addr >= map->low && addr <= map->high);
 }
 
+//输入物理地址，返回对应的maps数组下标
+//size是maps数组的大小
 static inline int find_mapid_by_addr(IOMap *maps, int size, paddr_t addr) {
   int i;
+  
   for (i = 0; i < size; i ++) {
     if (map_inside(maps + i, addr)) {
       difftest_skip_ref();

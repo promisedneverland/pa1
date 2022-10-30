@@ -106,6 +106,7 @@ static void execute(uint64_t n) {
     g_nr_guest_inst ++;//记录客户指令计数器+1
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;//检查nemu状态
+    //设备更新
     IFDEF(CONFIG_DEVICE, device_update());
   }
 }

@@ -2,7 +2,7 @@
 #define __AMDEV_H__
 
 // **MAY SUBJECT TO CHANGE IN THE FUTURE**
-
+//抽象寄存器编号，与架构无关
 #define AM_DEVREG(id, reg, perm, ...) \
   enum { AM_##reg = (id) }; \
   typedef struct { __VA_ARGS__; } AM_##reg##_T;

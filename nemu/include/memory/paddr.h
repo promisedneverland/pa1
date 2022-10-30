@@ -30,6 +30,8 @@ paddr_t host_to_guest(uint8_t *haddr);
 
 static inline bool in_pmem(paddr_t addr) {//是否在pmem地址空间之内
   return addr - CONFIG_MBASE < CONFIG_MSIZE;
+  //addr - 0x80000000 < 0x80000000
+  //若 addr 大于 0x80000000 则返回true，属于物理内存空间
 }
 
 word_t paddr_read(paddr_t addr, int len);

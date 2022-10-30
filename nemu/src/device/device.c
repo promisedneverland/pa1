@@ -37,11 +37,15 @@ void device_update() {
   //printf("did device_update");
   static uint64_t last = 0;
   uint64_t now = get_time();
+
+  //如果还没到该更新的时候
   if (now - last < 1000000 / TIMER_HZ) {
     return;
   }
+  //到了该更新的时候
   last = now;
 
+  //刷新屏幕
   IFDEF(CONFIG_HAS_VGA, vga_update_screen());
 
 #ifndef CONFIG_TARGET_AM

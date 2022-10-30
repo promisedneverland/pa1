@@ -26,9 +26,13 @@ static uint8_t *p_space = NULL;
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;
+  //空间对齐
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
+  //更新p_space
   p_space += size;
+  //检查是否越界
   assert(p_space - io_space < IO_SPACE_MAX);
+  //返回新空间的起始地址
   return p;
 }
 
@@ -43,21 +47,26 @@ static void check_bound(IOMap *map, paddr_t addr) {
 }
 
 static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_write) {
-  if (c != NULL) { c(offset, len, is_write); }
+  if (c != NULL) { c(offset, len, is_write); }//is_write 指示是否写数据
 }
 
+//功能：创建设备空间，初始化指针
 void init_map() {
-  io_space = malloc(IO_SPACE_MAX);
+  //io_space 指向设备空间的起始
+  io_space = malloc(IO_SPACE_MAX);//新建设备空间
   assert(io_space);
+  //p_space 指向当前使用空间末尾
   p_space = io_space;
 }
-//用于将地址addr映射到map所指示的目标空间
+
+//输入物理地址，返回设备空间处的相对应的值
+//一段物理地址，对应一段在pmem之外的设备地址
 word_t map_read(paddr_t addr, int len, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
-  paddr_t offset = addr - map->low;
+  paddr_t offset = addr - map->low;//地址相对于端口起始处的偏移量
   invoke_callback(map->callback, offset, len, false); // prepare data to read
-  word_t ret = host_read(map->space + offset, len);
+  word_t ret = host_read(map->space + offset, len);//读取map->space + offset 处 字节为len的内容
   return ret;
 }
 

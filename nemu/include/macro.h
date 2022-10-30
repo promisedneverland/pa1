@@ -98,6 +98,7 @@
 #endif
 
 // for AM IOE
+//对抽象寄存器进行访问
 #define io_read(reg) \
   ({ reg##_T __io_param; \
     ioe_read(reg, &__io_param); \

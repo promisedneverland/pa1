@@ -24,6 +24,7 @@ static void __am_uart_config(AM_UART_CONFIG_T *cfg)   { cfg->present = false; }
 static void __am_net_config (AM_NET_CONFIG_T *cfg)    { cfg->present = false; }
 
 typedef void (*handler_t)(void *buf);
+
 static void *lut[128] = {
   [AM_TIMER_CONFIG] = __am_timer_config,
   [AM_TIMER_RTC   ] = __am_timer_rtc,
@@ -55,5 +56,6 @@ bool ioe_init() {
   return true;
 }
 
+//强制类型转换？
 void ioe_read (int reg, void *buf) { ((handler_t)lut[reg])(buf); }
 void ioe_write(int reg, void *buf) { ((handler_t)lut[reg])(buf); }
