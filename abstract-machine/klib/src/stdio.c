@@ -12,7 +12,7 @@ void swap(char* a, char* b);
   int d; \
   char c; \
   char *s; \
-  char buffer[33]; \
+  char buffer[128]; \
   va_start(ap, fmt); \
   while (*fmt) \
   {\
