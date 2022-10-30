@@ -50,6 +50,7 @@ void swap(char* a, char* b);
   out[charout] = '\0';\
 }
 
+//__NATIVE_USE_KLIB__即为用自己写的KLIB
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 void printstr(const char* str)
 {
