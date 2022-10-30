@@ -31,6 +31,7 @@ typedef struct {
   io_callback_t callback;
 } IOMap;
 
+//判断一个地址addr是否在map的起始地址和结束地址之间
 static inline bool map_inside(IOMap *map, paddr_t addr) {
   return (addr >= map->low && addr <= map->high);
 }
