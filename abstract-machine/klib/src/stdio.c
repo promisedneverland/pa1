@@ -72,7 +72,7 @@ int printf(const char *fmt, ...) {
   char out[65536];
   
   PRINTF_HANDLE(charout,out);
-  putch('1');
+
   printstr(out);
   return charout;
 }
