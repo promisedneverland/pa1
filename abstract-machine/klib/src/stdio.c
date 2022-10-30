@@ -6,13 +6,13 @@
 void itoa(int integer, char* out, int base);//only base = 10 is valid
 void printstr(const char* str);
 void swap(char* a, char* b);
-
+#define PRINT_BUF_SIZE 65536
 #define PRINTF_HANDLE(charout,out) { \
   va_list ap; \
   int d; \
   char c; \
   char *s; \
-  char buffer[128]; \
+  char buffer[PRINT_BUF_SIZE]; \
   va_start(ap, fmt); \
   while (*fmt) \
   {\
@@ -67,7 +67,7 @@ int printf(const char *fmt, ...) {
   // printstr(str_tobe_print);
   // return len;
   int charout = 0;
-  char out[65536];
+  char out[PRINT_BUF_SIZE];
   
   PRINTF_HANDLE(charout,out);
 
