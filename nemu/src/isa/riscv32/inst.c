@@ -78,12 +78,12 @@ static int jumpid = 0;
 
 static void jump_inst_record(const Decode *s)
 {
-  jumpFrom[jumpid] = s -> pc;
-  jumpTo[jumpid] = s -> dnpc;
-  //printf("jumpid = %d, from 0x%08x to 0x%08x\n",jumpid,jumpFrom[jumpid],jumpTo[jumpid]);
-  jumpid++;
-  assert(jumpid < JUMP_BUF_SIZE);
-  
+  // jumpFrom[jumpid] = s -> pc;
+  // jumpTo[jumpid] = s -> dnpc;
+  // //printf("jumpid = %d, from 0x%08x to 0x%08x\n",jumpid,jumpFrom[jumpid],jumpTo[jumpid]);
+  // jumpid++;
+  // assert(jumpid < JUMP_BUF_SIZE);
+  ;
 }
 static int decode_exec(Decode *s) {
   int dest = 0;
@@ -95,6 +95,7 @@ static int decode_exec(Decode *s) {
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \
 }
+
   bool isjump = 0; 
   INSTPAT_START();
   INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi   , I, R(dest) = src1 + imm);
