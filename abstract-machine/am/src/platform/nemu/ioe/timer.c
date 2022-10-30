@@ -5,6 +5,7 @@
 void __am_timer_init() {
 }
 
+//RTC_ADDR处的内存到底是怎么更新的
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = inl(RTC_ADDR + 4);
   uptime->us <<= 32;
