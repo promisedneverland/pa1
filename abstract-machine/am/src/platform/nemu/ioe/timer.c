@@ -11,7 +11,7 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = inl(RTC_ADDR + 4);
   uptime->us <<= 32;
   uptime->us |= inl(RTC_ADDR);
-  printf("%lld\n",uptime->us);
+  //printf("%lld\n",uptime->us);
   // uptime->us = paddr_read(RTC_ADDR, 4);
   // uptime->us <<= 32;
   // uptime->us |= paddr_read(RTC_ADDR + 4, 4);
