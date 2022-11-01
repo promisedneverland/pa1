@@ -125,10 +125,10 @@ void itoa(long long integer, char* out, int base)//only base = 10 is valid
   }
   out[charnum] = 0;
 }
-int sprintf(char *out, const char *fmt, ...) {
-  assert(0);
 
-  putch('a');
+int sprintf(char *out, const char *fmt, ...) {
+  panic("please implement me");
+
   int charout = 0;
   
   PRINTF_HANDLE(charout,out);
