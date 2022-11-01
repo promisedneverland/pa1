@@ -25,7 +25,7 @@ void swap(char* a, char* b);
       case 's':\
         s = va_arg(ap, char *);\
         strcpy(out+charout,s);\
-        charout += strlen(s) + 1;\
+        charout += strlen(s);\
         break;\
       case 'l':\
         l = va_arg(ap, long long);\
