@@ -80,7 +80,7 @@ void vga_update_screen() {
   printf("1");
   if(vgactl_port_base[1])
   {
-    printf("1");
+    
     update_screen();
     vgactl_port_base[1] = false;
   } 
