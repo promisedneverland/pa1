@@ -5,10 +5,7 @@
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   //kbd->keycode = 0;
-  putch(inb(KBD_ADDR));
-   putch(inb(KBD_ADDR+2));
-    putch(inb(KBD_ADDR+3));
-     putch(inb(KBD_ADDR+4));
+  inl(KBD_ADDR);
   kbd->keydown = 1;
   // if(kbd->keydown == 0)
   kbd->keycode = inl(KBD_ADDR);
