@@ -8,6 +8,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   if(KBD_ADDR == 0)
     putch('?');
   kbd->keydown = 0;
-  kbd->keycode = inl(KBD_ADDR);
+  kbd->keycode = inl(KBD_ADDR) + 1;
   // kbd->keydown = (kbd->keycode) & KEYDOWN_MASK;
 }
