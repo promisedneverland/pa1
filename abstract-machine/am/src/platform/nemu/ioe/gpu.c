@@ -25,23 +25,24 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  printf("x = %d, y = %d, w = %d, h = %d\n, sync = %d",ctl->x,ctl->y,ctl->w,ctl->h, ctl->sync);
+  int w = inw(VGACTL_ADDR + 2);  
+    //printf("x = %d, y = %d, w = %d, h = %d\n",ctl->x,ctl->y,ctl->w,ctl->h);
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  for (int i = ctl->y; i < ctl->y + ctl->h ; i++)
+  {
+    for(int j = ctl->x; j < ctl->x + ctl->w; j++)
+    {
+      fb[j + i * w] = ((uint32_t *)ctl->pixels)[i + j - ctl->y - ctl->x];
+      //printf("i = %d, j = %d, fb = %d\n",i,j,fb[j + i * w]);
+    }
+      
+  }
+  //printf("x = %d, y = %d, w = %d, h = %d\n, sync = %d",ctl->x,ctl->y,ctl->w,ctl->h, ctl->sync);
   if (ctl->sync) 
   {
     //硬件同步开
 
-    int w = inw(VGACTL_ADDR + 2);  
-    //printf("x = %d, y = %d, w = %d, h = %d\n",ctl->x,ctl->y,ctl->w,ctl->h);
-    uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-    for (int i = ctl->y; i < ctl->y + ctl->h ; i++)
-    {
-      for(int j = ctl->x; j < ctl->x + ctl->w; j++)
-      {
-        fb[j + i * w] = ((uint32_t *)ctl->pixels)[i + j - ctl->y - ctl->x];
-        //printf("i = %d, j = %d, fb = %d\n",i,j,fb[j + i * w]);
-      }
-        
-    }
+    
     outl(SYNC_ADDR, 1);
   }
   
