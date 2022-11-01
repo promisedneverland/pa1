@@ -56,8 +56,17 @@ void __am_gpu_status(AM_GPU_STATUS_T *stat) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-  printf("x = %d, y = %d, w = %d, h = %d,pixel[0] = %d \n",ctl->x,ctl->y,ctl->w,ctl->h,*((uint32_t *)ctl->pixels));
-
+  // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  // printf("x = %d, y = %d, w = %d, h = %d,pixel[0] = %d \n",ctl->x,ctl->y,ctl->w,ctl->h,*((uint32_t *)ctl->pixels));
+  // for (int i = 0; i < H ; i++)
+  // {
+  //   for(int j = 0; j < W; j++)
+  //   {
+      
+  //     printf("pixel = %d\n", fb[i * W + j];
+  //   }
+      
+  // }
   if (w == 0 || h == 0) return;
   feclearexcept(-1);
   SDL_Surface *s = SDL_CreateRGBSurfaceFrom(ctl->pixels, w, h, 32, w * sizeof(uint32_t),
