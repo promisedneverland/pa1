@@ -19,6 +19,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
     .width = inw(FB_ADDR + 2), .height = inw(FB_ADDR),
     .vmemsz = inw(FB_ADDR + 2) * inw(FB_ADDR) * sizeof(uint32_t),
   };
+  putch('\n');
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {

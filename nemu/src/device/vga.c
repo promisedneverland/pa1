@@ -77,10 +77,10 @@ static inline void update_screen() {
 void vga_update_screen() {
   // call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
-  //bug: 一直黑屏，虽然进入了这个函数但是
+  
   if(vgactl_port_base[1])
-  {
-    printf("\n");
+  {//bug: 一直黑屏，虽然进入了这个条件语句
+    //printf("\n");
     update_screen();
     vgactl_port_base[1] = false;
   } 
