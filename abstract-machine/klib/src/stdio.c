@@ -94,26 +94,35 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 void itoa(long long integer, char* out, int base)//only base = 10 is valid
 {
-  int charout = 0, start = 0;
+  int charnum = 0, start = 0;
   if(integer < 0)
   {
     out[0] = '-';
-    charout = 1; 
+    charnum = 1; 
     start = 1;
+    integer = - integer;
   }
 
   //if(integer == (1 << 63)) todo
-  while(integer > 0)
+  if(integer == 0)
   {
-    out[charout] = (integer % base) + '0';
-    integer /= base; 
-    charout++;
+    out[0] = '0';
   }
-  
-  for(int i = start; i < charout - i - 1 + start; i++)
+  else
   {
-    swap(&out[i], &out[charout - i - 1 + start]);
+    while(integer > 0)
+    {
+      out[charnum] = (integer % base) + '0';
+      integer /= base; 
+      charnum++;
+    }
+    
+    for(int i = start; i < charnum - i - 1 + start; i++)
+    {
+      swap(&out[i], &out[charnum - i - 1 + start]);
+    }
   }
+  out[charnum] = 0;
 }
 int sprintf(char *out, const char *fmt, ...) {
   int charout = 0;
