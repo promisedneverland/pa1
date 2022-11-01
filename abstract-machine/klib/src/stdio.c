@@ -107,6 +107,7 @@ void itoa(long long integer, char* out, int base)//only base = 10 is valid
   if(integer == 0)
   {
     out[0] = '0';
+    charnum++;
   }
   else
   {
