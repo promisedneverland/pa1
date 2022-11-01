@@ -16,9 +16,11 @@
 #include <common.h>
 #include <device/map.h>
 
+//宽高信息
 #define SCREEN_W (MUXDEF(CONFIG_VGA_SIZE_800x600, 800, 400))
 #define SCREEN_H (MUXDEF(CONFIG_VGA_SIZE_800x600, 600, 300))
 
+//宽高查询
 static uint32_t screen_width() {
   return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).width, SCREEN_W);
 }
@@ -27,6 +29,7 @@ static uint32_t screen_height() {
   return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).height, SCREEN_H);
 }
 
+//字节数
 static uint32_t screen_size() {
   return screen_width() * screen_height() * sizeof(uint32_t);
 }
@@ -70,12 +73,15 @@ static inline void update_screen() {
 #endif
 #endif
 
+//同步寄存器对应的硬件功能
 void vga_update_screen() {
-  // TODO: call `update_screen()` when the sync register is non-zero,
+  // call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
+  
 }
 
 void init_vga() {
+  //8字节MMIO，前四个字节是宽(2)高(2)
   vgactl_port_base = (uint32_t *)new_space(8);
   vgactl_port_base[0] = (screen_width() << 16) | screen_height();
 #ifdef CONFIG_HAS_PORT_IO
@@ -83,7 +89,7 @@ void init_vga() {
 #else
   add_mmio_map("vgactl", CONFIG_VGA_CTL_MMIO, vgactl_port_base, 8, NULL);
 #endif
-
+  //屏幕颜色存储空间
   vmem = new_space(screen_size());
   add_mmio_map("vmem", CONFIG_FB_ADDR, vmem, screen_size(), NULL);
   IFDEF(CONFIG_VGA_SHOW_SCREEN, init_screen());
