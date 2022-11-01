@@ -25,7 +25,17 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  int w = inw(VGACTL_ADDR + 2);  
+  
+  
+  //printf("x = %d, y = %d, w = %d, h = %d\n, sync = %d",ctl->x,ctl->y,ctl->w,ctl->h, ctl->sync);
+  if (ctl->sync) 
+  {
+    //硬件同步开
+    outl(SYNC_ADDR, 1);
+  }
+  else
+  {
+    int w = inw(VGACTL_ADDR + 2);  
   printf("x = %d, y = %d, w = %d, h = %d\n",ctl->x,ctl->y,ctl->w,ctl->h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (int i = ctl->y; i < ctl->y + ctl->h ; i++)
@@ -37,15 +47,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     }
       
   }
-  //printf("x = %d, y = %d, w = %d, h = %d\n, sync = %d",ctl->x,ctl->y,ctl->w,ctl->h, ctl->sync);
-  if (ctl->sync) 
-  {
-    //硬件同步开
-
-    
-    outl(SYNC_ADDR, 1);
   }
-  
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
