@@ -5,7 +5,7 @@
 
 void __am_gpu_init() {
   int i;
-  int w = inw(FB_ADDR + 1);  // TODO: get the correct width
+  int w = inw(FB_ADDR + 2);  // TODO: get the correct width
   int h = inw(FB_ADDR);  // TODO: get the correct height
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
@@ -16,8 +16,8 @@ void __am_gpu_init() {
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
-    .width = inw(FB_ADDR + 1), .height = inw(FB_ADDR),
-    .vmemsz = 0
+    .width = inw(FB_ADDR + 2), .height = inw(FB_ADDR),
+    .vmemsz = 0,
   };
 }
 
