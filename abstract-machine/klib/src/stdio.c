@@ -137,6 +137,7 @@ int sprintf(char *out, const char *fmt, ...) {
   int d;
   char c;
   char *s;
+  long long l;
   char buffer[33];
   va_start(ap, fmt);
   printstr(fmt);
@@ -151,6 +152,12 @@ int sprintf(char *out, const char *fmt, ...) {
         strcpy(out+charout,s);
         charout += strlen(s) + 1;//\0
         break;
+      case 'l':
+        l = va_arg(ap, long long);
+        itoa(l,buffer,10);
+        strcpy(out+charout,buffer);
+        charout += strlen(buffer) ;
+        break;\
       case 'd':              /* int */
         //putch('d');
         //putch(':');
