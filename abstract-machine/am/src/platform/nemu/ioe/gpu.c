@@ -17,7 +17,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
     .width = inw(FB_ADDR + 2), .height = inw(FB_ADDR),
-    .vmemsz = 0,
+    .vmemsz = inw(FB_ADDR + 2) * inw(FB_ADDR) * sizeof(uint32_t),
   };
 }
 
