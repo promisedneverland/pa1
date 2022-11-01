@@ -9,5 +9,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
     putch('?');
   kbd->keydown = 1;
   kbd->keycode = inl(KBD_ADDR);
+  // send_key(keycode);
   // kbd->keydown = (kbd->keycode) & KEYDOWN_MASK;
 }
