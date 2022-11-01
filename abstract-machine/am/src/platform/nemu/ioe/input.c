@@ -8,7 +8,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   inl(KBD_ADDR);
   kbd->keydown = 1;
   // if(kbd->keydown == 0)
-  kbd->keycode = inl(KBD_ADDR);
+  inl(KBD_ADDR);
   // send_key(keycode);
   // kbd->keydown = (kbd->keycode) & KEYDOWN_MASK;
 }
