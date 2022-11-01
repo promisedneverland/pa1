@@ -56,6 +56,7 @@ void device_update() {
         nemu_state.state = NEMU_QUIT;
         break;
 #ifdef CONFIG_HAS_KEYBOARD
+      //处理按键事件
       // If a key was pressed
       case SDL_KEYDOWN:
       case SDL_KEYUP: {
