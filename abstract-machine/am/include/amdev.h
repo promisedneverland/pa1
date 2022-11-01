@@ -16,7 +16,8 @@ AM_DEVREG( 4, TIMER_CONFIG, RD, bool present, has_rtc);
 AM_DEVREG( 5, TIMER_RTC,    RD, int year, month, day, hour, minute, second);
 AM_DEVREG( 6, TIMER_UPTIME, RD, uint64_t us);//系统启动后的微秒数
 AM_DEVREG( 7, INPUT_CONFIG, RD, bool present);
-AM_DEVREG( 8, INPUT_KEYBRD, RD, bool keydown; int keycode);
+AM_DEVREG( 8, INPUT_KEYBRD, RD, bool keydown; int keycode);//8字节
+//keydown为true时表示按下按键, 否则表示释放按键. keycode为按键的断码, 没有按键时, keycode为AM_KEY_NONE.
 AM_DEVREG( 9, GPU_CONFIG,   RD, bool present, has_accel; int width, height, vmemsz);
 AM_DEVREG(10, GPU_STATUS,   RD, bool ready);
 AM_DEVREG(11, GPU_FBDRAW,   WR, int x, y; void *pixels; int w, h; bool sync);
@@ -49,6 +50,7 @@ AM_DEVREG(24, NET_RX,       WR, Area buf);
 enum {
   AM_KEY_NONE = 0,
   AM_KEYS(AM_KEY_NAMES)
+  //展开成AM_KEY_ESCAPE等
 };
 
 // GPU

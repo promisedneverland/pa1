@@ -36,25 +36,31 @@ f(UP) f(DOWN) f(LEFT) f(RIGHT) f(INSERT) f(DELETE) f(HOME) f(END) f(PAGEUP) f(PA
 enum {
   _KEY_NONE = 0,
   MAP(_KEYS, _KEY_NAME)
+  //_KEY_ESCAPE....
 };
 
+//绑定Scancode 和按键， 记录在keymap中
 #define SDL_KEYMAP(k) keymap[concat(SDL_SCANCODE_, k)] = concat(_KEY_, k);
 static uint32_t keymap[256] = {};
-
+//#define MAP(c, f) c(f)
 static void init_keymap() {
   MAP(_KEYS, SDL_KEYMAP)
+  //_KEYS(SDL_KEYMAP)
+  //SDL_KEYMAP(ESCAPE)
+  //keymap[] = ;
 }
 
 #define KEY_QUEUE_LEN 1024
 static int key_queue[KEY_QUEUE_LEN] = {};
 static int key_f = 0, key_r = 0;
 
+//key_read,输入了一个扫描码，将其存到队列中
 static void key_enqueue(uint32_t am_scancode) {
   key_queue[key_r] = am_scancode;
   key_r = (key_r + 1) % KEY_QUEUE_LEN;
   Assert(key_r != key_f, "key queue overflow!");
 }
-
+//key的输出
 static uint32_t key_dequeue() {
   uint32_t key = _KEY_NONE;
   if (key_f != key_r) {
@@ -64,6 +70,8 @@ static uint32_t key_dequeue() {
   return key;
 }
 
+//输入8位扫描码, 判断是松开还是按下
+//松开则最高位是1
 void send_key(uint8_t scancode, bool is_keydown) {
   if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != _KEY_NONE) {
     uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);
@@ -89,7 +97,7 @@ static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
 }
 
 void init_i8042() {
-  //注册4字节
+  //注册4字节,存当前的扫描码
   i8042_data_port_base = (uint32_t *)new_space(4);
   i8042_data_port_base[0] = _KEY_NONE;
 #ifdef CONFIG_HAS_PORT_IO
