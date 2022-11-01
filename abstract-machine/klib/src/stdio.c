@@ -76,11 +76,11 @@ int printf(const char *fmt, ...) {
   // printstr(str_tobe_print);
   // return len;
   int charout = 0;
-  // char out[PRINT_BUF_SIZE];
+  char out[PRINT_BUF_SIZE];
   
-  // PRINTF_HANDLE(charout,out);
+  PRINTF_HANDLE(charout,out);
 
-  // printstr(out);
+  printstr(out);
   return charout;
 }
 void swap(char* a, char* b)
