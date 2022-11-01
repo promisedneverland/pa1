@@ -7,6 +7,7 @@ void __am_gpu_init() {
   int i;
   int w = inw(VGACTL_ADDR + 2);  // TODO: get the correct width
   int h = inw(VGACTL_ADDR);  // TODO: get the correct height
+
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = 1000;
   //同步开
@@ -19,6 +20,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
     .width = inw(VGACTL_ADDR + 2), .height = inw(VGACTL_ADDR),
     .vmemsz = 0,
   };
+  printf("w = %d, h = %d\n",cfg->width,cfg->height);
   //putch('\n');
 }
 
@@ -28,14 +30,14 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     //硬件同步开
 
     int w = inw(VGACTL_ADDR + 2);  
-    printf("x = %d, y = %d, w = %d, h = %d\n",ctl->x,ctl->y,ctl->w,ctl->h);
+    //printf("x = %d, y = %d, w = %d, h = %d\n",ctl->x,ctl->y,ctl->w,ctl->h);
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
     for (int i = ctl->y; i < ctl->y + ctl->h ; i++)
     {
       for(int j = ctl->x; j < ctl->x + ctl->w; j++)
       {
         fb[j + i * w] = ((uint32_t *)ctl->pixels)[i + j - ctl->y - ctl->x];
-        printf("i = %d, j = %d, fb = %d\n",i,j,fb[j + i * w]);
+        //printf("i = %d, j = %d, fb = %d\n",i,j,fb[j + i * w]);
       }
         
     }
