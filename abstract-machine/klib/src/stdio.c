@@ -3,13 +3,14 @@
 #include <klib-macros.h>
 #include <stdarg.h>
 
-void itoa(int integer, char* out, int base);//only base = 10 is valid
+void itoa(long long integer, char* out, int base);//only base = 10 is valid
 void printstr(const char* str);
 void swap(char* a, char* b);
 #define PRINT_BUF_SIZE 65536
 #define PRINTF_HANDLE(charout,out) { \
   va_list ap; \
   int d; \
+  long long l;\
   char c; \
   char *s; \
   char buffer[PRINT_BUF_SIZE]; \
@@ -24,6 +25,12 @@ void swap(char* a, char* b);
         s = va_arg(ap, char *);\
         strcpy(out+charout,s);\
         charout += strlen(s) + 1;\
+        break;\
+      case 'l':\
+        l = va_arg(ap, long long);\
+        itoa(l,buffer,10);\
+        strcpy(out+charout,buffer);\
+        charout += strlen(buffer) ;\
         break;\
       case 'd':\
         d = va_arg(ap, int);\
@@ -85,7 +92,7 @@ void swap(char* a, char* b)
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-void itoa(int integer, char* out, int base)//only base = 10 is valid
+void itoa(long long integer, char* out, int base)//only base = 10 is valid
 {
   int charout = 0, start = 0;
   if(integer < 0)
