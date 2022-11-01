@@ -138,7 +138,7 @@ int sprintf(char *out, const char *fmt, ...) {
   char c;
   char *s;
   long long l;
-  char buffer[33];
+  char buffer[PRINT_BUF_SIZE];
   va_start(ap, fmt);
   printstr(fmt);
   while (*fmt)
