@@ -26,6 +26,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) 
   {
     //硬件同步开
+    putch('\n');
     int w = inw(VGACTL_ADDR + 2);  
    
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
