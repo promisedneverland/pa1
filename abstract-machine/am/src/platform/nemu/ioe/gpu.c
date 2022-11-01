@@ -20,11 +20,12 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
     .width = inw(VGACTL_ADDR + 2), .height = inw(VGACTL_ADDR),
     .vmemsz = 0,
   };
-  printf("w = %d, h = %d\n",cfg->width,cfg->height);
+  //printf("w = %d, h = %d\n",cfg->width,cfg->height);
   //putch('\n');
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  printf("x = %d, y = %d, w = %d, h = %d\n, sync = %d",ctl->x,ctl->y,ctl->w,ctl->h, ctl->sync);
   if (ctl->sync) 
   {
     //硬件同步开
