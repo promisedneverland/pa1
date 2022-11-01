@@ -8,7 +8,7 @@ void __am_gpu_init() {
   int w = inw(VGACTL_ADDR + 2);  // TODO: get the correct width
   int h = inw(VGACTL_ADDR);  // TODO: get the correct height
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
+  for (i = 0; i < w * h; i ++) fb[i] = 1;
   //同步开
   outl(SYNC_ADDR, 1);
 }
@@ -27,7 +27,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     //硬件同步开
     outl(SYNC_ADDR, 1);
   }
-  
+
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
