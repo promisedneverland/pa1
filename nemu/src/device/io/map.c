@@ -62,11 +62,13 @@ void init_map() {
 //输入物理地址，返回设备空间处的相对应的值
 //一段物理地址，对应一段在pmem之外的设备地址
 word_t map_read(paddr_t addr, int len, IOMap *map) {
+  
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;//地址相对于端口起始处的偏移量
   invoke_callback(map->callback, offset, len, false); // prepare data to read
   word_t ret = host_read(map->space + offset, len);//读取map->space + offset 处 字节为len的内容
+  printf("io : %s read addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, ret);
   return ret;
 }
 
@@ -79,4 +81,5 @@ void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   host_write(map->space + offset, len, data);
   //调用callback函数
   invoke_callback(map->callback, offset, len, true);
+  printf("io : %s write addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, data);
 }

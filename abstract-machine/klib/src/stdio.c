@@ -11,7 +11,6 @@ void swap(char* a, char* b);
   va_list ap; \
   int d; \
   long long l;\
-  char c; \
   char *s; \
   char buffer[PRINT_BUF_SIZE]; \
   va_start(ap, fmt); \
@@ -37,11 +36,6 @@ void swap(char* a, char* b);
         itoa(d,buffer,10);\
         strcpy(out+charout,buffer);\
         charout += strlen(buffer) ;\
-        break;\
-      case 'c':\
-        c = (char) va_arg(ap, int);\
-        out[charout] = c;\
-        charout++;\
         break;\
       }\
       fmt++;\
