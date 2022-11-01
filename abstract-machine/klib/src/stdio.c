@@ -129,6 +129,7 @@ int sprintf(char *out, const char *fmt, ...) {
   putch('h');
   int charout = 0;
   assert(0);
+  assert(charout);
   PRINTF_HANDLE(charout,out);
   // int charout = 0;
   // va_list ap;
