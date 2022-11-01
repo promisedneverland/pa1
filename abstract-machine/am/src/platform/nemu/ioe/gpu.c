@@ -26,12 +26,13 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) 
   {
     //硬件同步开
+    int w = inw(VGACTL_ADDR + 2);  
    
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-    for (int i = ctl->y; i <= ctl->y + ctl->h ; i++)
+    for (int i = ctl->y; i < ctl->y + ctl->h ; i++)
     {
-      for(int j = ctl->x; j <= ctl->x + ctl->w; j++)
-        fb[j + i * ctl->w] = ((uint32_t *)ctl->pixels)[(j - ctl->x) + (i - ctl->y) * ctl->w];
+      for(int j = ctl->x; j < ctl->x + ctl->w; j++)
+        fb[j + i * w] = ((uint32_t *)ctl->pixels)[i + j - ctl->y - ctl->x];
     }
     outl(SYNC_ADDR, 1);
   }
