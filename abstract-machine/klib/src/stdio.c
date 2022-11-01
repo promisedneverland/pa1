@@ -121,6 +121,7 @@ void itoa(long long integer, char* out, int base)//only base = 10 is valid
 }
 int sprintf(char *out, const char *fmt, ...) {
   int charout = 0;
+  assert(0);
   PRINTF_HANDLE(charout,out);
   // int charout = 0;
   // va_list ap;
