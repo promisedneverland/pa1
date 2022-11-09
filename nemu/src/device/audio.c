@@ -21,18 +21,20 @@ enum {
   reg_freq,
   reg_channels,
   reg_samples,
-  reg_sbuf_size,
+  reg_sbuf_size,//流缓冲区的大小
   reg_init,
-  reg_count,
+  reg_count,//当前流缓冲区已经使用的大小
   nr_reg
 };
 
+//流缓冲区
 static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
 }
 
+//24字节端口
 void init_audio() {
   uint32_t space_size = sizeof(uint32_t) * nr_reg;
   audio_base = (uint32_t *)new_space(space_size);
@@ -44,4 +46,11 @@ void init_audio() {
 
   sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
   add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
+    SDL_AudioSpec s = {};
+  s.format = AUDIO_S16SYS;  // 假设系统中音频数据的格式总是使用16位有符号数来表示
+  s.userdata = NULL;        // 不使用
+  //todo
+  SDL_InitSubSystem(SDL_INIT_AUDIO);
+  SDL_OpenAudio(&s, NULL);
+  SDL_PauseAudio(0);
 }
