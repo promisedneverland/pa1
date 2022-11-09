@@ -58,8 +58,6 @@ static void audio_play(void *userdata, uint8_t *stream, int len) {
   //   if (n > 0) b += n;
   // }
 
-  
-
   //需要的数据量过大，超过了缓冲区的数据量
   if (len > nread) {//等价于初始len大于count,此时count=0
     for(int i = 0 ; i < CONFIG_SB_SIZE ; i++)
