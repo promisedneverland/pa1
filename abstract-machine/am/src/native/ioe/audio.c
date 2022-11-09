@@ -17,14 +17,20 @@ void __am_audio_init() {
 
 static void audio_play(void *userdata, uint8_t *stream, int len) {
   int nread = len;
+
+  //缓冲区中剩余音频数据较少
   if (count < len) nread = count;
+
   int b = 0;
   while (b < nread) {
-    int n = read(rfd, stream, nread);
+    int n = read(rfd, stream, nread);//读最多nread个字节从rfd到stream
     if (n > 0) b += n;
   }
 
+  //这是一次缓存清空，因此count减少
   count -= nread;
+
+  //需要的数据量过大，超过了缓冲区的数据量
   if (len > nread) {
     memset(stream + nread, 0, len - nread);
   }
