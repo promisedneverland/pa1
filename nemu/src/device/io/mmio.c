@@ -58,6 +58,7 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
 }
 
 /* bus interface */
+//当访问内存的位置是mmio空间的时候，调用mmio_read,继而调用map_read 继而调用call back(handler)
 word_t mmio_read(paddr_t addr, int len) {
   return map_read(addr, len, fetch_mmio_map(addr));
 }

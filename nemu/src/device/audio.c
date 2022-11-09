@@ -17,6 +17,7 @@
 #include <device/map.h>
 #include <SDL2/SDL.h>
 
+
 enum {
   reg_freq,
   reg_channels,
@@ -24,7 +25,7 @@ enum {
   reg_sbuf_size,//流缓冲区的大小
   reg_init,
   reg_count,//当前流缓冲区已经使用的大小
-  nr_reg
+  nr_reg//寄存器个数：6
 };
 
 //流缓冲区
@@ -32,14 +33,25 @@ static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 void init_sdl_audio()
 {
-
+  SDL_AudioSpec s = {};
+  s.format = AUDIO_S16SYS;  // 假设系统中音频数据的格式总是使用16位有符号数来表示
+  s.userdata = NULL;        // 不使用
+  //todo
+  SDL_InitSubSystem(SDL_INIT_AUDIO);
+  SDL_OpenAudio(&s, NULL);
+  SDL_PauseAudio(0);
 }
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
+  if(audio_base[reg_init] == 1)
+  {
+    
+    audio_base[reg_init] = 0;
+  }
 }
-
 //24字节端口
 void init_audio() {
   uint32_t space_size = sizeof(uint32_t) * nr_reg;
+
   audio_base = (uint32_t *)new_space(space_size);
 #ifdef CONFIG_HAS_PORT_IO
   add_pio_map ("audio", CONFIG_AUDIO_CTL_PORT, audio_base, space_size, audio_io_handler);

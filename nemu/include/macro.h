@@ -99,14 +99,17 @@
 
 // for AM IOE
 //对抽象寄存器进行访问
-//将
+//io_read(AM_AUDIO_CONFIG) -> 
+//AM_AUDIO_CONFIG_T __io_param
+//ioe_read(AM_AUDIO_CONFIG,&__io_param) -> 
+//__am_audio_config(AM_AUDIO_CONFIG_T *cfg)
 #define io_read(reg) \
   ({ reg##_T __io_param; \
     ioe_read(reg, &__io_param); \
     __io_param; })
-
+//把数据存到新建的数据结构中，并作为返回值
 #define io_write(reg, ...) \
   ({ reg##_T __io_param = (reg##_T) { __VA_ARGS__ }; \
     ioe_write(reg, &__io_param); })
-
+//把数据存到新建的数据结构中，让处理函数把输入数据存到mmio空间中
 #endif
