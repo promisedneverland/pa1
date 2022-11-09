@@ -35,7 +35,7 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
 
 //写入nemu
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
-  int len = ctl->buf.end - ctl->buf.start + 1;
-
-  outl(AUDIO_COUNT_ADDR,len + inl(AUDIO_COUNT_ADDR));
+  int len = ctl->buf.end - ctl->buf.start;
+  printf("%d\n",len);
+  outl( AUDIO_COUNT_ADDR, len + inl(AUDIO_COUNT_ADDR));
 }
