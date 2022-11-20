@@ -22,7 +22,8 @@
 
 //宽高查询
 static uint32_t screen_width() {
-  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).width, 100);
+  //pa2中CONFIG_TARGET_AM未定义，选后面那个
+  return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).width, SCREEN_W);
 }
 
 static uint32_t screen_height() {
