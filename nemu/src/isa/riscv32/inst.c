@@ -219,6 +219,6 @@ void print_Ftrace()
 int isa_exec_once(Decode *s)
 {
   //snpc = pc(execute 传入的 参数)
-  // s->isa.inst.val = inst_fetch(&s->snpc, 4);//取指令,存到val中
+  s->isa.inst.val = inst_fetch(&s->snpc, 4);//取指令,存到val中
   return decode_exec(s);
 }
