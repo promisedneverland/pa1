@@ -12,6 +12,7 @@
 #define AUDIO_INIT_ADDR      (AUDIO_ADDR + 0x10)
 #define AUDIO_COUNT_ADDR     (AUDIO_ADDR + 0x14)
 
+
 void __am_audio_init() {
 
 }
@@ -36,7 +37,13 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
 
 //写入nemu
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
+  
   int len = ctl->buf.end - ctl->buf.start;
+  for(int i = 0 ; i < len;i++)
+  {
+    //outb();
+    // l_sbuf[inl(AUDIO_COUNT_ADDR) + i] =  ((uint8_t*)ctl->buf.start)[i];
+  }
   // printf("%d\n",len);
   outl( AUDIO_COUNT_ADDR, len + inl(AUDIO_COUNT_ADDR));
 }

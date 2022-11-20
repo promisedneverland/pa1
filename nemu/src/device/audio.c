@@ -83,6 +83,7 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
     SDL_PauseAudio(0);
     audio_base[reg_init] = 0;
   }
+  
 }
 //24字节端口
 void init_audio() {
