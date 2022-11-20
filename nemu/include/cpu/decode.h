@@ -66,7 +66,7 @@ finish:
 //如果c是1，则key最低位赋1并左移
 //下面是对64位
 __attribute__((always_inline))
-static inline void pattern_decode_hex(const char *str, int len,
+ void pattern_decode_hex(const char *str, int len,
     uint64_t *key, uint64_t *mask, uint64_t *shift) {
   uint64_t __key = 0, __mask = 0, __shift = 0;
 #define macro(i) \
