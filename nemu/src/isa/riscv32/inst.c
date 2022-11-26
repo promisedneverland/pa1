@@ -154,7 +154,7 @@ static int decode_exec(Decode *s) {
   //src1 = R(rs1) , src2 = R(rs2)
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); 
   // R(10) is $a0 set_nemu_state(NEMU_END, pc, code)
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(11,s->snpc)); 
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(11,s->pc)); 
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, sr_set(imm,src1),R(dest) = sr_value(imm)); 
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, sr_set(imm,sr_value(imm) | src1),R(dest) = sr_value(imm)); 
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = (sr(mepc) += 4 )); 
