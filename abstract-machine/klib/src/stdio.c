@@ -6,7 +6,7 @@
 void itoa(long long integer, char* out, int base);//only base = 10 is valid
 void printstr(const char* str);
 void swap(char* a, char* b);
-#define PRINT_BUF_SIZE 65
+#define PRINT_BUF_SIZE 655
 //改成65536会出错？？？？？？？？？为什么啊，太大了吗
 #define PRINTF_HANDLE(charout,out) { \
   va_list ap; \
