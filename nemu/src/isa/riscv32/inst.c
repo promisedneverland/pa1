@@ -173,7 +173,11 @@ static int decode_exec(Decode *s) {
 static void sr_set(word_t imm,word_t value)
 {
   if(imm == 0x305)
+  {
     sr(mtvec) = value;
+    return ;
+  }
+    
   printf("no sr found\n");
   return ;
 }
