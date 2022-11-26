@@ -167,7 +167,7 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-static inst_csrrs(word_t sr , word_t src1, word_t dest)
+static void inst_csrrs(word_t sr , word_t src1, word_t dest)
 {
   // if(sr == 0x305)
   // {
