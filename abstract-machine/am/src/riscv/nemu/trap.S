@@ -38,7 +38,7 @@ __am_asm_trap:
 //存通用寄存器
   MAP(REGS, PUSH)
 //把csr的值写入寄存器
-  //csrr t0, mcause
+  csrr t0, mcause
   csrr t1, mstatus
   csrr t2, mepc
 //sw : M[x[sp] + offset] = x[t0] 
