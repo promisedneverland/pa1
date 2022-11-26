@@ -26,5 +26,5 @@
 */
 
 unsigned char isa_logo[] = {
-  0x20, '\0'  /* Termination Character is indispensable! */
+ '\0'  /* Termination Character is indispensable! */
 };
