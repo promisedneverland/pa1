@@ -21,6 +21,7 @@
 typedef struct {//c语言中的结构体定义，类型名为riscv32_CPU_state
   word_t gpr[32];//通用目的寄存器
   vaddr_t pc;//PC
+  word_t mtvec;
 } riscv32_CPU_state;
 
 // decode

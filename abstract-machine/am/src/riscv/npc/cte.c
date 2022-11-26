@@ -28,6 +28,7 @@ extern void __am_asm_trap(void);
 bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize exception entry
   //设置异常入口地址,直接将异常入口地址设置到mtvec寄存器中即可
+  //mtvec : 0x305
   asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));
 
   // 注册事件处理回调函数，回调函数由nanos-lite提供
