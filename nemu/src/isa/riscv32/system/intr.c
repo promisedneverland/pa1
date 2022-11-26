@@ -14,10 +14,15 @@
 ***************************************************************************************/
 
 #include <isa.h>
+//mepc寄存器 - 存放触发异常的PC
+//mstatus寄存器 - 存放处理器的状态
+//mcause寄存器 - 存放触发异常的原因
 
 //SR[mepc] <- PC
 //SR[mcause] <- 一个描述失败原因的号码
 //PC <- SR[mtvec]
+
+//返回异常入口地址
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
