@@ -12,13 +12,14 @@
 #define XLEN  8
 #endif
 
-//寄存器
+//寄存器,0号是地址空间，2号是sp
 #define REGS(f) \
       f( 1)       f( 3) f( 4) f( 5) f( 6) f( 7) f( 8) f( 9) \
 f(10) f(11) f(12) f(13) f(14) f(15) f(16) f(17) f(18) f(19) \
 f(20) f(21) f(22) f(23) f(24) f(25) f(26) f(27) f(28) f(29) \
 f(30) f(31)
 
+//通过xi引用第i个寄存器
 #define PUSH(n) STORE concat(x, n), (n * XLEN)(sp);
 #define POP(n)  LOAD  concat(x, n), (n * XLEN)(sp);
 
@@ -28,17 +29,20 @@ f(30) f(31)
 #define OFFSET_STATUS (33 * XLEN)
 #define OFFSET_EPC    (34 * XLEN)
 
+
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
+//保存32个通用寄存器，mtev,mepc,mstatus,mcause，申请栈空间
   addi sp, sp, -CONTEXT_SIZE
-
+//存通用寄存器
   MAP(REGS, PUSH)
-
+//把csr的值写入寄存器
   csrr t0, mcause
   csrr t1, mstatus
   csrr t2, mepc
-
+//sw : M[x[sp] + offset] = x[t0] 
+//将t0的值存到内存
   STORE t0, OFFSET_CAUSE(sp)
   STORE t1, OFFSET_STATUS(sp)
   STORE t2, OFFSET_EPC(sp)
