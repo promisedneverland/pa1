@@ -33,12 +33,12 @@ f(30) f(31)
 .align 3
 .globl __am_asm_trap
 __am_asm_trap:
-//保存32个通用寄存器，mtev,mepc,mstatus,mcause，申请栈空间
+//保存32个通用寄存器，地址空间,mepc,mstatus,mcause，申请栈空间
   addi sp, sp, -CONTEXT_SIZE
 //存通用寄存器
   MAP(REGS, PUSH)
 //把csr的值写入寄存器
-  csrr t0, mcause
+  //csrr t0, mcause
   csrr t1, mstatus
   csrr t2, mepc
 //sw : M[x[sp] + offset] = x[t0] 
