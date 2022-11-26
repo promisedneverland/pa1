@@ -75,7 +75,7 @@ static word_t jumpTo[JUMP_BUF_SIZE];
 static word_t jumpFrom[JUMP_BUF_SIZE];  
 static bool jumpType[JUMP_BUF_SIZE];  
 static int jumpid = 0;
-static inline inst_csrrs(word_t sr , word_t src1, word_t dest);
+static void inst_csrrs(word_t sr , word_t src1, word_t dest);
 
 static void jump_inst_record(const Decode *s)
 {
@@ -167,7 +167,7 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-static inline inst_csrrs(word_t sr , word_t src1, word_t dest)
+static inst_csrrs(word_t sr , word_t src1, word_t dest)
 {
   // if(sr == 0x305)
   // {
