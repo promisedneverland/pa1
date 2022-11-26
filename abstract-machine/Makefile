@@ -16,7 +16,7 @@ endif
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)#如果没找到clean|clean-all...
 
-### Print build info message(what is NAME AND ARCH?)
+### Print build info message(name是项目的名字，ARCH=ri)
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 
 ### Check: environment variable `$AM_HOME` looks sane
@@ -103,6 +103,7 @@ endif
 
 ## 5. Compilation Rules
 
+#这里的+ CC是啥意思
 ### Rule (compile): a single `.c` -> `.o` (gcc)
 $(DST_DIR)/%.o: %.c
 	@mkdir -p $(dir $@) && echo + CC $<
