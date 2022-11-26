@@ -22,7 +22,11 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   for(int i = 0 ; i <= 31 ; i++)
   {
     if(ref_r->gpr[i] != cpu.gpr[i])
+    {
+      printf("%dth reg is different\n",i);
       return false;
+    }
+      
   }
   return true;
 }
