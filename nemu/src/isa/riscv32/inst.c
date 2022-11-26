@@ -177,7 +177,21 @@ static void sr_set(word_t imm,word_t value)
     sr(mtvec) = value;
     return ;
   }
-    
+  if(imm == 0x300)
+  {
+    sr(mstatus) = value;
+    return ;
+  }
+  if(imm == 0x341)
+  {
+    sr(mepc) = value;
+    return ;
+  }
+  if(imm == 0x342)
+  {
+    sr(mcause) = value;
+    return ;
+  }
   printf("no sr found\n");
   return ;
 }
@@ -185,6 +199,12 @@ static word_t sr_value(word_t imm)
 {
   if(imm == 0x305)
     return sr(mtvec);
+  if(imm == 0x300)
+    return sr(mstatus);
+  if(imm == 0x341)
+    return sr(mepc);
+  if(imm == 0x342)
+    return sr(mcause);
   printf("no sr found\n");
   return 0;
 }
