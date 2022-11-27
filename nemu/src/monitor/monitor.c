@@ -128,6 +128,7 @@ void init_monitor(int argc, char *argv[]) {
   init_rand();
 
   /* Open the log file. */
+  //创建logfile文件，并设置一个FILE* 指向log_file文件
   init_log(log_file);
 
   /* Initialize memory. */

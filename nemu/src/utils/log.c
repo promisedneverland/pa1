@@ -21,6 +21,7 @@ extern uint64_t g_nr_guest_inst;
 //指向logfile 的文件指针
 FILE *log_fp = NULL;//file = iofile
 
+// log_file 示例 ： /home/lcx/ics2022/nanos-lite/build/nemu-log.txt
 void init_log(const char *log_file) {
   log_fp = stdout;// output log_fp
   if (log_file != NULL) {

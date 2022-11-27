@@ -56,6 +56,7 @@ void init_mem() {
     p[i] = rand();
   }
 #endif
+  //目前执行下面一行
   Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
 
