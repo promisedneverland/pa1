@@ -41,6 +41,7 @@
     } \
   } while (0)
 
+//panic 实际上触发了Assert(0),并输出错误信息
 #define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
 
 #define TODO() panic("please implement me")

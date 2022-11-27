@@ -29,7 +29,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   //etrace
   printf("etrace : mcause = %d, mepc = 0x%x, mtvec = 0x%x, mstatus = %d \n " , NO,epc,sr(mtvec),sr(mstatus));
-  sr(mstatus) = 1;
+
   sr(mepc) = epc;
   sr(mcause) = NO;
   return sr(mtvec);
