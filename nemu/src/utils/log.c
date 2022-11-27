@@ -34,7 +34,10 @@ void init_log(const char *log_file) {
   Log("Log is written to %s", log_file ? log_file : "stdout");
 }
 
+//控制着Log宏是否会输出到logfile中，但不会控制Log宏是否会输出到终端
 bool log_enable() {
+  //目前定义了CONFIG_TRACE,因此下面的语句暂时是
+  //return (g_nr_guest_inst >= 0) && (g_nr_guest_inst <= 10000)
   return MUXDEF(CONFIG_TRACE, (g_nr_guest_inst >= CONFIG_TRACE_START) &&
          (g_nr_guest_inst <= CONFIG_TRACE_END), false);
 }

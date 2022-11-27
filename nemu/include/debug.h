@@ -20,10 +20,15 @@
 #include <stdio.h>
 #include <utils.h>
 
+//## __VA_ARGS__ 将被替换为...
+// 内容解释:
+// [src/utils/log.c:33 init_log] 中 src/utils/log.c:为__FILE__， 33为__LINE__， init_log 为 __func__
+// #define ANSI_FMT(str, fmt) fmt str ANSI_NONE
+// ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) 展开为  ANSI_FG_BLUE("\33[1;34m"[用于设置颜色]) "[%s:%d %s] " format ANSI_NONE(用于重置颜色)
 #define Log(format, ...) \
     _Log(ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) "\n", \
         __FILE__, __LINE__, __func__, ## __VA_ARGS__)
-
+// ##__VA_ARGS__ 用于去除多余的逗号，当...为空白的时候
 #define Assert(cond, format, ...) \
   do { \
     if (!(cond)) { \

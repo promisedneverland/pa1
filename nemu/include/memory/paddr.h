@@ -20,7 +20,7 @@
 
 #define PMEM_LEFT  ((paddr_t)CONFIG_MBASE)//80000000
 #define PMEM_RIGHT ((paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1)
-//80000000 + 80000000 -1 = 11111111，unsigned int 所能表示的最大值
+//80000000 + 80000000 -1 = FFFFFFFF，unsigned int 所能表示的最大值
 #define RESET_VECTOR (PMEM_LEFT + CONFIG_PC_RESET_OFFSET)//80000000 + 0 = pmem[0]
 
 /* convert the guest physical address in the guest program to host virtual address in NEMU */

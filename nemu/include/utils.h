@@ -23,9 +23,9 @@
 enum { NEMU_RUNNING, NEMU_STOP, NEMU_END, NEMU_ABORT, NEMU_QUIT };
 
 typedef struct {
-  int state;
-  vaddr_t halt_pc;
-  uint32_t halt_ret;
+  int state;//状态
+  vaddr_t halt_pc;//停止时的pc值
+  uint32_t halt_ret;//停止时的返回值
 } NEMUState;
 
 extern NEMUState nemu_state;
@@ -54,8 +54,9 @@ uint64_t get_time();
 #define ANSI_BG_WHITE   "\33[1;47m"
 #define ANSI_NONE       "\33[0m"
 
-#define ANSI_FMT(str, fmt) fmt str ANSI_NONE
+#define ANSI_FMT(str, fmt) fmt str ANSI_FG_RED 
 
+//fflush 用于刷新 流输出缓冲区
 #define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
   do { \
     extern FILE* log_fp; \
@@ -67,6 +68,8 @@ uint64_t get_time();
   } while (0) \
 )
 
+//_Log 即printf + 输出到log文件中
+//由Log调用，其中...是printf中所需信息
 #define _Log(...) \
   do { \
     printf(__VA_ARGS__); \
