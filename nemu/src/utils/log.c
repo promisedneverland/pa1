@@ -15,12 +15,16 @@
 
 #include <common.h>
 
+//客户程序的指令数
 extern uint64_t g_nr_guest_inst;
+
+//指向logfile 的文件指针
 FILE *log_fp = NULL;//file = iofile
 
 void init_log(const char *log_file) {
   log_fp = stdout;// output log_fp
   if (log_file != NULL) {
+    //fopen创建一个用于写入的空文件。如果文件名称与已存在的文件相同，则会删除已有文件的内容，文件被视为一个新的空文件。
     FILE *fp = fopen(log_file, "w");//create a file named log-file
     //return NULL if error
     Assert(fp, "Can not open '%s'", log_file);

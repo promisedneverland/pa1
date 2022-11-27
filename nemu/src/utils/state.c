@@ -15,11 +15,13 @@
 
 #include <utils.h>
 
+//初始化nemu.state = stop
+//nemu的初始状态为stop
 NEMUState nemu_state = { .state = NEMU_STOP };
 
 int is_exit_status_bad() {
   int good = (nemu_state.state == NEMU_END && nemu_state.halt_ret == 0) ||
     (nemu_state.state == NEMU_QUIT);
-    //state 为end&&ret==0 或 quit 则退出状态正常
+    //state 为NEMU_END && ret==0 或 NEMU_QUIT 则退出状态正常
   return !good;
 }

@@ -53,7 +53,8 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 
 //自限指令
 void yield() {
-  asm volatile(" ecall");
+  //为什么要li
+  asm volatile("li a7, -1; ecall");
 }
 
 bool ienabled() {

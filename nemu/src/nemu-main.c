@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
+  //下面的代码用于生成和检查表达式求值，现在没用了
   // FILE *fp = fopen("/home/lcx/ics2022/nemu/tools/gen-expr/input", "r");
   // assert(fp != NULL);
   // while(fscanf(fp, "%d%s", &result,expression) != EOF){
@@ -51,5 +52,6 @@ int main(int argc, char *argv[]) {
   /* Start engine. */
   engine_start();
   
+  //根据nemu.state返回退出的状态 ： nemu.state 为NEMU_END && ret==0 或 NEMU_QUIT 则退出状态正常
   return is_exit_status_bad();
 }

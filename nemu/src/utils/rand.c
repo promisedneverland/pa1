@@ -21,5 +21,4 @@
 void init_rand() {
   srand(MUXDEF(CONFIG_TARGET_AM, 0, time(0)));
  // 如果定义了CONFIG_ 则预处理结果为"0"否则预处理结果为"time".
- //srand(0)的意义是什么呢？？？？ 
 }

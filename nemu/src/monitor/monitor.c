@@ -70,10 +70,11 @@ static long load_img() {//装载客户程序
 }
 
 static int parse_args(int argc, char *argv[]) {//处理输入参数
-  //const char *name 长命令名;
-  //int has_arg; 
-  //int *flag;若null,则返回val，否则0并指向
-  //int val 返回值;
+  //option table 中的含义：
+  //1.const char *name 长命令名;
+  //2.int has_arg; 是否有参数 
+  //3.int *flag;若null,则返回val，否则0并指向
+  //4.int val 返回值;
   //最后一行必须是0
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
@@ -86,17 +87,23 @@ static int parse_args(int argc, char *argv[]) {//处理输入参数
   };
   int o;
   
-  //如果没有更多字符option，则返回-1，否则返回字符j
-  //l: 说明 -l 需要参数
+  //如果没有更多字符option，则返回-1，否则返回字符
+  //"-bhl:d:p:" 中的 [l:] 的意思是 -l 需要跟一个参数
   while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
     switch (o) {
+      //批处理模式
       case 'b': sdb_set_batch_mode(); break;
+      //？
       case 'p': sscanf(optarg, "%d", &difftest_port); break;//optarg 选项参数
+      //设置logfile的输出文件
       case 'l': log_file = optarg; break;
+      //设置diff_so的输出文件名
       case 'd': diff_so_file = optarg; break;
+      //设置elf文件名
       case 'e': elf_file = optarg; break;
+      //设置img_file的文件名
       case 1: img_file = optarg; return 0;
-      default://错误提示?
+      default://错误提示
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
         printf("\t-l,--log=FILE           output log to FILE\n");
@@ -113,9 +120,11 @@ void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
   /* Parse arguments. */
+  //处理命令行额外选项，在makefile中可以设置
   parse_args(argc, argv);//getopt_long()
 
   /* Set random seed. */
+  //用srand设置随机数种子
   init_rand();
 
   /* Open the log file. */
