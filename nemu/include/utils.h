@@ -54,7 +54,7 @@ uint64_t get_time();
 #define ANSI_BG_WHITE   "\33[1;47m"
 #define ANSI_NONE       "\33[0m"
 
-#define ANSI_FMT(str, fmt) fmt str ANSI_FG_RED 
+#define ANSI_FMT(str, fmt) fmt str ANSI_NONE
 
 //fflush 用于刷新 流输出缓冲区
 #define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
