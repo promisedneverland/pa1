@@ -33,6 +33,6 @@ int main() {
 #ifdef HAS_CTE
   yield();
 #endif
-  printf("asdjaskldjaljksdaldjksad");
-  // panic("Should not reach here");
+
+  panic("Should not reach here");
 }
