@@ -50,7 +50,7 @@ static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_wr
   if (c != NULL) { c(offset, len, is_write); }//is_write 指示是否写数据
 }
 
-//功能：创建设备空间，初始化指针
+//在真机内存中申请设备空间+初始化设备空间的指针
 void init_map() {
   //io_space 指向设备空间的起始
   io_space = malloc(IO_SPACE_MAX);//新建设备空间

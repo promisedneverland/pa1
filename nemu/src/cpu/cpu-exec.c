@@ -120,8 +120,8 @@ static void statistic() {
   if (g_timer > 0) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
   else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
-//我给注释了
 
+//输出寄存器，运行数据信息
 void assert_fail_msg() {
   isa_reg_display();
   statistic();

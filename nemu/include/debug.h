@@ -29,6 +29,8 @@
     _Log(ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) "\n", \
         __FILE__, __LINE__, __func__, ## __VA_ARGS__)
 // ##__VA_ARGS__ 用于去除多余的逗号，当...为空白的时候
+
+//不太明白为什么要根据CONFIG_TARGET有所区别
 #define Assert(cond, format, ...) \
   do { \
     if (!(cond)) { \

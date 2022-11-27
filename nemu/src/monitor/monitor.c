@@ -43,6 +43,7 @@ void sdb_set_batch_mode();
 
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
+// 示例 ： /home/lcx/ics2022/nanos-lite/build/nanos-lite-riscv32-nemu.bin
 static char *img_file = NULL;
 static char *elf_file = NULL;
 static int difftest_port = 1234;
@@ -56,12 +57,14 @@ static long load_img() {//装载客户程序
   FILE *fp = fopen(img_file, "rb");
   Assert(fp, "Can not open '%s'", img_file);
 
+  //获取img的大小(size)
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
-
   Log("The image is %s, size = %ld", img_file, size);
 
+  //SEEK_SET = 0, 是系统代码
   fseek(fp, 0, SEEK_SET);
+  //把img放入pmem数组，如果成功则ret = 1
   int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
   assert(ret == 1);
 
@@ -139,15 +142,18 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Perform ISA dependent initialization. ISa初始化*/
   init_isa();
-//将一个内置的客户程序读入到内存
-//初始化寄存器
+//将一个简单的内置的客户程序读入到内存
+//初始化cpu结构体
 
   /* Load the image to memory. This will overwrite the built-in image. */
   long img_size = load_img();
   //将一个有意义的客户程序从镜像文件读入，覆盖内置程序
   
   init_elf();
+
   /* Initialize differential testing. */
+  //示例 ： init_difftest(diff_so_file, 40968, 1234);
+  //其实没有被定义？？？
   init_difftest(diff_so_file, img_size, difftest_port);
 
   /* Initialize the simple debugger. */
@@ -311,7 +317,4 @@ void init_elf()
   init_funcTab(fp);
 
   fclose(fp);
- 
-  
-
 }

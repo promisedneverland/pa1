@@ -59,6 +59,8 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
   }
 }
 
+// ref_so_file = /home/lcx/ics2022/nemu/tools/spike-diff/build/riscv32-spike-so
+// port = 1234
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 

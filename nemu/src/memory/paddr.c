@@ -18,9 +18,11 @@
 #include <device/mmio.h>
 #include <isa.h>
 
+//创建pmem数组，大小为0x80000000
+//PG_ALIGN不知道什么意思
 #if   defined(CONFIG_PMEM_MALLOC)
 static uint8_t *pmem = NULL;
-#else // CONFIG_PMEM_GARRAY
+#else // CONFIG_PMEM_ARRAY
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};//CONFIG_MSIZE = 128MB,pmem作为内存
 #endif
 
@@ -44,6 +46,7 @@ static void out_of_bound(paddr_t addr) {
       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
 }
 
+//默认其实什么都没做
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)//如果定义了 则执行
   pmem = malloc(CONFIG_MSIZE);
@@ -58,6 +61,7 @@ void init_mem() {
 #endif
   //目前执行下面一行"0x%08x"
   // Log("physical memory area [" "0x%08x" ", " "0x%08x" "]", 80000000, FFFFFFFF);
+  //用printf的格式，但是有特殊功能：能输出到log文件，设置了颜色
   Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
 

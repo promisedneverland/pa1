@@ -31,16 +31,19 @@ static const uint32_t img [] = {
 
 };
 
+//初始化cpu结构体
 static void restart() {//初始化寄存器
   /* Set the initial program counter. */
   cpu.pc = RESET_VECTOR;//让CPU从我们约定的内存位置开始执行客户程序
+  
   cpu.mstatus = 0x1800;
-  /* 初始化 The zero register is always 0. */
+  /*The zero register is always 0. */
   cpu.gpr[0] = 0;
 }
 
 void init_isa() {
   /* Load built-in image. */
+  //将img(一个简单的内置程序读入到内存(pmem数组))
   memcpy(guest_to_host(RESET_VECTOR), img, sizeof(img));
 
   /* Initialize this virtual computer system. */
