@@ -104,6 +104,7 @@ static void execute(uint64_t n) {
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;//记录客户指令计数器+1
+    //difftest,输出执行的命令
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;//检查nemu状态
     //设备更新
