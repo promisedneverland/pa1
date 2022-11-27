@@ -122,7 +122,15 @@ static int cmd_x(char *args) {
 static int cmd_s(char *args) {//单步
   if(args)
   {
-    cpu_exec(atoi(args));
+    if(args[0] == '0' && args[1] == 'x')
+    {
+      word_t target_pc = strtol(args,NULL,0);
+      while(cpu.pc != target_pc)
+        cpu_exec(1);
+      printf("pc now is 0x%x\n",target_pc);
+    }
+    else
+      cpu_exec(atoi(args));
   }
   else
     cpu_exec(1);
