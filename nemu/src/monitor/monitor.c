@@ -159,6 +159,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize the simple debugger. */
   init_sdb();
 
+  //初始化反汇编器，用于把指令打印出来
   IFDEF(CONFIG_ITRACE, init_disasm(
     MUXDEF(CONFIG_ISA_x86,     "i686",
     MUXDEF(CONFIG_ISA_mips32,  "mipsel",
@@ -167,7 +168,7 @@ void init_monitor(int argc, char *argv[]) {
   ));
 
   /* Display welcome message. */
-  //没啥可看的
+  //用printf和log打印一些欢迎信息
   welcome();
 }
 #else // CONFIG_TARGET_AM

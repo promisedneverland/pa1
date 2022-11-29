@@ -229,6 +229,8 @@ void init_jumpType()
   }
 }
 char* get_func_name(word_t to);
+
+//打印
 void print_Ftrace()
 {
   init_jumpType();

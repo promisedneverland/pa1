@@ -99,14 +99,24 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 }
 
+//执行n条指令
 static void execute(uint64_t n) {
   Decode s;
+
   for (;n > 0; n --) {
+    //执行一条指令
     exec_once(&s, cpu.pc);
-    g_nr_guest_inst ++;//记录客户指令计数器+1
-    //difftest,输出执行的命令
+
+    //记录客户指令计数器+1
+    g_nr_guest_inst ++;
+
+    //difftest检查寄存器 + 输出执行的命令
     trace_and_difftest(&s, cpu.pc);
-    if (nemu_state.state != NEMU_RUNNING) break;//检查nemu状态
+
+    //检查state，如果不是RUNNING就不再继续执行指令
+    if (nemu_state.state != NEMU_RUNNING)
+      break;
+
     //设备更新
     IFDEF(CONFIG_DEVICE, device_update());
   }
@@ -128,25 +138,38 @@ void assert_fail_msg() {
 }
 
 /* Simulate how the CPU works. */
-void cpu_exec(uint64_t n) {//初始传-1，为无穷大
+//传入执行的指令数
+void cpu_exec(uint64_t n) {
+
+  //是否打印客户指令,如果太多就不打印了
   g_print_step = (n < MAX_INST_TO_PRINT);//0
+
+  //检查nemu是否已经运行结束或终止,否则将state改为running
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT:
       printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
       return;
     default: nemu_state.state = NEMU_RUNNING;
   }
-  //nemu.state STOP->RUNNING
+  //nemu.state : STOP->RUNNING
+
+  //获取执行前时间
   uint64_t timer_start = get_time();
 
   execute(n);//执行n次
   //nemu.state RUNNING->END
+
+  //获取执行后时间
   uint64_t timer_end = get_time();
+
+  //计算出此次客户程序n条指令运行的时间
   g_timer += timer_end - timer_start;//计算执行时间
 
+  //若state 为 running, 则设置 state 为stop, 等待下一次启动
+  //若为END或ABORT,则输出state，并根据停止时返回值判断GOOD/BAD TRAP ， 输出运行统计数据
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
-    //设置state 为stop,不正常
+    
     case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :

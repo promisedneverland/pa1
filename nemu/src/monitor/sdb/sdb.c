@@ -20,19 +20,17 @@
 #include "sdb.h"
 #include <memory/paddr.h>
 #include <utils.h>
-// #include <expr.c>
-static int is_batch_mode = false;
 
+static int is_batch_mode = false;
 
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  // struct watchpoint *prev;
   char expr[128];
   word_t value;
-  /* TODO: Add more members if necessary */
 
 } WP;
+
 void init_regex();
 void init_wp_pool();
 WP* new_wp();
@@ -41,10 +39,8 @@ void print_wp();
 void print_Ftrace();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
-static char* rl_gets() {//只要不输入q,就会一直进入
-  //printf("rl gets\n");
+static char* rl_gets() {
   static char *line_read = NULL;
-  //？一定为空
   if (line_read) {
     free(line_read);
     line_read = NULL;
@@ -59,9 +55,9 @@ static char* rl_gets() {//只要不输入q,就会一直进入
   return line_read;
 }
 
+//执行到结束
 static int cmd_c(char *args) {//cpu执行
   cpu_exec(-1);
-
   return 0;
 }
 
@@ -69,8 +65,10 @@ static int cmd_c(char *args) {//cpu执行
 static int cmd_q(char *args) {
   nemu_state.state = NEMU_QUIT;//add
   return -1;//program wont end if =0
-
 }
+
+//打印寄存器，监视点
+//用法： info r, info w
 static int cmd_i(char *args) {
   if(args == NULL)
   {
@@ -88,6 +86,7 @@ static int cmd_i(char *args) {
 
 }
 
+//打印内存
 static int cmd_x(char *args) {
   if(args == NULL)
   {
@@ -119,9 +118,14 @@ static int cmd_x(char *args) {
   // printf("%x",start);
   return 0;
 }
+
+
+
 static int cmd_s(char *args) {//单步
   if(args)
   {
+    //执行到指定pc ， 用法： si 0x8000001f
+    //自定义功能
     if(args[0] == '0' && args[1] == 'x')
     {
       word_t target_pc = strtol(args,NULL,0);
@@ -141,26 +145,24 @@ static int cmd_help(char *args);
 
 static int cmd_p(char *args)
 {
+  //打印ftrace
   if(strcmp(args,"f") == 0)
   {
     print_Ftrace();
     return 0;
   }
+
   bool state = 1;
   printf("%u   0x%08x\n",expr(args,&state),expr(args,&state));
-  // make_token(args);
   if(state == 0)
-    printf("p cmd failed\n");
+    printf("p cmd failed, cannot calculate expression\n");
   return 0;
 }
 
 static int cmd_w(char *args){
-  // if(args == NULL)
-  // {
-  //   printf("arguments??? \n");
-  //   return 0;
-  // }  
+  //state指示代码能否正常运行,是成功或失败
   bool state = 1;
+  //value = args表达式运算的结果
   word_t value = expr(args,&state);
   if(state == 0)
   {
@@ -173,12 +175,8 @@ static int cmd_w(char *args){
   assert(args != NULL);
   strcpy(wp -> expr, args);
   wp -> value = value;
-  if(state == 0)
-    printf("w cmd failed\n");
-  else
-  {
-    printf("watchpoint %d : %s = %u\n",wp -> NO, wp->expr, wp->value);
-  }
+  printf("watchpoint %d : %s = %u\n",wp -> NO, wp->expr, wp->value);
+
   return 0;
 }
 
@@ -194,10 +192,10 @@ static int cmd_d(char *args){
   return 0;
 }
 
-static struct {//命令们
+static struct {//命令
   const char *name;
   const char *description;
-    int (*handler) (char *);//函数指针handler，参数是*char
+    int (*handler) (char *);//函数指针,指针名为handler，参数是*char，返回值是int
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
@@ -205,11 +203,10 @@ static struct {//命令们
   { "si", "step instruction", cmd_s },
   { "info", "information reg/watchpoint", cmd_i },
   { "x", "scan memory N*(4bytes) startindex", cmd_x },
-  { "p", "calculate expression f: Ftrace", cmd_p },
+  { "p", "calculate expression (f: Ftrace)", cmd_p },
   { "w", "set watchpoint EXPR", cmd_w },
   { "d", "delete watchpoint id = N", cmd_d },
   //命令 描述 函数
-  /* TODO: Add more commands */
 
 };
 
@@ -243,27 +240,31 @@ void sdb_set_batch_mode() {
 }
 
 void sdb_mainloop() {
+
+  //如果是批处理模式，则直接cmd c执行所有指令
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
   }
 
+  //用str接受终端输入的一行信息
   for (char *str; (str = rl_gets()) != NULL; ) 
   {
     char *str_end = str + strlen(str);//指向字符串末尾指针
 
     /* extract the first token as the command */
+    //第一个空格之前的视为命令,存入cmd
+    //strtok(处理的字符串，分割符)
     char *cmd = strtok(str, " ");//cmd指向第一个字符，下次调用从第一个空格之后开始
+
+    //如果什么也不输入，则默认进行si 
     if (cmd == 0) 
     { 
       cmd_s(0);
       continue;
     }
-
     
-    /* treat the remaining string as the arguments,
-     * which may need further parsing
-     */
+    //命令之后的字符视为参数
     char *args = cmd + strlen(cmd) + 1;//指向参数的第一个字符
     if (args >= str_end) {
       args = NULL;
@@ -274,9 +275,11 @@ void sdb_mainloop() {
     sdl_clear_event_queue();
 #endif
 
+    //对命令进行分拣，执行cmd对应的函数
     int i;
     for (i = 0; i < NR_CMD; i++) {//扫描是否是某个命令
       if (strcmp(cmd, cmd_table[i].name) == 0) {
+        //当执行函数的返回值小于0时终止，否则再次请求输入
         if (cmd_table[i].handler(args) < 0)
           { return; }//执行命令
         break;
@@ -286,12 +289,15 @@ void sdb_mainloop() {
     if (i == NR_CMD)
       { printf("Unknown command '%s'\n", cmd); }
   }
+
 }
 
 void init_sdb() {
   /* Compile the regular expressions. */
+  //计算正则表达式的初始化
   init_regex();
 
+  //初始化监视点
   /* Initialize the watchpoint pool. */
   init_wp_pool();
 }

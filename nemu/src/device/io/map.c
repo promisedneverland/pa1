@@ -18,20 +18,27 @@
 #include <memory/vaddr.h>
 #include <device/map.h>
 
+//物理设备空间大小
 #define IO_SPACE_MAX (2 * 1024 * 1024)
 
+//物理设备空间头部
 static uint8_t *io_space = NULL;
+//物理设备空间尾部
 static uint8_t *p_space = NULL;
 
+//申请size字节(对齐后实际上至少申请了一页空间)的物理设备空间,这些空间实际上在linux堆区中，返回新空间的起始地址
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
-  // page aligned;
-  //空间对齐
+
+  //页对齐,将低12位置零，高位加一
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
+
   //更新p_space
   p_space += size;
-  //检查是否越界
+
+  //检查是否超出了最大使用空间
   assert(p_space - io_space < IO_SPACE_MAX);
+
   //返回新空间的起始地址
   return p;
 }
@@ -50,11 +57,13 @@ static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_wr
   if (c != NULL) { c(offset, len, is_write); }//is_write 指示是否写数据
 }
 
-//在真机内存中申请设备空间+初始化设备空间的指针
+//在linux内存中用malloc申请设备空间 + 初始化设备空间的指针p_space,io_space
+//io_space 指向设备空间的起始， p_space 指向当前使用空间末尾
 void init_map() {
   //io_space 指向设备空间的起始
-  io_space = malloc(IO_SPACE_MAX);//新建设备空间
+  io_space = malloc(IO_SPACE_MAX);//新建2MB设备空间
   assert(io_space);
+
   //p_space 指向当前使用空间末尾
   p_space = io_space;
 }

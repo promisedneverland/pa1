@@ -21,15 +21,19 @@ IFDEF(CONFIG_TIMER_CLOCK_GETTIME,
 IFDEF(CONFIG_TIMER_CLOCK_GETTIME,
     static_assert(sizeof(clock_t) == 8, "sizeof(clock_t) != 8"));
 
+//第一次获取的时间
 static uint64_t boot_time = 0;
 
+//获取系统当前微秒数
 static uint64_t get_time_internal() {
 #if defined(CONFIG_TARGET_AM)
   uint64_t us = io_read(AM_TIMER_UPTIME).us;//todo
 #elif defined(CONFIG_TIMER_GETTIMEOFDAY)
   struct timeval now;
+  //linux内核函数 gettimeofday(时间，时区)
   gettimeofday(&now, NULL);
-  uint64_t us = now.tv_sec * 1000000 + now.tv_usec;//目前的微妙数
+  //当前微秒数
+  uint64_t us = now.tv_sec * 1000000 + now.tv_usec;
 #else
   struct timespec now;
   clock_gettime(CLOCK_MONOTONIC_COARSE, &now);
@@ -38,10 +42,16 @@ static uint64_t get_time_internal() {
   return us;
 }
 
+//获取当前时间
 uint64_t get_time() {
-  if (boot_time == 0) boot_time = get_time_internal();
+
+  //初始化启动时间
+  if (boot_time == 0) 
+    boot_time = get_time_internal();
+
+  //获取内在时间
   uint64_t now = get_time_internal();
-  //printf("%d\n",boot_time); 1136710555
-  //printf("%d\n",now-boot_time);
+
+  //计算当前时间
   return now - boot_time;
 }

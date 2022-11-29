@@ -32,11 +32,13 @@ static void report_mmio_overlap(const char *name1, paddr_t l1, paddr_t r1,
                "with %s@[" FMT_PADDR ", " FMT_PADDR "]", name1, l1, r1, name2, l2, r2);
 }
 
-/* device interface */
-//space 在seril 中 指向8字节大小空间， addr = 0xa00003f8， len = 8
+//space 在serial 中 指向8字节大小空间， addr = 0xa00003f8， len = 8
+//add_mmio_map(设备名称，内存映射所处地址，物理设备空间地址，空间大小，回调函数)
 void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_callback_t callback) {
+
   assert(nr_map < NR_MAP);
-  paddr_t left = addr, right = addr + len - 1;
+  paddr_t left = addr;
+  paddr_t right = addr + len - 1;
 
   //检查物理空间和设备空间不重叠
   if (in_pmem(left) || in_pmem(right)) {

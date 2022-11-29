@@ -15,21 +15,34 @@
 
 #include "sdb.h"
 #include<assert.h>
+
 #define NR_WP 32
 
+//监视点结构
 typedef struct watchpoint {
+  //监视点编号
   int NO;
+
+  //指向链表中下一个对象
   struct watchpoint *next;
-  // struct watchpoint *prev;
+  
+  //监视点的表达式，当表达式的值发生变化时停止
   char expr[128];
+
+  //表达式的旧值，如果变化则更新并停止
   word_t value;
-  /* TODO: Add more members if necessary */
 
 } WP;
 
+//初始化链表
 static WP wp_pool[NR_WP] = {};
+
+//链表头，可用空间指针
 static WP *head = NULL, *free_ = NULL;
+//监视点数量
 static int wpnum = 0;
+
+//初始化监视点(进行链表的初始化)
 void init_wp_pool() {
   int i;
   for (i = 0; i < NR_WP; i ++) {
@@ -40,6 +53,8 @@ void init_wp_pool() {
   }
   free_ = wp_pool;
 }
+
+//新建一个监视点但不初始化，返回新建监视点的指针
 WP* new_wp()//完成对链表的操作，其中的值和expr不改变
 {
   if(wpnum == NR_WP)//满了
@@ -61,6 +76,8 @@ WP* new_wp()//完成对链表的操作，其中的值和expr不改变
   }
   
 }
+
+//打印所有监视点的信息
 void print_wp()
 {
   if(wpnum == 0){
@@ -75,10 +92,10 @@ void print_wp()
     assert(iter != NULL);
     printf("%-3d   %-6s              %-u\n",iter -> NO, iter -> expr , iter -> value);
     iter = iter -> next;
-    
   }
-  
 }
+
+//检查监视点的值是否被改变，返回监视点是否被触发
 bool check_wp()
 {
   if(wpnum == 0)
@@ -107,6 +124,8 @@ bool check_wp()
   return 1;
   
 }
+
+//删除编号为id的监视点
 void free_wp(int id)
 {
   if(wpnum == 0)

@@ -31,6 +31,7 @@
 // ##__VA_ARGS__ 用于去除多余的逗号，当...为空白的时候
 
 //不太明白为什么要根据CONFIG_TARGET有所区别
+//输入判断条件和输出字符串(printf格式)；如果断言失败，则输出字符串，寄存器，运行数据信息
 #define Assert(cond, format, ...) \
   do { \
     if (!(cond)) { \

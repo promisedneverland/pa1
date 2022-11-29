@@ -72,15 +72,21 @@ void device_update() {
 #endif
 }
 
+//清除所有pending event 不知道干嘛用的
 void sdl_clear_event_queue() {
 #ifndef CONFIG_TARGET_AM
   SDL_Event event;
+  //如果queue中没有event则返回0
   while (SDL_PollEvent(&event));
 #endif
 }
 
+//初始化 内存映射，串口，计时器，vga，声卡，磁盘，键盘
 void init_device() {
   IFDEF(CONFIG_TARGET_AM, ioe_init());
+
+  //在linux内存中用malloc申请设备空间 + 初始化设备空间的指针p_space,io_space
+  //io_space 指向设备空间的起始， p_space 指向当前使用空间末尾
   init_map();
 
   IFDEF(CONFIG_HAS_SERIAL, init_serial());
