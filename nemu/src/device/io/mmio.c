@@ -45,18 +45,19 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
     //输出报错信息
     report_mmio_overlap(name, left, right, "pmem", PMEM_LEFT, PMEM_RIGHT);
   }
-  //检查设别空间之间不重叠
+  
+  //检查设备空间之间不重叠
   for (int i = 0; i < nr_map; i++) {
     if (left <= maps[i].high && right >= maps[i].low) {
       report_mmio_overlap(name, left, right, maps[i].name, maps[i].low, maps[i].high);
     }
   }
-  //赋值给maps数组
+
+  //在maps数组中新建一个表项存进去
   maps[nr_map] = (IOMap){ .name = name, .low = addr, .high = addr + len - 1,
     .space = space, .callback = callback };
   Log("Add mmio map '%s' at [" FMT_PADDR ", " FMT_PADDR "]",
       maps[nr_map].name, maps[nr_map].low, maps[nr_map].high);
-
   nr_map ++;
 }
 
