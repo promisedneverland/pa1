@@ -90,7 +90,7 @@ void init_audio() {
   uint32_t space_size = sizeof(uint32_t) * nr_reg;
 
   audio_base = (uint32_t *)new_space(space_size);
-  l_sbuf = audio_base;
+  // l_sbuf = audio_base;
 #ifdef CONFIG_HAS_PORT_IO
   add_pio_map ("audio", CONFIG_AUDIO_CTL_PORT, audio_base, space_size, audio_io_handler);
 #else
