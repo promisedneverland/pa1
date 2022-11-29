@@ -31,10 +31,11 @@ uint8_t* guest_to_host(paddr_t paddr);
 /* convert the host virtual address in NEMU to guest physical address in the guest program */
 paddr_t host_to_guest(uint8_t *haddr);
 
-static inline bool in_pmem(paddr_t addr) {//是否在pmem地址空间之内
+//是否在pmem地址空间之内(设备空间一般为0xa0000000)
+static inline bool in_pmem(paddr_t addr) {
   return addr - CONFIG_MBASE < CONFIG_MSIZE;
   //addr - 0x80000000 < 0x80000000
-  //若 addr 大于 0x80000000 则返回true，属于物理内存空间
+  //若 addr 大于 0x80000000 则返回true，位于内存空间中
 }
 
 word_t paddr_read(paddr_t addr, int len);

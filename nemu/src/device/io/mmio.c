@@ -42,6 +42,7 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
 
   //检查物理空间和设备空间不重叠
   if (in_pmem(left) || in_pmem(right)) {
+    //输出报错信息
     report_mmio_overlap(name, left, right, "pmem", PMEM_LEFT, PMEM_RIGHT);
   }
   //检查设别空间之间不重叠
