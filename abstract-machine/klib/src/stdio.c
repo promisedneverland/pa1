@@ -3,7 +3,7 @@
 #include <klib-macros.h>
 #include <stdarg.h>
 
-void itoa(long long integer, char* out, int base);//only base = 10 is valid
+void itoa(int integer, char* out, int radix);//only base = 10 is valid
 void printstr(const char* str);
 void swap(char* a, char* b);
 #define PRINT_BUF_SIZE 6550
@@ -93,39 +93,39 @@ void swap(char* a, char* b)
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
-void itoa(long long integer, char* out, int base)//only base = 10 is valid
-{
-  int charnum = 0, start = 0;
-  if(integer < 0)
-  {
-    out[0] = '-';
-    charnum = 1; 
-    start = 1;
-    integer = - integer;
-  }
+// void itoa(long long integer, char* out, int base)//only base = 10 is valid
+// {
+//   int charnum = 0, start = 0;
+//   if(integer < 0)
+//   {
+//     out[0] = '-';
+//     charnum = 1; 
+//     start = 1;
+//     integer = - integer;
+//   }
 
-  //if(integer == (1 << 63)) todo
-  if(integer == 0)
-  {
-    out[0] = '0';
-    charnum++;
-  }
-  else
-  {
-    while(integer > 0)
-    {
-      out[charnum] = (integer % base) + '0';
-      integer /= base; 
-      charnum++;
-    }
+//   //if(integer == (1 << 63)) todo
+//   if(integer == 0)
+//   {
+//     out[0] = '0';
+//     charnum++;
+//   }
+//   else
+//   {
+//     while(integer > 0)
+//     {
+//       out[charnum] = (integer % base) + '0';
+//       integer /= base; 
+//       charnum++;
+//     }
     
-    for(int i = start; i < charnum - i - 1 + start; i++)
-    {
-      swap(&out[i], &out[charnum - i - 1 + start]);
-    }
-  }
-  out[charnum] = 0;
-}
+//     for(int i = start; i < charnum - i - 1 + start; i++)
+//     {
+//       swap(&out[i], &out[charnum - i - 1 + start]);
+//     }
+//   }
+//   out[charnum] = 0;
+// }
 
 int sprintf(char *out, const char *fmt, ...) {
   //panic("please implement me");
