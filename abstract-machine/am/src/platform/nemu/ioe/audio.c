@@ -18,32 +18,32 @@ void __am_audio_init() {
 }
 
 void __am_audio_config(AM_AUDIO_CONFIG_T *cfg) {
-  cfg->bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
-  cfg->present = true;
+  // cfg->bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
+  // cfg->present = true;
 }
 
 //写入到nemu中
 void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl) {
-  outl(AUDIO_FREQ_ADDR,ctrl->freq);
-  outl(AUDIO_CHANNELS_ADDR,ctrl->channels);
-  outl(AUDIO_SAMPLES_ADDR,ctrl->samples);
-  outl(AUDIO_INIT_ADDR,1);
+  // outl(AUDIO_FREQ_ADDR,ctrl->freq);
+  // outl(AUDIO_CHANNELS_ADDR,ctrl->channels);
+  // outl(AUDIO_SAMPLES_ADDR,ctrl->samples);
+  // outl(AUDIO_INIT_ADDR,1);
 }
 
 void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
-  stat->count = inl(AUDIO_COUNT_ADDR);
-  printf("%d\n",stat->count);
+  // stat->count = inl(AUDIO_COUNT_ADDR);
+  // printf("%d\n",stat->count);
 }
 
 //写入nemu
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
   
-  int len = ctl->buf.end - ctl->buf.start;
-  for(int i = 0 ; i < len;i++)
-  {
-    //outb();
-    // l_sbuf[inl(AUDIO_COUNT_ADDR) + i] =  ((uint8_t*)ctl->buf.start)[i];
-  }
-  // printf("%d\n",len);
-  outl( AUDIO_COUNT_ADDR, len + inl(AUDIO_COUNT_ADDR));
+  // int len = ctl->buf.end - ctl->buf.start;
+  // for(int i = 0 ; i < len;i++)
+  // {
+  //   //outb();
+  //   // l_sbuf[inl(AUDIO_COUNT_ADDR) + i] =  ((uint8_t*)ctl->buf.start)[i];
+  // }
+  // // printf("%d\n",len);
+  // outl( AUDIO_COUNT_ADDR, len + inl(AUDIO_COUNT_ADDR));
 }

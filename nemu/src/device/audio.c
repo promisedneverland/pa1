@@ -37,34 +37,34 @@ static uint8_t *l_sbuf = NULL;
 //len ： buffer(stream)的长度
 static void audio_play(void *userdata, uint8_t *stream, int len) {
   //nread：将从sbuf中读出的缓存字节数
-  int nread = len;
+  // int nread = len;
 
-  //缓冲区中剩余音频数据较少
-  if (audio_base[reg_count] < len) nread = audio_base[reg_count];
+  // //缓冲区中剩余音频数据较少
+  // if (audio_base[reg_count] < len) nread = audio_base[reg_count];
   
-  //这是一次缓存清空，因此count减少
-  audio_base[reg_count] -= nread;
-  for(int i = 1 ; i <= nread; i++)
-  {
-    *(stream) = *(l_sbuf);
-    l_sbuf++;
-    if(l_sbuf == sbuf + CONFIG_SB_SIZE) 
-      l_sbuf = sbuf;
-  }
-
-  // int b = 0;
-  // while (b < nread) {
-  //   int n = read(rfd, stream, nread);//读最多nread个字节从rfd到stream
-  //   if (n > 0) b += n;
+  // //这是一次缓存清空，因此count减少
+  // audio_base[reg_count] -= nread;
+  // for(int i = 1 ; i <= nread; i++)
+  // {
+  //   *(stream) = *(l_sbuf);
+  //   l_sbuf++;
+  //   if(l_sbuf == sbuf + CONFIG_SB_SIZE) 
+  //     l_sbuf = sbuf;
   // }
 
-  //需要的数据量过大，超过了缓冲区的数据量
-  if (len > nread) {//等价于初始len大于count,此时count=0
-    for(int i = 0 ; i < CONFIG_SB_SIZE ; i++)
-    {
-      sbuf[i] = 0;
-    }
-  }
+  // // int b = 0;
+  // // while (b < nread) {
+  // //   int n = read(rfd, stream, nread);//读最多nread个字节从rfd到stream
+  // //   if (n > 0) b += n;
+  // // }
+
+  // //需要的数据量过大，超过了缓冲区的数据量
+  // if (len > nread) {//等价于初始len大于count,此时count=0
+  //   for(int i = 0 ; i < CONFIG_SB_SIZE ; i++)
+  //   {
+  //     sbuf[i] = 0;
+  //   }
+  // }
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
