@@ -25,6 +25,7 @@ $(BINARY): compile_git
 
 # Some convenient rules
 TEST_HOME=$(HOME)/ics2022/am-kernels/tests/cpu-tests
+#override 表示 命令行变量赋值不会覆盖原有的变量值
 override ARGS ?= --log=$(BUILD_DIR)/nemu-log.txt
 override ARGS += $(ARGS_DIFF)
 #override ARGS += --elf=$(TEST_HOME)/build/$(ALL)-riscv32-nemu.elf
@@ -36,6 +37,7 @@ NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
+# git commit + 运行目标文件
 run: run-env
 	$(call git_commit, "run NEMU")
 	$(NEMU_EXEC)

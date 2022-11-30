@@ -18,6 +18,7 @@ typedef struct {
 } Area;
 
 // Arch-dependent processor context
+//上下文
 typedef struct Context Context;
 
 // An event of type @event, caused by @cause of pointer @ref
