@@ -24,9 +24,10 @@ endif
 -include $(NEMU_HOME)/include/config/auto.conf.cmd
 
 #一个函数，用于去除引号
-#% 用于匹配任意非空字符
+# % 用于匹配任意非空字符串
 remove_quote = $(patsubst "%",%,$(1))
 
+# ?= ： 当还没有被定义时，定义； 若已经定义了就不定义
 # Extract variabls from menuconfig
 GUEST_ISA ?= $(call remove_quote,$(CONFIG_ISA))
 ENGINE ?= $(call remove_quote,$(CONFIG_ENGINE))
