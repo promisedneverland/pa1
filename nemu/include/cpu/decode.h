@@ -33,7 +33,7 @@ static inline void pattern_decode(const char *str, int len,
   //将模式字符串转换成3个数
   uint64_t __key = 0, __mask = 0, __shift = 0;
   //key代表01串组成的整形数大小
-  //mask 表示 key 的掩码， 是1代表key有效（不是问号）
+  //mask 某一位是1代表key对应位不是问号
   //shift 表示 opcode 距离最低位的比特数，用于帮助编译器优化（低位?数量）
 #define macro(i) \
   if ((i) >= len) goto finish; \
@@ -93,6 +93,7 @@ finish:
 
 
 // --- pattern matching wrappers for decode ---
+//检查inst是否匹配这条命令,若匹配则INSTPAT_MATCH，并跳转到__instpat_end
 #define INSTPAT(pattern, ...) do { \
   uint64_t key, mask, shift; \
   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \

@@ -18,7 +18,8 @@
 
 #include <common.h>
 
-static inline word_t host_read(void *addr, int len) {//根据len(字长)来返回addr地址的内容
+//根据len(字节数)来返回haddr地址的内容
+static inline word_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
     case 2: return *(uint16_t *)addr;

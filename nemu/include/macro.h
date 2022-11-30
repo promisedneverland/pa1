@@ -92,12 +92,12 @@
 
 #define PG_ALIGN __attribute((aligned(4096)))
 
+//likely的程序员对分支的预测，目的是将“分支转移”的信息提供给编译器，这样编译器可以对代码进行优化，以减少指令跳转带来的性能下降。
 #if !defined(likely)
 #define likely(cond)   __builtin_expect(cond, 1)
 #define unlikely(cond) __builtin_expect(cond, 0)
 #endif
 
-// for AM IOE
 //对抽象寄存器进行访问
 //io_read(AM_AUDIO_CONFIG) -> 
 //AM_AUDIO_CONFIG_T __io_param

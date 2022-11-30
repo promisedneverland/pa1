@@ -43,6 +43,7 @@ uint8_t* new_space(int size) {
   return p;
 }
 
+//检查addr是否在map范围
 static void check_bound(IOMap *map, paddr_t addr) {
   if (map == NULL) {
     Assert(map != NULL, "address (" FMT_PADDR ") is out of bound at pc = " FMT_WORD, addr, cpu.pc);
@@ -53,6 +54,7 @@ static void check_bound(IOMap *map, paddr_t addr) {
   }
 }
 
+//调用回调函数，增加一步检查
 static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_write) {
   if (c != NULL) { c(offset, len, is_write); }//is_write 指示是否写数据
 }
@@ -68,15 +70,23 @@ void init_map() {
   p_space = io_space;
 }
 
-//输入物理地址，返回设备空间处的相对应的值
-//一段物理地址，对应一段在pmem之外的设备地址
+//调用paddr_read访问虚拟设备空间，实际上是访问了真实设备空间
+//输入物理地址中的虚拟设备空间地址addr，把addr映射到真实设备空间，并返回真实设备空间中的值 + 调用回调函数
 word_t map_read(paddr_t addr, int len, IOMap *map) {
   
   assert(len >= 1 && len <= 8);
+
+  //检查addr是否在map范围
   check_bound(map, addr);
-  paddr_t offset = addr - map->low;//地址相对于端口起始处的偏移量
+
+  paddr_t offset = addr - map->low;//addr相对于虚拟设备空间起始地址的偏移量
+
+  //调用回调函数
   invoke_callback(map->callback, offset, len, false); // prepare data to read
+
   word_t ret = host_read(map->space + offset, len);//读取map->space + offset 处 字节为len的内容
+
+  //dtrace:
   //printf("io : %s read addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, ret);
   return ret;
 }

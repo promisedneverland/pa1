@@ -18,15 +18,18 @@
 
 #include <common.h>
 
+//检查idx是不是一个寄存器的编号,即是否在[0,31]的范围内
 static inline int check_reg_idx(int idx) {
   //检查一下idx是否指向了一个reg
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
   return idx;
 }
 
+//访问cpu通用寄存器的宏
 #define gpr(idx) cpu.gpr[check_reg_idx(idx)]
 
-static inline const char* reg_name(int idx, int width) {//查询寄存器名称？
+//查询通用寄存器名称
+static inline const char* reg_name(int idx, int width) {
   extern const char* regs[];
   return regs[check_reg_idx(idx)];
 }

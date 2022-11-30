@@ -26,14 +26,16 @@ static uint8_t *pmem = NULL;
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};//CONFIG_MSIZE = 128MB,pmem作为内存
 #endif
 
-//猜测：paddr是+8000000的，v不加
+
+//paddr应该从0x80000000,访问0x80000004相当于访问pmem + 4 = pmem[4]
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
-//初始时，返回指针指向pmem[0]
-//返回pmem数组下标处
+
+//haddr应该从pmem[0]开始,pmem[4]的地址为haddr = pmem + 4，对应paddr = 0x80000004
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
+//输入paddr,想要读取的字节数，返回4个字节的值
 static word_t pmem_read(paddr_t addr, int len) {
-  word_t ret = host_read(guest_to_host(addr), len);//读取pmem值，paddr是+80000000的值，len是字节数
+  word_t ret = host_read(guest_to_host(addr), len);
   return ret;
 }
 
@@ -46,7 +48,7 @@ static void out_of_bound(paddr_t addr) {
       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
 }
 
-//默认其实什么都没做
+//默认把所有的pmem内容都设置为随机数
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)//如果定义了 则执行
   pmem = malloc(CONFIG_MSIZE);
@@ -68,6 +70,7 @@ void init_mem() {
 word_t paddr_read(paddr_t addr, int len) {
   if (likely(in_pmem(addr))) 
   {
+    //mtrace:
     //printf("paddr read  addr = 0x%x , len = %d\n", addr , len);
     return pmem_read(addr, len);
   }
@@ -77,13 +80,20 @@ word_t paddr_read(paddr_t addr, int len) {
 }
 
 void paddr_write(paddr_t addr, int len, word_t data) {
+  //大概率发生事件
   if (likely(in_pmem(addr))) { 
     //printf("paddr write addr = 0x%x , len = %d , data = 0x%x\n", addr , len, data);
     pmem_write(addr, len, data); 
     return; 
   }
+  //小概率发生事件
+  
+  //dtrace : 
   //printf("io write addr = 0x%x , len = %d , data = 0x%x\n", addr , len, data);
+
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
-  //如果执行到这里，则说明越界
+
+  //如果执行到这里，则说明没有mmio空间但是又对mmio空间进行了访问
+  //打印错误信息
   out_of_bound(addr);
 }

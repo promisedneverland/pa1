@@ -18,6 +18,7 @@
 #include <isa.h>
 #include <cpu/difftest.h>
 
+//状态，当前pc，停止返回值
 void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
   difftest_skip_ref();
   nemu_state.state = state;
@@ -25,6 +26,7 @@ void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
   nemu_state.halt_ret = halt_ret;//ret = 0 -> good trap
 }
 
+//未实现的指令 或 输入了不存在的指令
 __attribute__((noinline))
 void invalid_inst(vaddr_t thispc) {
   uint32_t temp[2];

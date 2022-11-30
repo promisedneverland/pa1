@@ -18,9 +18,13 @@
 
 #define NR_MAP 16
 
+//映射的数组
 static IOMap maps[NR_MAP] = {};
+
+//虚拟设备空间映射的数量
 static int nr_map = 0;
 
+//寻找addr所在的虚拟设备空间映射，返回map的引用
 static IOMap* fetch_mmio_map(paddr_t addr) {//找到maps数组下标
   int mapid = find_mapid_by_addr(maps, nr_map, addr);
   return (mapid == -1 ? NULL : &maps[mapid]);
@@ -31,6 +35,7 @@ static void report_mmio_overlap(const char *name1, paddr_t l1, paddr_t r1,
   panic("MMIO region %s@[" FMT_PADDR ", " FMT_PADDR "] is overlapped "
                "with %s@[" FMT_PADDR ", " FMT_PADDR "]", name1, l1, r1, name2, l2, r2);
 }
+
 
 //space 在serial 中 指向8字节大小空间， addr = 0xa00003f8， len = 8
 //add_mmio_map(设备名称，内存映射所处地址，物理设备空间地址，空间大小，回调函数)
@@ -61,8 +66,8 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
   nr_map ++;
 }
 
-/* bus interface */
-//当访问内存的位置是mmio空间的时候，调用mmio_read,继而调用map_read 继而调用call back(handler)
+
+//当访问内存的位置是mmio空间的时候，paddr_read 调用 mmio_read,mmio_read调用map_read 继而调用call back(handler)
 word_t mmio_read(paddr_t addr, int len) {
   return map_read(addr, len, fetch_mmio_map(addr));
 }

@@ -25,21 +25,21 @@
 #define INT_DIGIT 50
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM,DEREF,TK_NEGATIVE,TK_AND,TK_UEQ,TK_HNUM,TK_RG
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256,
+  TK_EQ,
+  TK_NUM,
+  DEREF,
+  TK_NEGATIVE,
+  TK_AND,
+  TK_UEQ,
+  TK_HNUM,
+  TK_RG
 };
 
 static struct rule {
   const char *regex;
   int token_type;
 } rules[] = {
-
-  /* TODO: Add more rules.
-   * Pay attention to the precedence level of different rules.
-   */
-
   {"0x[A-Fa-f0-9]+",TK_HNUM},//TK_num不能 先于 HNUM
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
@@ -53,8 +53,6 @@ static struct rule {
   {"&&", TK_AND},     
   {"[0-9]+",TK_NUM},
   {"\\$[\\$A-Za-z0-9]+",TK_RG}
-  
-
 };
 
 #define NR_REGEX ARRLEN(rules)

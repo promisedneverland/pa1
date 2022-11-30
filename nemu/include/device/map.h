@@ -21,6 +21,7 @@
 typedef void(*io_callback_t)(uint32_t, int, bool);
 uint8_t* new_space(int size);
 
+
 typedef struct {
   const char *name;
   //名字, 映射的起始地址和结束地址, 映射的目标空间, 以及一个回调函数
@@ -28,19 +29,19 @@ typedef struct {
   paddr_t low;
   paddr_t high;
   void *space;
-  io_callback_t callback;
+  io_callback_t callback;//map_read,map_write调用
 } IOMap;
 
-//判断一个地址addr是否在map的起始地址和结束地址之间
+//判断addr是否在map的起始地址和结束地址之间
 static inline bool map_inside(IOMap *map, paddr_t addr) {
   return (addr >= map->low && addr <= map->high);
 }
 
-//输入物理地址，返回对应的maps数组下标
+//输入addr，返回虚拟设备空间地址对应的maps数组下标,若返回值为-1表明没有找到
 //size是maps数组的大小
 static inline int find_mapid_by_addr(IOMap *maps, int size, paddr_t addr) {
   int i;
-  
+  //对所有maps数组中的映射逐一检查
   for (i = 0; i < size; i ++) {
     if (map_inside(maps + i, addr)) {
       difftest_skip_ref();

@@ -24,6 +24,8 @@
 #include <generated/autoconf.h>
 #include <macro.h>
 
+//定义 word_t FMT_WORD vaddr_t paddr_t FMT_PADDR
+
 //CONFIG_TARGET_AM 就是在nemu中用自己实现的klib
 #ifdef CONFIG_TARGET_AM
 #include <klib.h>

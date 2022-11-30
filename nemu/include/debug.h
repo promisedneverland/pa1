@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <utils.h>
 
+//定义Log，Assert，TODO
+
 //## __VA_ARGS__ 将被替换为...
 // 内容解释:
 // [src/utils/log.c:33 init_log] 中 src/utils/log.c:为__FILE__， 33为__LINE__， init_log 为 __func__

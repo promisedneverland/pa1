@@ -18,6 +18,7 @@
 
 #include <common.h>
 
+//cpu结构体
 typedef struct {//c语言中的结构体定义，类型名为riscv32_CPU_state
   word_t gpr[32];//通用目的寄存器
   vaddr_t pc;//PC
@@ -27,7 +28,7 @@ typedef struct {//c语言中的结构体定义，类型名为riscv32_CPU_state
   word_t mstatus;
 } riscv32_CPU_state;
 
-// decode
+// decode结构体
 typedef struct {
   union {
     uint32_t val;//4字节信息

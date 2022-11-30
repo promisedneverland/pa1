@@ -25,12 +25,14 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 
+//寄存器名称
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
   "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
+
 extern int used_rs1;
 extern int used_rd;
 extern int used_rs2;
@@ -39,19 +41,20 @@ void isa_reg_display() {//printf 输出所有寄存器的值
   {
     if ( used_rd == i )
     {
-      printf(RED "%5s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
+      printf(RED "%5s 0x%08x %u rd\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
     }
     else if( used_rs2 == i )
-      printf(YEL "%5s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
+      printf(YEL "%5s 0x%08x %u rs2\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
     else if( used_rs1 == i )
-      printf(GRN "%5s 0x%08x %u\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
+      printf(GRN "%5s 0x%08x %u rs1\n" RESET,regs[i],cpu.gpr[i],cpu.gpr[i]);
     else 
       printf("%5s 0x%08x %u\n" ,regs[i],cpu.gpr[i],cpu.gpr[i]);
   }  
 }
 
+//查询名称为s的寄存器的值, 并设置success指示是否查询成功.
 word_t isa_reg_str2val(const char *s, bool *success) {
-  //它用于返回名字为s的寄存器的值, 并设置success指示是否成功.
+  
   for(int i=0;i<32;i++)
   {
     if(strcmp(regs[i],s) == 0)

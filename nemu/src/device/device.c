@@ -89,6 +89,7 @@ void init_device() {
   //io_space 指向设备空间的起始， p_space 指向当前使用空间末尾
   init_map();
 
+  //内存中注册从0xa00003f8开始的8字节空间，映射到1个页面的linux内存空间 
   IFDEF(CONFIG_HAS_SERIAL, init_serial());
   IFDEF(CONFIG_HAS_TIMER, init_timer());
   IFDEF(CONFIG_HAS_VGA, init_vga());

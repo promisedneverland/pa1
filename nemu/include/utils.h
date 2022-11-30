@@ -22,6 +22,7 @@
 
 enum { NEMU_RUNNING, NEMU_STOP, NEMU_END, NEMU_ABORT, NEMU_QUIT };
 
+//nemu.state
 typedef struct {
   int state;//状态
   vaddr_t halt_pc;//停止时的pc值

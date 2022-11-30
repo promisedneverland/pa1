@@ -17,6 +17,7 @@
 
 #include <memory/vaddr.h>
 
+//传入pc和字节数4,返回32位指令了;会产生副作用使得pc+4
 static inline uint32_t inst_fetch(vaddr_t *pc, int len) {
   //len = 4, pc = snpc 
   uint32_t inst = vaddr_ifetch(*pc, len);//访问内存

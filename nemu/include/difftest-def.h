@@ -19,6 +19,8 @@
 #include <stdint.h>
 #include <generated/autoconf.h>
 
+//定义 DIFFTEST_REG_SIZE
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 #if defined(CONFIG_ISA_x86)
