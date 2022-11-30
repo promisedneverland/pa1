@@ -44,6 +44,12 @@ void swap(char* a, char* b);
         out[charout] = c;\
         charout++;\
         break;\
+      case 'p':\
+        d = va_arg(ap, int);\
+        itoa(d,buffer,16);\
+        strcpy(out+charout,buffer);\
+        charout += strlen(buffer) ;\
+        break;\
       }\
       fmt++;\
     }\
