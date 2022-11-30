@@ -1,7 +1,7 @@
 .DEFAULT_GOAL = app
 
 # Add necessary options if the target is a shared library
-ifeq ($(SHARE),1)
+ifeq ($(SHARE),1) # no 
 SO = -so
 CFLAGS  += -fPIC
 LDFLAGS += -rdynamic -shared -fPIC
