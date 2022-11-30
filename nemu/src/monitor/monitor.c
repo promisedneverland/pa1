@@ -190,6 +190,7 @@ void am_init_monitor() {
 }
 #endif
 
+//用于处理elf的各项数据
 static word_t strTabOffset;
 static char strTab[65536] = {};
 static int symtabID = 0;
