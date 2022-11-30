@@ -11,12 +11,12 @@
 
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  TODO();
+  
   return 0;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
-  printf("%s","in naive\n\n");
+  // printf("%s","in naive\n\n");
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
