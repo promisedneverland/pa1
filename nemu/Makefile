@@ -14,6 +14,7 @@
 #**************************************************************************************/
 
 # Sanity check
+# 检查NEMU HOME目录下有没有nemu-main.c
 ifeq ($(wildcard $(NEMU_HOME)/src/nemu-main.c),)
   $(error NEMU_HOME=$(NEMU_HOME) is not a NEMU repo)
 endif
@@ -22,6 +23,8 @@ endif
 -include $(NEMU_HOME)/include/config/auto.conf
 -include $(NEMU_HOME)/include/config/auto.conf.cmd
 
+#一个函数，用于去除引号
+#% 用于匹配任意非空字符
 remove_quote = $(patsubst "%",%,$(1))
 
 # Extract variabls from menuconfig
