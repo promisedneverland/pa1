@@ -13,6 +13,7 @@
 # See the Mulan PSL v2 for more details.
 #**************************************************************************************/
 
+#-include : 假如没有相应文件也不报错
 -include $(NEMU_HOME)/../Makefile
 include $(NEMU_HOME)/scripts/build.mk
 
