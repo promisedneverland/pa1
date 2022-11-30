@@ -9,6 +9,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
+//pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   TODO();
   return 0;

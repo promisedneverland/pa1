@@ -3,11 +3,15 @@
 
 // **MAY SUBJECT TO CHANGE IN THE FUTURE**
 //抽象寄存器编号，与架构无关
-//定义了枚举类型，如AM_TIMER_UPTIME
-//定义了结构，如AM_TIMER_UPTIME_T
+//1.定义了枚举类型 AM_TIMER_UPTIME
+//2.定义了结构体 AM_TIMER_UPTIME_T
 #define AM_DEVREG(id, reg, perm, ...) \
   enum { AM_##reg = (id) }; \
   typedef struct { __VA_ARGS__; } AM_##reg##_T;
+
+//例 ： AM_DEVREG( 6, TIMER_UPTIME, RD, uint64_t us); 
+//enum{AM_TIMER_UPTIME = 6};
+//typedef struct { uint64_t us; } AM_TIMER_UPTIME_T
 
 AM_DEVREG( 1, UART_CONFIG,  RD, bool present);
 AM_DEVREG( 2, UART_TX,      WR, char data);
@@ -63,6 +67,7 @@ enum {
 };
 
 // GPU
+//下面的看不懂
 
 #define AM_GPU_TEXTURE  1
 #define AM_GPU_SUBTREE  2
