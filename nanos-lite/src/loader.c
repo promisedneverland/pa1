@@ -40,7 +40,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   #endif
   printf("%x\n",phdr.p_filesz);
   ramdisk_read(&phdr,elfHeader.e_phoff,sizeof(Elf_Phdr));
-  printf("%d\n",phdr.p_filesz);
+  printf("%x\n",phdr.p_filesz);
   return 0;
 }
 
