@@ -22,11 +22,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read(elf,0,get_ramdisk_size());
   ramdisk_read(&elfHeader,0,sizeof(Elf_Ehdr));
   // printf("%s",elf);//将打印ELF
-    if(elfHeader.e_ident[0] == 0x7f &&
-       elfHeader.e_ident[1] == 'E' &&
-       elfHeader.e_ident[2] == 'L' &&
-       elfHeader.e_ident[3] == 'F') 
-      { printf("this is an ELF file\n");}
+  assert(elfHeader.e_ident[0] == 0x7f &&
+         elfHeader.e_ident[1] == 'E' &&
+         elfHeader.e_ident[2] == 'L' &&
+         elfHeader.e_ident[3] == 'F');
+  
+      // { printf("this is an ELF file\n");}
   // assert(*(uint32_t *)elf_ehdr-> == 0x7f454c46);
 
   return 0;
