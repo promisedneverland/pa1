@@ -32,7 +32,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
 
   #if defined(__ISA_RISCV32__)
-    printf("32");
+    assert(elfHeader.e_machine == EM_NONE);
+    printf("this elf has type riscv32\n");
   #elif
   # error unsupported ISA __ISA__
   #endif
