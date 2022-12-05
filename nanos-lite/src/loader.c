@@ -18,7 +18,7 @@ char* elf;
 static Elf32_Ehdr elfHeader;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  printf("init elf\n");
+  printf("init elf : \n");
   elf = malloc(get_ramdisk_size());
   ramdisk_read(elf,0,get_ramdisk_size());
   ramdisk_read(&elfHeader,0,sizeof(Elf_Ehdr));
@@ -28,12 +28,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
          elfHeader.e_ident[2] == 'L' &&
          elfHeader.e_ident[3] == 'F');
 
-  printf("this is an ELF file\n");
+  printf("check ok : this is an ELF file\n");
 
 
   #if defined(__ISA_RISCV32__)
     assert(elfHeader.e_machine == EM_RISCV);
-    printf("this elf has type riscv32\n");
+    printf("check ok : this elf has type riscv32\n");
   #elif
   # error unsupported ISA __ISA__
   #endif
