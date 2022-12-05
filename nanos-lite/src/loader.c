@@ -48,6 +48,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       segment_loaded = malloc(phdr.p_filesz);
       ramdisk_read(segment_loaded,phdr.p_offset,phdr.p_filesz);
       ramdisk_write(segment_loaded,phdr.p_vaddr,phdr.p_filesz);
+      free(segment_loaded);
     }
     else 
     {
