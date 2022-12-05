@@ -36,10 +36,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   #if defined(__ISA_RISCV32__)
     assert(elfHeader.e_machine == EM_RISCV);
     printf("check ok : this elf has type riscv32\n");
-
   #endif
 
-
+  
   return 0;
 }
 
