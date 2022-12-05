@@ -18,6 +18,7 @@ char* elf;
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf\n");
   ramdisk_read(elf,0,get_ramdisk_size());
+  printf("\n\n");
   printf("%s",elf);
   // assert(*(uint32_t *)elf->e_ident == 0xBadC0de);
 
