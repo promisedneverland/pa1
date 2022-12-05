@@ -47,7 +47,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       // unsigned char* segment_loaded;
       // segment_loaded = malloc(phdr.p_filesz);
       printf("phdr.p_vaddr = %x\n",phdr.p_vaddr);
-      ramdisk_read((char*)phdr.p_vaddr, phdr.p_offset, phdr.p_filesz);
+      char* p =(char*)phdr.p_vaddr;
+      ramdisk_read(p, phdr.p_offset, phdr.p_filesz);
       // for(int j = 0; j < phdr.p_filesz ; j++)
       //   vaddr_write((uint32_t)1,1,(uint32_t)1);
       // free(segment_loaded);
@@ -61,7 +62,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // free(elf);
   // assert(phdr.p_type == RISCV_ATTRIBUT);
   // printf("phdr.p_filesz = %x\n",phdr.p_offset);
-  return 0x83000000;
+  return 0x830000b4;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
