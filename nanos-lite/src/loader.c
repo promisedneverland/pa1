@@ -38,7 +38,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     assert(elfHeader.e_machine == EM_RISCV);
     printf("check ok : this elf has type riscv32\n");
   #endif
-  printf("%x\n",phdr.p_filesz);
+
+  printf("elfHeader.e_phoff = %x\n",elfHeader.e_phoff);
+
   ramdisk_read(&phdr,elfHeader.e_phoff,sizeof(Elf_Phdr));
   printf("%x\n",phdr.p_filesz);
   return 0;
