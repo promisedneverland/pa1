@@ -39,8 +39,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   printf("elfHeader.e_phoff = %d\n",elfHeader.e_phoff);
 
-  ramdisk_read(&phdr,elfHeader.e_phoff,sizeof(Elf_Phdr));
-  printf("phdr.p_type = %x\n",phdr.p_type);
+  ramdisk_read(&phdr,elfHeader.e_phoff + sizeof(Elf_Phdr),sizeof(Elf_Phdr));
+  // assert(phdr.p_type == RISCV_ATTRIBUT);
   printf("phdr.p_filesz = %x\n",phdr.p_filesz);
   return 0;
 }
