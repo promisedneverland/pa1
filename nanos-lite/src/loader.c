@@ -41,7 +41,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   ramdisk_read(&phdr,elfHeader.e_phoff + sizeof(Elf_Phdr),sizeof(Elf_Phdr));
   // assert(phdr.p_type == RISCV_ATTRIBUT);
-  printf("phdr.p_filesz = %x\n",phdr.p_filesz);
+  printf("phdr.p_filesz = %x\n",phdr.p_offset);
   return 0;
 }
 
