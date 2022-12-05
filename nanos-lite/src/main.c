@@ -30,9 +30,9 @@ int main() {
 
   Log("Finish initialization");
 
-#ifdef HAS_CTE
-  yield();
-#endif
+// #ifdef HAS_CTE
+//   yield();
+// #endif
   // printf("Should not reach here");
   panic("Should not reach here");
 }
