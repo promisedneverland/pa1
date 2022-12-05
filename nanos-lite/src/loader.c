@@ -17,8 +17,8 @@ char* elf;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf\n\n");
-  // ramdisk_read(elf,0,get_ramdisk_size());
-  // printf("\n\n");
+  ramdisk_read(elf,0,get_ramdisk_size());
+  printf("\n\n");
   // printf("%s",elf);
   // assert(*(uint32_t *)elf->e_ident == 0xBadC0de);
 
@@ -29,6 +29,6 @@ void naive_uload(PCB *pcb, const char *filename) {
   // printf("%s","in naive\n\n");
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
-  ((void(*)())entry) ();
+  // ((void(*)())entry) ();
 }
 
