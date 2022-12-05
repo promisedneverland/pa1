@@ -13,10 +13,11 @@
 size_t get_ramdisk_size();
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
-char elf[65536];
+char* elf;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf\n\n");
+  elf = malloc(get_ramdisk_size());
   ramdisk_read(elf,0,get_ramdisk_size());
   printf("\n\n");
   // printf("%s",elf);
