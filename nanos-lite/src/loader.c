@@ -9,15 +9,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-#if defined(__ISA_X86__)
-# define nemu_trap(code) asm volatile ("int3" : :"a"(code))
-#elif defined(__ISA_MIPS32__)
-# define nemu_trap(code) asm volatile ("move $v0, %0; sdbbp" : :"r"(code))
-#elif defined(__ISA_RISCV32__) || defined(__ISA_RISCV64__)
-# define nemu_trap(code) asm volatile("mv a0, %0; ebreak" : :"r"(code))
-#elif
-# error unsupported ISA __ISA__
-#endif
+
 
 size_t get_ramdisk_size();
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
@@ -37,6 +29,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
          elfHeader.e_ident[3] == 'F');
 
   printf("this is an ELF file\n");
+
+
+  #if defined(__ISA_RISCV32__)
+    printf("32");
+  #elif
+  # error unsupported ISA __ISA__
+  #endif
   // assert(*(uint32_t *)elf_ehdr-> == 0x7f454c46);
 
   return 0;
