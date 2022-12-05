@@ -9,7 +9,7 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-uint32_t paddr_read(uint32_t addr, int len);
+void paddr_write(uint32_t addr, int len, uint32_t data);
 size_t get_ramdisk_size();
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
@@ -45,10 +45,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     if(phdr.p_type == PT_LOAD)
     {
       printf("type load\n");
-      char* segment_loaded;
+      unsigned char* segment_loaded;
       segment_loaded = malloc(phdr.p_filesz);
       ramdisk_read(segment_loaded,phdr.p_offset,phdr.p_filesz);
-      // paddr_write(segment_loaded,phdr.p_vaddr,phdr.p_filesz);
+      for(int j = 0; j < phdr.p_filesz ; j++)
+        // paddr_write((uint32_t)1,1,(uint32_t)1);
       free(segment_loaded);
     }
     else 
