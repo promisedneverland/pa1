@@ -16,6 +16,7 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 char* elf;
 static Elf_Ehdr elfHeader;
+static Elf_Phdr phdr;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf : \n");
@@ -38,7 +39,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     printf("check ok : this elf has type riscv32\n");
   #endif
 
-  
+  ramdisk_read(&phdr,elfHeader.e_phoff,sizeof(Elf_Phdr));
+
   return 0;
 }
 
