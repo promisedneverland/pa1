@@ -48,7 +48,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       // for(int j = 0; j < phdr.p_filesz ; j++)
       //   vaddr_write((uint32_t)1,1,(uint32_t)1);
       // free(segment_loaded);
-      memset((void*)(phdr.p_vaddr + phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
+      memset((char*)(phdr.p_vaddr + phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
     }
     // else 
     // {
