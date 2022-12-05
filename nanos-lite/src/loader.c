@@ -15,6 +15,7 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 // char* elf;
 static Elf_Ehdr elfHeader;
 static Elf_Phdr phdr;
+
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf : \n");
@@ -62,7 +63,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // free(elf);
   // assert(phdr.p_type == RISCV_ATTRIBUT);
   // printf("phdr.p_filesz = %x\n",phdr.p_offset);
-  return 0x830000b4;
+  
+  return elfHeader.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
