@@ -16,6 +16,7 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 char* elf;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  printf("init elf\n\n");
   ramdisk_read(elf,0,get_ramdisk_size());
 
   // assert(*(uint32_t *)elf->e_ident == 0xBadC0de);
