@@ -21,7 +21,8 @@ Context* __am_irq_handle(Context *c) {
       }
       default: ev.event = EVENT_ERROR; break;
     }
-
+    //调用回调函数
+    c -> mepc += 4;
     c = user_handler(ev, c);
     assert(c != NULL);
   }
