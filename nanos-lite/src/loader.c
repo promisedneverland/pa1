@@ -9,18 +9,17 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
-void vaddr_write(uint32_t addr, int len, uint32_t data);
 size_t get_ramdisk_size();
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
-char* elf;
+// char* elf;
 static Elf_Ehdr elfHeader;
 static Elf_Phdr phdr;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf : \n");
-  elf = malloc(get_ramdisk_size());
-  ramdisk_read(elf,0,get_ramdisk_size());
+  // elf = malloc(get_ramdisk_size());
+  // ramdisk_read(elf,0,get_ramdisk_size());
   ramdisk_read(&elfHeader,0,sizeof(Elf_Ehdr));
   // printf("%s",elf);//将打印ELF
 
@@ -59,7 +58,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     //   printf("\n");
     // }
   }
-  free(elf);
+  // free(elf);
   // assert(phdr.p_type == RISCV_ATTRIBUT);
   // printf("phdr.p_filesz = %x\n",phdr.p_offset);
   return 0x83000000;
