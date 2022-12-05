@@ -1,6 +1,7 @@
 #include <common.h>
 
 static Context* do_event(Event e, Context* c) {
+  c->mepc += 4;
   switch (e.event) {
     case EVENT_YIELD: 
     {
