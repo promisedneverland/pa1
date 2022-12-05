@@ -61,7 +61,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   }
   // free(elf);
   // assert(phdr.p_type == RISCV_ATTRIBUT);
-  // printf("phdr.p_filesz = %x\n",phdr.p_offset);
+  printf("elfHeader.e_entry; = %x\n",elfHeader.e_entry);
   
   return elfHeader.e_entry;
 }
