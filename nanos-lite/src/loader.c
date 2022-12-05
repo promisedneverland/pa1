@@ -47,11 +47,11 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       // unsigned char* segment_loaded;
       // segment_loaded = malloc(phdr.p_filesz);
       printf("phdr.p_filesz = %x\n",phdr.p_filesz);
-      ramdisk_read((void*)phdr.p_vaddr,phdr.p_offset,phdr.p_filesz);
+      ramdisk_read((void*)phdr.p_vaddr, phdr.p_offset, phdr.p_filesz);
       // for(int j = 0; j < phdr.p_filesz ; j++)
       //   vaddr_write((uint32_t)1,1,(uint32_t)1);
       // free(segment_loaded);
-      // memset((void*)(phdr.p_vaddr + phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
+      memset((void*)(phdr.p_vaddr + phdr.p_filesz),0,phdr.p_memsz - phdr.p_filesz);
     }
     // else 
     // {
