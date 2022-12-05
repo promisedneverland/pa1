@@ -40,7 +40,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("elfHeader.e_shoff = %d\n",elfHeader.e_shoff);
   for(int i = 0 ; i < elfHeader.e_phnum ; i++)
   {
-    ramdisk_read(&phdr,elfHeader.e_phoff + i * sizeof(Elf_Phdr),sizeof(Elf_Phdr));
+    ramdisk_read(&phdr,elfHeader.e_phoff + i * elfHeader.e_phentsize,elfHeader.e_phentsize);
     if(phdr.p_type == PT_LOAD)
     {
       printf("type load\n");
