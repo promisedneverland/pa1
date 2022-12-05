@@ -199,7 +199,6 @@ static Elf32_Ehdr elfHeader;
 static Elf32_Sym symTab[128];
 static int symTabNum = 0;
 static int func_strTabID = 0;
-
 void init_symTab(FILE* fp)
 {
   symTabNum = sectionHeader[symtabID].sh_size / sectionHeader[symtabID].sh_entsize;

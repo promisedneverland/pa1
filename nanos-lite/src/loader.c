@@ -14,16 +14,20 @@ size_t get_ramdisk_size();
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 char* elf;
-static Elf_Ehdr elf_ehdr;
+static Elf32_Ehdr elfHeader;
 //pcb，filename暂不使用
 static uintptr_t loader(PCB *pcb, const char *filename) {
   printf("init elf\n\n");
   elf = malloc(get_ramdisk_size());
   ramdisk_read(elf,0,get_ramdisk_size());
-  ramdisk_read(&elf_ehdr,0,sizeof(Elf_Ehdr));
+  ramdisk_read(&elfHeader,0,sizeof(Elf_Ehdr));
   // printf("%s",elf);//将打印ELF
-
-  // assert(*(uint32_t *)elf->e_ident == 0x7f454c46);
+    if(elfHeader.e_ident[0] == 0x7f &&
+       elfHeader.e_ident[1] == 'E' &&
+       elfHeader.e_ident[2] == 'L' &&
+       elfHeader.e_ident[3] == 'F') 
+      { printf("this is an ELF file\n");}
+  // assert(*(uint32_t *)elf_ehdr-> == 0x7f454c46);
 
   return 0;
 }
