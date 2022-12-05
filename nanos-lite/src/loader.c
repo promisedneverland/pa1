@@ -41,16 +41,20 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   for(int i = 0 ; i < elfHeader.e_phnum ; i++)
   {
     ramdisk_read(&phdr,elfHeader.e_phoff + i * sizeof(Elf_Phdr),sizeof(Elf_Phdr));
-    // if(phdr.p_type == PT_LOAD)
-    // {
-    //   printf("type load\n");
-    // }
-    // else 
-    // {
-    //   printf("\n");
-    // }
+    if(phdr.p_type == PT_LOAD)
+    {
+      printf("type load\n");
+      char* segment_loaded;
+      segment_loaded = malloc(phdr.p_filesz);
+      ramdisk_read(segment_loaded,phdr.p_offset,phdr.p_filesz);
+      ramdisk_write(segment_loaded,phdr.p_vaddr,phdr.p_filesz);
+    }
+    else 
+    {
+      printf("\n");
+    }
   }
-  
+  free(elf);
   // assert(phdr.p_type == RISCV_ATTRIBUT);
   // printf("phdr.p_filesz = %x\n",phdr.p_offset);
   return 0;
