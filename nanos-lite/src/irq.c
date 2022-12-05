@@ -9,7 +9,7 @@ static Context* do_event(Event e, Context* c) {
     }
     default: panic("Unhandled event ID = %d", e.event);
   }
-
+  
   return c;
 }
 
