@@ -37,7 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     printf("check ok : this elf has type riscv32\n");
   #endif
 
-  printf("elfHeader.e_phoff = %d\n",elfHeader.e_phoff);
+  printf("elfHeader.e_shoff = %d\n",elfHeader.e_shoff);
 
   ramdisk_read(&phdr,elfHeader.e_phoff + sizeof(Elf_Phdr),sizeof(Elf_Phdr));
   // assert(phdr.p_type == RISCV_ATTRIBUT);
