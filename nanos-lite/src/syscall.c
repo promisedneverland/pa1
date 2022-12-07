@@ -21,7 +21,7 @@ void do_syscall(Context *c) {
       c->GPRx = 0;
       return;
     }
-    case 0:
+    case SYS_exit:
     {
       halt(a[1]);
     }
