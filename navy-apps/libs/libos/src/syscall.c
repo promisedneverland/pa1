@@ -61,6 +61,7 @@ int _open(const char *path, int flags, mode_t mode) {
   return 0;
 }
 
+//检查fd的值, 如果fd是1或2(分别代表stdout和stderr), 则将buf为首地址的len字节输出到串口
 int _write(int fd, void *buf, size_t count) {
   // _exit(SYS_write); // 框架代码
   _syscall_(SYS_write, fd, buf, count);//

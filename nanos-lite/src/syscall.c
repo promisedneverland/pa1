@@ -5,6 +5,7 @@ void sys_yield()
 {
   yield();
 }
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   
@@ -28,7 +29,7 @@ void do_syscall(Context *c) {
     }
     case SYS_write:
     { 
-      break;
+      
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
