@@ -7,12 +7,12 @@ static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     case EVENT_YIELD: 
     {
-      printf("event = EVENT_YIELD\n\n");
+      // printf("event = EVENT_YIELD\n\n");
       break;
     }
     case EVENT_SYSCALL:
     {
-      printf("event = EVENT_SYSCALL\n");
+      // printf("event = EVENT_SYSCALL\n");
       do_syscall(c); 
       break;
     }
