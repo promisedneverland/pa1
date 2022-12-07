@@ -71,13 +71,13 @@ int _write(int fd, void *buf, size_t count) {
 extern char _end;
 intptr_t pbreak = &_end;
 void *_sbrk(intptr_t increment) {
-  intptr_t newbreak = increment + pbreak;
-  if(_syscall_(SYS_brk, newbreak, 0, 0) == 0)
-  {
-    intptr_t ret = pbreak;
-    pbreak = newbreak;
-    return ret;
-  }
+  // intptr_t newbreak = increment + pbreak;
+  // if(_syscall_(SYS_brk, newbreak, 0, 0) == 0)
+  // {
+  //   intptr_t ret = pbreak;
+  //   pbreak = newbreak;
+  //   return ret;
+  // }
   return (void *)-1;
 }
 
