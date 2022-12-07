@@ -180,22 +180,22 @@ static void sr_set(word_t imm,word_t value)
     case 0x305:
     {
       sr(mtvec) = value;
-      break;
+      return;
     }
     case 0x300:
     {
       sr(mstatus) = value;
-      break;
+      return;
     }
     case 0x341:
     {
       sr(mepc) = value;
-      break;
+      return;
     }
     case 0x342:
     {
       sr(mcause) = value;
-      break;
+      return;
     }
   }
   printf("no sr found\n");
