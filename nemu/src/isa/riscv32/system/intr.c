@@ -28,7 +28,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    * Then return the address of the interrupt/exception vector.
    */
   //etrace
-  printf("etrace : mcause = %d, mepc = 0x%x, mtvec = 0x%x, mstatus = %d\n" , NO,epc,sr(mtvec),sr(mstatus));
+  // printf("etrace : mcause = %d, mepc = 0x%x, mtvec = 0x%x, mstatus = %d\n" , NO,epc,sr(mtvec),sr(mstatus));
 
   sr(mepc) = epc;
   sr(mcause) = NO;
