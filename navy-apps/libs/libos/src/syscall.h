@@ -1,6 +1,7 @@
 #ifndef __SYSCALL_H__
 #define __SYSCALL_H__
 
+//一共20条
 enum {
   SYS_exit,
   SYS_yield,

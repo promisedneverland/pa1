@@ -5,6 +5,7 @@
 //初始为do_event
 static Context* (*user_handler)(Event, Context*) = NULL;
 
+//从am_asm_trap中直接跳转过来
 Context* __am_irq_handle(Context *c) {
   // printf("mstatus = %d\n",c->mstatus);
   // printf("mepc = %d\n",c->mepc);
@@ -13,17 +14,35 @@ Context* __am_irq_handle(Context *c) {
   //注册了回调函数user_handler
   if (user_handler) {
     Event ev = {0};
-    switch (c->mcause) {
-      case 11: 
-      {
-        ev.event = EVENT_YIELD; 
-        break;
-      }
-      default: ev.event = EVENT_ERROR; break;
+    if(c->mcause == -1)
+    {
+      ev.event = EVENT_YIELD; 
     }
+    else if(c->mcause >= 0 && c->mcause <= 19)
+    {
+      ev.event = EVENT_SYSCALL; 
+    }
+    else 
+    {
+      ev.event = EVENT_ERROR;
+    }
+    // switch (c->mcause) {
+    //   case -1: 
+    //   {
+    //     ev.event = EVENT_YIELD; 
+    //     break;
+    //   }
+    //   case 1: 
+    //   {
+    //     ev.event = EVENT_SYSCALL; 
+    //     break;
+    //   }
+    //   default: ev.event = EVENT_ERROR; break;
+    // }
     //调用回调函数
     c -> mepc += 4;
     // printf("__am_irq_handle\n");
+    //操作系统的事件分发函数do_event
     c = user_handler(ev, c);
     assert(c != NULL);
   }
