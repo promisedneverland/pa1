@@ -29,14 +29,22 @@ void do_syscall(Context *c) {
     }
     case SYS_write:
     { 
-      c->GPRx = sys_write(a[1],(void*)a[2],a[3]);
+      c->GPRx = sys_write(a[1],(char*)a[2],a[3]);
       return ;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
 
-int sys_write(int fd, void *buf, size_t count)
+int sys_write(int fd, char *buf, size_t count)
 {
-  return 0;
+  if(fd == 1 || fd == 2)
+  {
+    for(int i = 0 ; i < count ; i++)
+    {
+      putch(buf[i]);
+    }
+    return count;
+  }
+  return -1;
 }
