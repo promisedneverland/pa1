@@ -175,25 +175,28 @@ static int decode_exec(Decode *s) {
 }
 static void sr_set(word_t imm,word_t value)
 {
-  if(imm == 0x305)
+  switch(imm)
   {
-    sr(mtvec) = value;
-    return ;
-  }
-  if(imm == 0x300)
-  {
-    sr(mstatus) = value;
-    return ;
-  }
-  if(imm == 0x341)
-  {
-    sr(mepc) = value;
-    return ;
-  }
-  if(imm == 0x342)
-  {
-    sr(mcause) = value;
-    return ;
+    case 0x305:
+    {
+      sr(mtvec) = value;
+      break;
+    }
+    case 0x300:
+    {
+      sr(mstatus) = value;
+      break;
+    }
+    case 0x341:
+    {
+      sr(mepc) = value;
+      break;
+    }
+    case 0x342:
+    {
+      sr(mcause) = value;
+      break;
+    }
   }
   printf("no sr found\n");
   return ;

@@ -23,7 +23,7 @@ Context* __am_irq_handle(Context *c) {
     }
     //调用回调函数
     c -> mepc += 4;
-    printf("__am_irq_handle\n");
+    // printf("__am_irq_handle\n");
     c = user_handler(ev, c);
     assert(c != NULL);
   }
