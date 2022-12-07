@@ -15,7 +15,7 @@ void do_syscall(Context *c) {
   a[3] = c->GPR4;
   printf("strace : type = %d, gpr2 = %x, gpr3 = %x, gpr4 = %x\n\n", a[0],a[1],a[2],a[3]);
   switch (a[0]) {
-    case 1:
+    case SYS_yield:
     {
       sys_yield();
       c->GPRx = 0;
