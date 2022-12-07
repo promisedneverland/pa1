@@ -32,11 +32,12 @@ void do_syscall(Context *c) {
       c->GPRx = sys_write(a[1],(char*)a[2],a[3]);
       return ;
     }
-    // case SYS_brk:
-    // { 
-    //   sys_sbrk(a[1]);
-    //   return ;
-    // }
+    case SYS_brk:
+    { 
+      sys_sbrk(a[1]);
+      c->GPRx = 1;
+      return ;
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
