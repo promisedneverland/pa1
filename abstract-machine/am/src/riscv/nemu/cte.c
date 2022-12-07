@@ -14,6 +14,7 @@ Context* __am_irq_handle(Context *c) {
   //注册了回调函数user_handler
   if (user_handler) {
     Event ev = {0};
+    
     if(c->mcause == -1)
     {
       ev.event = EVENT_YIELD; 

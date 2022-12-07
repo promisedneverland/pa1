@@ -1,7 +1,9 @@
 #include <common.h>
 
+
 void do_syscall(Context *c);
 static Context* do_event(Event e, Context* c) {
+  
   switch (e.event) {
     case EVENT_YIELD: 
     {
@@ -10,7 +12,7 @@ static Context* do_event(Event e, Context* c) {
     }
     case EVENT_SYSCALL:
     {
-      printf("event = EVENT_SYSCALL\n\n");
+      printf("event = EVENT_SYSCALL\n");
       do_syscall(c); 
       break;
     }
