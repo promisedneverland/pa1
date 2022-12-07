@@ -35,7 +35,7 @@ void do_syscall(Context *c) {
     case SYS_brk:
     { 
       sys_sbrk(a[1]);
-      c->GPRx = -1;
+      c->GPRx = 0;
       return ;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
@@ -56,8 +56,8 @@ int sys_write(int fd, char *buf, size_t count)
   return -1;
 }
 
-extern char end;
-void *sys_sbrk(intptr_t increment)
+
+void *sys_sbrk(intptr_t addr)
 {
   return 0;
 }

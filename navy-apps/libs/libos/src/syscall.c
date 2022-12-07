@@ -68,10 +68,15 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, buf, count);
 }
 
+extern char _end;
+intptr_t pbreak = &_end;
 void *_sbrk(intptr_t increment) {
-  if(_syscall_(SYS_brk, increment, 0, 0) == 0)
+  intptr_t newbreak = increment + pbreak;
+  if(_syscall_(SYS_brk, newbreak, 0, 0) == 0)
   {
-    return 1;
+    intptr_t ret = pbreak;
+    pbreak = newbreak;
+    return ret;
   }
   return (void *)-1;
 }
