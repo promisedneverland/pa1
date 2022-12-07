@@ -69,6 +69,11 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
+  // if(_syscall_(SYS_sbrk, increment, 0, 0) == 0)
+  // {
+
+  // }
+  putch('$');
   return (void *)-1;
 }
 
