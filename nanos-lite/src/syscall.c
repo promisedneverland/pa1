@@ -38,6 +38,7 @@ void do_syscall(Context *c) {
 
 int sys_write(int fd, char *buf, size_t count)
 {
+  putch('#');
   if(fd == 1 || fd == 2)
   {
     for(int i = 0 ; i < count ; i++)
