@@ -15,11 +15,11 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     
-    if(c->mcause == -1)
+    if(c->GPR1 == -1)
     {
       ev.event = EVENT_YIELD; 
     }
-    else if(c->mcause >= 0 && c->mcause <= 19)
+    else if(c->GPR1 >= 0 && c->GPR1 <= 19)
     {
       ev.event = EVENT_SYSCALL; 
     }
