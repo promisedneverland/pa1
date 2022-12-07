@@ -156,7 +156,7 @@ static int decode_exec(Decode *s) {
   //将state设置为end，halt_ret设置为R(10)
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); 
 
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(11,s->pc)); 
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , N, s->dnpc = isa_raise_intr(R(17),s->pc)); 
   INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw  , I, sr_set(imm,src1),R(dest) = sr_value(imm)); 
   INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs  , I, sr_set(imm,sr_value(imm) | src1),R(dest) = sr_value(imm)); 
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R, s->dnpc = sr(mepc) ); 
