@@ -10,15 +10,19 @@ void do_syscall(Context *c) {
   
   //通过宏GPR1从上下文c中获取用户进程之前设置好的系统调用参数
   a[0] = c->GPR1;
-  a[0] = c->GPR1;
-  a[0] = c->GPR1;
-  a[0] = c->GPR1;
+  a[1] = c->GPR2;
+  a[2] = c->GPR3;
+  a[3] = c->GPR4;
   switch (a[0]) {
     case 1:
     {
       sys_yield();
       c->GPRx = 0;
       return;
+    }
+    case 0:
+    {
+      halt(a[1]);
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
