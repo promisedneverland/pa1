@@ -53,7 +53,7 @@ int fs_open(const char *path, int flags, unsigned int mode)
   return -1;
 }
 
-size_t fs_read(int fd, void *buf, size_t len)
+int fs_read(int fd, void *buf, int len)
 {
   //文件偏移量超过了文件大小
   if(file_table[fd].open_offset >= file_table[fd].size)

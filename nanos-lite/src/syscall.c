@@ -6,7 +6,12 @@ void sys_yield()
   yield();
 }
 void *sys_sbrk(intptr_t addr);
-int fs_open(const char *path, int flags, unsigned int mode);
+
+int fs_open(const char *pathname, int flags, int mode);
+size_t fs_read(int fd, void *buf, size_t len);
+size_t fs_write(int fd, const void *buf, size_t len);
+size_t fs_lseek(int fd, size_t offset, int whence);
+int fs_close(int fd);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -43,6 +48,21 @@ void do_syscall(Context *c) {
     case SYS_open:
     { 
       c->GPRx = fs_open((char*)a[1],a[2],a[3]);
+      return ;
+    }
+    case SYS_lseek:
+    { 
+      c->GPRx = fs_lseek(a[1],a[2],a[3]);
+      return ;
+    }
+    case SYS_read:
+    { 
+      c->GPRx = fs_read(a[1],(char*)a[2],a[3]);
+      return ;
+    }
+    case SYS_close:
+    { 
+      c->GPRx = fs_close(a[1]);
       return ;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
