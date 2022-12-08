@@ -60,7 +60,7 @@ int fs_read(int fd, void *buf, int len)
 {
   if(fd == FD_EVENT)
   {
-    printf("\n\n");
+    printf("sd\n\n");
     return file_table[fd].read(buf,0,len);
   }
 
