@@ -8,11 +8,11 @@ int main() {
     while(1)
     {
         gettimeofday(&new,NULL); 
-        if(new.tv_sec * 1000000 - old.tv_sec * 1000000 + new.tv_usec - old.tv_usec > 500000)
+        if(new.tv_sec * 1000000 - old.tv_sec * 1000000 + new.tv_usec - old.tv_usec > 1000000)
         {
             old.tv_sec = new.tv_sec;
             old.tv_usec = new.tv_usec;
-            printf("0.5sec\n");
+            printf("1sec\n");
         }
     }
   
