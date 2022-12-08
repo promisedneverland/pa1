@@ -22,9 +22,12 @@ uint32_t NDL_GetTicks() {
 // 若读出了有效的事件, 函数返回1, 否则返回0
 int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r+");
-  assert(!fp);
+  assert(fp);
 
   fseek(fp, 0, SEEK_SET);
+  fread(fp,buf,len);
+  
+  fclose(fp);
   return 0;
 }
 
