@@ -24,6 +24,7 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 }
 
 /* This is the information about all files in disk. */
+//文件记录表，其下标为文件描述符
 static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, invalid_write},
@@ -33,4 +34,9 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+}
+
+int sys_open(const char *path, int flags, unsigned int mode)
+{
+  return 0;
 }

@@ -56,9 +56,10 @@ void _exit(int status) {
   while (1);
 }
 
+//传入文件路径，返回文件描述符，即文件表下标
+//flags , mode可以暂时忽略
 int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
-  return 0;
+  return _syscall_(SYS_open, path, flags, mode);
 }
 
 //检查fd的值, 如果fd是1或2(分别代表stdout和stderr), 则将buf为首地址的len字节输出到串口
@@ -71,13 +72,13 @@ int _write(int fd, void *buf, size_t count) {
 extern char _end;
 intptr_t pbreak = &_end;
 void *_sbrk(intptr_t increment) {
-  // intptr_t newbreak = increment + pbreak;
-  // if(_syscall_(SYS_brk, newbreak, 0, 0) == 0)
-  // {
-  //   intptr_t ret = pbreak;
-  //   pbreak = newbreak;
-  //   return ret;
-  // }
+  intptr_t newbreak = increment + pbreak;
+  if(_syscall_(SYS_brk, newbreak, 0, 0) == 0)
+  {
+    intptr_t ret = pbreak;
+    pbreak = newbreak;
+    return ret;
+  }
   return (void *)-1;
 }
 
@@ -91,6 +92,7 @@ int _close(int fd) {
   return 0;
 }
 
+//调整偏移量
 off_t _lseek(int fd, off_t offset, int whence) {
   _exit(SYS_lseek);
   return 0;
