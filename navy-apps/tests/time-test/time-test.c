@@ -27,7 +27,7 @@ int main() {
     if(new - old > 1000)
     {
         old = new;
-        printf("1sec\n");
+        printf("1sec?\n");
     }
   }
   return 0;
