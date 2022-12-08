@@ -6,6 +6,7 @@
 # define MULTIPROGRAM_YIELD()
 #endif
 
+// #key 把key转化成"key"
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
