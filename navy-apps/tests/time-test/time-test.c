@@ -8,7 +8,7 @@ int main() {
     while(1)
     {
         gettimeofday(&new,NULL); 
-        if(new.tv_sec > old.tv_sec && new.tv_usec > old.tv_usec)
+        if(new.tv_sec * 1000 - old.tv_sec * 1000 + new.tv_usec - old.tv_usec > 1000)
         {
             old.tv_sec = new.tv_sec;
             old.tv_usec = new.tv_usec;
