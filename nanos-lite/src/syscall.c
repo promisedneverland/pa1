@@ -6,7 +6,7 @@ void sys_yield()
   yield();
 }
 void *sys_sbrk(intptr_t addr);
-int sys_open(const char *path, int flags, unsigned int mode);
+int fs_open(const char *path, int flags, unsigned int mode);
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -42,7 +42,7 @@ void do_syscall(Context *c) {
     }
     case SYS_open:
     { 
-      c->GPRx = sys_open((char*)a[1],a[2],a[3]);
+      c->GPRx = fs_open((char*)a[1],a[2],a[3]);
       return ;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);

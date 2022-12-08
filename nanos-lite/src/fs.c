@@ -32,11 +32,26 @@ static Finfo file_table[] __attribute__((used)) = {
 #include "files.h"
 };
 
+static int file_num; //文件数量
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  file_num = sizeof(file_table) / sizeof(Finfo);
 }
 
-int sys_open(const char *path, int flags, unsigned int mode)
+int fs_open(const char *path, int flags, unsigned int mode)
 {
-  return 0;
+  for(int i = 0 ; i < file_num; i++)
+  {
+    if(strcmp(path,file_table[i].name) == 0)
+    {
+      return i;
+    }
+  }
+  printf("file %s not found\n",path);
+  assert(0);
+  return -1;
 }
+size_t fs_read(int fd, void *buf, size_t len);
+size_t fs_write(int fd, const void *buf, size_t len);
+size_t fs_lseek(int fd, size_t offset, int whence);
+int fs_close(int fd);
