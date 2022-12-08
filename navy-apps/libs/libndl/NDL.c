@@ -3,13 +3,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
+// int _gettimeofday(struct timeval *tv, struct timezone *tz);//自定义
+
+//// 以毫秒为单位返回系统时间
 uint32_t NDL_GetTicks() {
-  return 0;
+  struct timeval tm;
+  gettimeofday(&tm,NULL);
+  return (tm.tv_sec * 1000000 + tm.tv_usec) / 1000; 
 }
 
 int NDL_PollEvent(char *buf, int len) {
