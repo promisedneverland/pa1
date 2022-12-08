@@ -91,6 +91,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
   // }
   if(fd == 1 || fd == 2)
   {
+    printf("succ\n");
     return file_table[fd].write(buf,0,len);
   }
   int ret = 0;
