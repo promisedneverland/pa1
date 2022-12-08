@@ -69,19 +69,19 @@ void do_syscall(Context *c) {
   }
 }
 
-int sys_write(int fd, char *buf, size_t count)
-{
+// int sys_write(int fd, char *buf, size_t count)
+// {
   
-  if(fd == 1 || fd == 2)
-  {
-    for(int i = 0 ; i < count ; i++)
-    {
-      putch(buf[i]);
-    }
-    return count;
-  }
-  return -1;
-}
+//   if(fd == 1 || fd == 2)
+//   {
+//     for(int i = 0 ; i < count ; i++)
+//     {
+//       putch(buf[i]);
+//     }
+//     return count;
+//   }
+//   return -1;
+// }
 
 
 void *sys_sbrk(intptr_t addr)

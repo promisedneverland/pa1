@@ -78,6 +78,16 @@ int fs_read(int fd, void *buf, int len)
 }
 size_t fs_write(int fd, const void *buf, size_t len)
 {
+  //printf 写入标准输入输出
+  if(fd == 1 || fd == 2)
+  {
+    for(int i = 0 ; i < len; i++)
+    {
+      putch(*((char*)buf + i));
+    }
+    return len;
+  }
+
   int ret = 0;
   // printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
   //文件偏移量超过了文件大小
