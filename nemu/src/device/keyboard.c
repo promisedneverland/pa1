@@ -21,6 +21,7 @@
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>
 
+//和标准的扫描码不一样
 // Note that this is not the standard
 #define _KEYS(f) \
   f(ESCAPE) f(F1) f(F2) f(F3) f(F4) f(F5) f(F6) f(F7) f(F8) f(F9) f(F10) f(F11) f(F12) \
@@ -33,21 +34,25 @@ f(UP) f(DOWN) f(LEFT) f(RIGHT) f(INSERT) f(DELETE) f(HOME) f(END) f(PAGEUP) f(PA
 
 #define _KEY_NAME(k) _KEY_##k,
 
+//此即为AM中的自定义扫描码，用_KEY_NAME(A)即为A对应扫描码
 enum {
   _KEY_NONE = 0,
   MAP(_KEYS, _KEY_NAME)
-  //_KEY_ESCAPE....
+  //_KEY_ESCAPE
+  //_KEY_A
 };
 
 //绑定Scancode 和按键， 记录在keymap中
+//keymap[SDL_SCANCODE_A] = _KEY_A
 #define SDL_KEYMAP(k) keymap[concat(SDL_SCANCODE_, k)] = concat(_KEY_, k);
 static uint32_t keymap[256] = {};
 //#define MAP(c, f) c(f)
 static void init_keymap() {
   MAP(_KEYS, SDL_KEYMAP)
-  //_KEYS(SDL_KEYMAP)
-  //SDL_KEYMAP(ESCAPE)
-  //keymap[] = ;
+  //_KEYS(SDL_KEYMAP) -> 
+  //SDL_KEYMAP(A) ->
+  //keymap[SDL_SCANCODE_A] = _KEY_A;
+  //SDL_SCANCODE_A 在系统头文件中定义
 }
 
 #define KEY_QUEUE_LEN 1024

@@ -58,6 +58,11 @@ int fs_open(const char *path, int flags, unsigned int mode)
 
 int fs_read(int fd, void *buf, int len)
 {
+  if(fd == FD_EVENT)
+  {
+    return file_table[fd].read(buf,0,len);
+  }
+
   int ret = 0;
   //文件偏移量超过了文件大小
   // printf("fs_read fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
@@ -91,10 +96,11 @@ size_t fs_write(int fd, const void *buf, size_t len)
   //   return len;
   // }
   
-  if(fd == 1 || fd == 2)
+  if(fd == FD_STDIN || fd == FD_STDOUT)
   {
     return file_table[fd].write(buf,0,len);
   }
+
 
   int ret = 0;
   // printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
