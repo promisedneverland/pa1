@@ -43,7 +43,7 @@ int fs_open(const char *path, int flags, unsigned int mode)
 {
   for(int i = 0 ; i < file_num; i++)
   {
-    if(strcmp(path,file_table[i].name) == 0)
+    if(strcmp( path, file_table[i].name) == 0)
     {
       return i;
     }
