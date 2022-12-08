@@ -31,9 +31,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   assert(cbuf != NULL);
   bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
   cbuf[0] = 'k';
-  cbuf[1] = (keydown) ? 'd' : 'u';
+  // cbuf[1] = (keydown) ? 'd' : 'u';
 
-  return 0;
+  return keydown;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
