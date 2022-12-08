@@ -1,16 +1,20 @@
 #include <unistd.h>
 #include <stdio.h>
-
+#include <sys/time.h>
 int main() {
-  write(1, "Hello World!\n", 13);
-  int i = 2;
-  volatile int j = 0;
-  while (1) {
-    j ++;
-    if (j == 10000) {
-      printf("Hello World from Navy-apps for the %dth time!\n", i ++);
-      j = 0;
+    struct timeval old;
+    struct timeval new;
+    gettimeofday(&old,NULL); 
+    while(1)
+    {
+        gettimeofday(&new,NULL); 
+        if(new.tv_sec > old.tv_sec && new.tv_usec > old.tv_usec)
+        {
+            old.tv_sec = new.tv_sec;
+            old.tv_usec = new.tv_usec;
+            printf("0.5sec\n");
+        }
     }
-  }
+  
   return 0;
 }
