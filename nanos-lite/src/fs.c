@@ -9,6 +9,7 @@ typedef struct {
   size_t disk_offset;
   ReadFn read;
   WriteFn write;
+  size_t open_offset;
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
@@ -51,7 +52,66 @@ int fs_open(const char *path, int flags, unsigned int mode)
   assert(0);
   return -1;
 }
-size_t fs_read(int fd, void *buf, size_t len);
-size_t fs_write(int fd, const void *buf, size_t len);
-size_t fs_lseek(int fd, size_t offset, int whence);
-int fs_close(int fd);
+
+size_t fs_read(int fd, void *buf, size_t len)
+{
+  //文件偏移量超过了文件大小
+  if(file_table[fd].open_offset >= file_table[fd].size)
+  {
+    return 0;
+  }
+
+  //文件偏移量加上读取的字节数 超过了文件大小
+  if(file_table[fd].open_offset + len > file_table[fd].size)
+  {
+    file_table[fd].open_offset = file_table[fd].size;
+    return ramdisk_read(buf,file_table[fd].disk_offset,file_table[fd].size - file_table[fd].open_offset);
+  }
+  else
+  {
+    file_table[fd].open_offset += len;
+    return ramdisk_read(buf,file_table[fd].disk_offset,len);
+  }
+}
+size_t fs_write(int fd, const void *buf, size_t len)
+{
+  //文件偏移量超过了文件大小
+  if(file_table[fd].open_offset >= file_table[fd].size)
+  {
+    return 0;
+  }
+
+  //文件偏移量加上读取的字节数 超过了文件大小
+  if(file_table[fd].open_offset + len > file_table[fd].size)
+  {
+    file_table[fd].open_offset = file_table[fd].size;
+    return ramdisk_write(buf,file_table[fd].disk_offset,file_table[fd].size - file_table[fd].open_offset);
+  }
+  else
+  {
+    file_table[fd].open_offset += len;
+    return ramdisk_write(buf,file_table[fd].disk_offset,len);
+  }
+}
+
+size_t fs_lseek(int fd, size_t offset, int whence)
+{
+  //根据whence设置open_offset
+  if(whence == SEEK_SET)
+  {
+    file_table[fd].open_offset = offset;
+  }
+  else if(whence == SEEK_CUR)
+  {
+    file_table[fd].open_offset += offset;
+  }
+  else if(whence == SEEK_END)
+  {
+    file_table[fd].open_offset = offset + file_table[fd].size;
+  }
+  return file_table[fd].open_offset;
+}
+int fs_close(int fd)
+{
+ return 0; 
+}
