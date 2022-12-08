@@ -42,7 +42,7 @@ int sys_gettimeofday(struct timeval *tv, struct timezone *tz)
   ioe_read(AM_TIMER_UPTIME,&uptime);
   // printf("%d sec, %d usec");
   tv->tv_sec = uptime / 1000000;
-  tv->tv_usec = uptime % 1000 / 1000;
+  tv->tv_usec = uptime % 1000000;
   return 0;
 }
 void init_device() {
