@@ -29,8 +29,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   assert(buf != NULL);
   char* cbuf = (char *)buf;
   assert(cbuf != NULL);
-  bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
-  assert(keydown == 0);
+  printf("%d",io_read(AM_INPUT_KEYBRD).keydown);
+  // assert(keydown == 0);
   // cbuf[0] = 'k';
   // cbuf[1] = (keydown) ? 'd' : 'u';
 
