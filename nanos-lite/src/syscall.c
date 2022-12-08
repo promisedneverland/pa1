@@ -65,6 +65,11 @@ void do_syscall(Context *c) {
       c->GPRx = fs_close(a[1]);
       return ;
     }
+    case SYS_gettimeofday:
+    { 
+      c->GPRx = fs_close(a[1]);
+      return ;
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 }
