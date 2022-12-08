@@ -55,43 +55,47 @@ int fs_open(const char *path, int flags, unsigned int mode)
 
 int fs_read(int fd, void *buf, int len)
 {
+  int ret = 0;
   //文件偏移量超过了文件大小
   if(file_table[fd].open_offset >= file_table[fd].size)
   {
-    return 0;
+    ret = 0;
   }
 
   //文件偏移量加上读取的字节数 超过了文件大小
   if(file_table[fd].open_offset + len > file_table[fd].size)
   {
+    ret = ramdisk_read(buf, file_table[fd].open_offset + file_table[fd].disk_offset, file_table[fd].size - file_table[fd].open_offset);
     file_table[fd].open_offset = file_table[fd].size;
-    return ramdisk_read(buf,file_table[fd].disk_offset,file_table[fd].size - file_table[fd].open_offset);
   }
   else
   {
+    ret = ramdisk_read(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
     file_table[fd].open_offset += len;
-    return ramdisk_read(buf,file_table[fd].disk_offset,len);
   }
+  return ret;
 }
 size_t fs_write(int fd, const void *buf, size_t len)
 {
+  int ret = 0;
   //文件偏移量超过了文件大小
   if(file_table[fd].open_offset >= file_table[fd].size)
   {
-    return 0;
+    ret = 0;
   }
 
   //文件偏移量加上读取的字节数 超过了文件大小
   if(file_table[fd].open_offset + len > file_table[fd].size)
   {
+    ret = ramdisk_write(buf, file_table[fd].open_offset + file_table[fd].disk_offset, file_table[fd].size - file_table[fd].open_offset);
     file_table[fd].open_offset = file_table[fd].size;
-    return ramdisk_write(buf,file_table[fd].disk_offset,file_table[fd].size - file_table[fd].open_offset);
   }
   else
   {
+    ret = ramdisk_write(buf, file_table[fd].open_offset + file_table[fd].disk_offset, len);
     file_table[fd].open_offset += len;
-    return ramdisk_write(buf,file_table[fd].disk_offset,len);
   }
+  return ret;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence)
