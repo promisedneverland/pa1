@@ -40,8 +40,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     // char* cbuf = buf;
     int length;
     length = sprintf((char*)buf, "k%c", ckeydown);
-
-    sprintf((char*)buf + length, " ");
+    
+    sprintf((char*)buf + length, "asdasdasd");
     length = sprintf((char*)buf + length + 1, "%s", keyname[keycode]);
    
   }
