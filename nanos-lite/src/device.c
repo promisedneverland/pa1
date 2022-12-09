@@ -33,9 +33,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   
   if(keycode != 0)
   {
-    printf("code %x\n",keycode);
+    
     // printf("press\n");
     bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
+
+    printf("code %x keydown %d\n",keycode,keydown);
+    
     char ckeydown = (keydown) ? 'd' : 'u';
     char* cbuf = buf;
     int len;
