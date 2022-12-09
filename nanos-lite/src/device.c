@@ -33,11 +33,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   int keycode = ev.keycode;
   if(keycode != AM_KEY_NONE)
   {
-    printf("press\n");
-
+    // printf("press\n");
     bool keydown = ev.keydown;
-
-    printf("code %x keydown %d\n",keycode,keydown);
+    // printf("code %x keydown %d\n",keycode,keydown);
 
     char ckeydown = (keydown) ? 'd' : 'u';
     char* cbuf = buf;

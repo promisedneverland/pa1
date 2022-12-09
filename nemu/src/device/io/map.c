@@ -87,7 +87,7 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   word_t ret = host_read(map->space + offset, len);//读取map->space + offset 处 字节为len的内容
 
   //dtrace:
-  printf("io : %s read addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, ret);
+  //printf("io : %s read addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, ret);
   return ret;
 }
 
@@ -100,5 +100,5 @@ void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   host_write(map->space + offset, len, data);
   //调用callback函数
   invoke_callback(map->callback, offset, len, true);
-  printf("io : %s write addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, data);
+  //printf("io : %s write addr = 0x%x , len = %d , data = 0x%x\n",map->name, addr , len, data);
 }
