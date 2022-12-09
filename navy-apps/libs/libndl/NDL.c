@@ -26,10 +26,10 @@ int NDL_PollEvent(char *buf, int len) {
   assert(fp);
   fseek(fp, 0, SEEK_SET);
   fscanf(fp, "%s", buf);
-
+  printf("navy %s\n",buf);
   fclose(fp);
-  if(strlen(buf))
-    printf("%d\n",strlen(buf));
+  // if(strlen(buf))
+  //   printf("%d\n",strlen(buf));
   return strlen(buf);
 }
 
