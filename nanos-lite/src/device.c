@@ -47,8 +47,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     // length = sprintf((char*)buf + length + 1, "%s");
    
   }
-  // else 
-  //   sprintf((char*)buf, "\0");
+  else 
+    sprintf((char*)buf, "\0");
   // printf("%d ",len);
   return len;
 }
