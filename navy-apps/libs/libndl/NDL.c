@@ -24,7 +24,7 @@ int NDL_PollEvent(char *buf, int len) {
   
   FILE *fp = fopen("/dev/events", "r+");
   assert(fp);
-  // fseek(fp, 0, SEEK_SET);
+  fseek(fp, 0, SEEK_SET);
   fscanf(fp, "%s", buf);
   // printf("navy %s\n",buf);
   fclose(fp);
