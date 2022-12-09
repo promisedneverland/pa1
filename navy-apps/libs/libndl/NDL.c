@@ -17,7 +17,7 @@ uint32_t NDL_GetTicks() {
   gettimeofday(&tm,NULL);
   return (tm.tv_sec * 1000000 + tm.tv_usec) / 1000; 
 }
-
+extern int open(const char *path, int flags, ...);
 // 读出一条事件信息, 将其写入`buf`中, 最长写入`len`字节
 // 若读出了有效的事件, 函数返回1, 否则返回0
 int NDL_PollEvent(char *buf, int len) {
@@ -26,8 +26,8 @@ int NDL_PollEvent(char *buf, int len) {
   // fseek(fp, 0, SEEK_SET);
 
   // fscanf(fp, "%s", (char*)buf);
-  int fd = _open("/dev/events",0,0);
-  _read(fd,buf,len);
+  int fd = open("/dev/events",0,0);
+  read(fd,buf,len);
   // printf("navy\n");
 
   // fclose(fp);
