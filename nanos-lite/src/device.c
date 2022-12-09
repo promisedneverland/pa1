@@ -34,10 +34,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   {
     printf("press\n");
     bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
-    sprintf((char*)buf, "kd %d", keydown);
+    sprintf((char*)buf, "kd %s \n\0", keyname[keycode], keydown);
   }
   else 
-    sprintf((char*)buf, "\0");
+    sprintf((char*)buf, "\n\0");
   // printf("%d ",len);
   return len;
 }
