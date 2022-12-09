@@ -37,11 +37,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     bool keydown = ev.keydown;
     // printf("code %x keydown %d\n",keycode,keydown);
     char ckeydown = (keydown) ? 'd' : 'u';
-    char* cbuf = buf;
+    // char* cbuf = buf;
     int length;
     length = sprintf((char*)buf, "k%c", ckeydown);
 
-    cbuf[length] = ' ';
+    sprintf((char*)buf + len, " ");
     length = sprintf((char*)buf + length + 1, "%s", keyname[keycode]);
    
   }
