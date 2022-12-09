@@ -76,7 +76,7 @@ static uint32_t key_dequeue() {
 }
 
 //输入8位扫描码, 判断是松开还是按下
-//松开则最高位是1
+//按下则最高位是1
 void send_key(uint8_t scancode, bool is_keydown) {
   if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != _KEY_NONE) {
     uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);

@@ -30,6 +30,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   assert(buf != NULL);
   
   int keycode = io_read(AM_INPUT_KEYBRD).keycode;
+  printf("code %x\n",keycode);
   if(keycode != 0)
   {
     // printf("press\n");
