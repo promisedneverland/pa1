@@ -28,13 +28,10 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
 
   assert(buf != NULL);
-  char* cbuf = (char *)buf;
   bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
-  cbuf[0] = 'k';
-  cbuf[1] = (keydown) ? 'd' : 'u' ;
-  cbuf[2] = '\0';
+  sprintf((char*)buf, "kd %d", keydown);
   // printf("%d ",len);
-  return 2;
+  return len;
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
