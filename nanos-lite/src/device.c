@@ -36,7 +36,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
     sprintf((char*)buf, "kd %d", keydown);
   }
-  
+  else 
+    sprintf((char*)buf, "\n");
   // printf("%d ",len);
   return len;
 }
