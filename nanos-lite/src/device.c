@@ -34,12 +34,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(keycode != AM_KEY_NONE)
   {
     // printf("press\n");
-    // bool keydown = ev.keydown;
+    bool keydown = ev.keydown;
     // printf("code %x keydown %d\n",keycode,keydown);
-    // char ckeydown = (keydown) ? 'd' : 'u';
+    char ckeydown = (keydown) ? 'd' : 'u';
     // char* cbuf = buf;
     // int length;
-    sprintf((char*)buf, "k%s", keyname[keycode]);
+    sprintf((char*)buf, "k%c %s\n", ckeydown, keyname[keycode]);
 
     // sprintf((char*)buf + length, "asdasdasd");
     // length = sprintf((char*)buf + length + 1, "%s");
