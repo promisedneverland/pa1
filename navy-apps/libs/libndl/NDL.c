@@ -28,7 +28,7 @@ int NDL_PollEvent(char *buf, int len) {
   // fscanf(fp, "%s", (char*)buf);
   int fd = _open("/dev/events",0,0);
   _read(fd,buf,len);
-  printf("navy\n");
+  // printf("navy\n");
 
   // fclose(fp);
   if(strlen(buf))
