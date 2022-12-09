@@ -29,16 +29,16 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
   assert(buf != NULL);
   
-  int keycode = io_read(AM_INPUT_KEYBRD).keycode;
-  
-  if(keycode != 0)
+  AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
+  int keycode = ev.keycode;
+  if(keycode != AM_KEY_NONE)
   {
-    
-    // printf("press\n");
-    bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
+    printf("press\n");
+
+    bool keydown = ev.keydown;
 
     printf("code %x keydown %d\n",keycode,keydown);
-    
+
     char ckeydown = (keydown) ? 'd' : 'u';
     char* cbuf = buf;
     int len;
