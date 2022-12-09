@@ -32,7 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   int keycode = io_read(AM_INPUT_KEYBRD).keycode;
   if(keycode != 0)
   {
-    printf("press\n");
+    // printf("press\n");
     bool keydown = io_read(AM_INPUT_KEYBRD).keydown;
     char ckeydown = (keydown) ? 'd' : 'u';
     sprintf((char*)buf, "k%c %s \n\0", ckeydown, keyname[keycode]);
