@@ -27,7 +27,7 @@ int NDL_PollEvent(char *buf, int len) {
   fscanf(fp, "%s", buf);
 
   fclose(fp);
-  return 1;
+  return strlen(buf);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
