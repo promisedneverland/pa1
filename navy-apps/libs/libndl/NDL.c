@@ -23,7 +23,6 @@ uint32_t NDL_GetTicks() {
 int NDL_PollEvent(char *buf, int len) {
   FILE *fp = fopen("/dev/events", "r+");
   assert(fp);
-  printf("pass\n");
   fseek(fp, 0, SEEK_SET);
   fscanf(fp, "%s", buf);
 
