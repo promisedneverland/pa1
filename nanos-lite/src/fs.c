@@ -44,6 +44,7 @@ void init_fs() {
 
 int fs_open(const char *path, int flags, unsigned int mode)
 {
+  //对文件名进行比对
   for(int i = 0 ; i < file_num; i++)
   {
     if(strcmp( path, file_table[i].name) == 0)
@@ -51,6 +52,8 @@ int fs_open(const char *path, int flags, unsigned int mode)
       return i;
     }
   }
+
+  //未找到匹配的文件
   printf("file %s not found\n",path);
   assert(0);
   return -1;
