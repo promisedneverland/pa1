@@ -37,7 +37,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
     sprintf((char*)buf, "kd %d", keydown);
   }
   else 
-    sprintf((char*)buf, "\n");
+    sprintf((char*)buf, "\0");
   // printf("%d ",len);
   return len;
 }
