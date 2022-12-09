@@ -32,6 +32,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   cbuf[0] = 'k';
   cbuf[1] = (keydown) ? 'd' : 'u' ;
   cbuf[2] = '\0';
+  printf("%d ",len);
   return len;
 }
 
