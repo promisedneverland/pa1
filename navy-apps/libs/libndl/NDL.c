@@ -27,11 +27,11 @@ int NDL_PollEvent(char *buf, int len) {
   fseek(fp, 0, SEEK_SET);
   fscanf(fp, "%s", buf);
   int i;
-  for(i = 0 ; buf[i] != '\n' ; i++)
-  {
-    ;
-  }
-  printf("i = %d\n",i);
+  // for(i = 0 ; buf[i] != '\n' ; i++)
+  // {
+  //   ;
+  // }
+  // printf("i = %d\n",i);
   fclose(fp);
   return i;
 }
