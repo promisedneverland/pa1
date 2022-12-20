@@ -60,12 +60,14 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fbctr_write(const void *buf, size_t offset, size_t len) {
-
+ 
   return 0;
 }
 
 //用于把buf中的len字节写到屏幕上offset处,每次绘图后总是马上将frame buffer中的内容同步到屏幕上.
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  // int x = offset
+  // io_write(AM_GPU_FBDRAW, 0, 0, buf, 0, 0, true);
   return 0;
 }
 

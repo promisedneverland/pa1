@@ -8,6 +8,8 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canvas_w = 0, canvas_h = 0;
+static int canvas_x = 0, canvas_y = 0;
 
 // int _gettimeofday(struct timeval *tv, struct timezone *tz);//自定义
 
@@ -39,15 +41,52 @@ int NDL_PollEvent(char *buf, int len) {
 
 // 打开一张(*w) X (*h)的画布
 // 如果*w和*h均为0, 则将系统全屏幕作为画布, 并将*w和*h分别设为系统屏幕的大小
+static void parse(char* buf)
+{
+  int cur = 0;
+  while(buf[cur])
+  {
+    if(buf[cur] == 'H')
+    {
+      while(buf[cur] > '9' || buf[cur] < '0')
+        cur++;
+      screen_h = atoi(buf);
+    }
+    if(buf[cur] == 'W')
+    {
+      while(buf[cur] > '9' || buf[cur] < '0')
+        cur++;
+      screen_w = atoi(buf);
+    }
+    cur++;
+  }
+  printf("screen_w = %d, h = %d\n",screen_h,screen_w);
+}
 
 void NDL_OpenCanvas(int *w, int *h) {
   
   int dispinfo = 6;
   char buf[64];
   read(dispinfo, buf, 64);
+  parse(buf);
+  canvas_x = 0;
+  canvas_y = 0;
+  if(*w == 0 && *h == 0)
+  {
+    canvas_h = screen_h;
+    canvas_w = screen_w;
+  }
+  else
+  {
+    canvas_h = *h;
+    canvas_w = *w;
+  }
+  
   printf("%s\n",buf);
-
+  fbdev = 5;
+  evtdev = 3;
   //默认不进入这个分支
+  
   if (getenv("NWM_APP")) {
     printf("is NWM APP\n");
     int fbctl = 4;//frame buffer control 的文件号
@@ -76,7 +115,9 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 向画布`(x, y)`坐标处绘制`w*h`的矩形图像, 并将该绘制区域同步到屏幕上
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
-  
+  // read();
+  lseek(fbdev, (x + y * screen_w) , SEEK_SET);
+  write(fbdev, pixels, sizeof(pixels));
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
