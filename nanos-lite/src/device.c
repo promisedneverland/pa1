@@ -62,17 +62,17 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   return 0;
 }
 
-// static int rect_w = 0, rect_h = 0;
+static int rect_w = 0, rect_h = 0;
 size_t fbctr_write(const void *buf, size_t offset, size_t len) {
-  // printf("%s\n",buf);
-  // char* cbuf = (char*)buf;
-  // rect_w = atoi(cbuf);
-  // int cur = 0;
-  // while(cbuf[cur] != ' ')
-  // {
-  //   cur++;
-  // }
-  // rect_h = atoi(cbuf + cur);
+  printf("buf %s\n",buf);
+  char* cbuf = (char*)buf;
+  rect_w = atoi(cbuf);
+  int cur = 0;
+  while(cbuf[cur] != ' ')
+  {
+    cur++;
+  }
+  rect_h = atoi(cbuf + cur);
   return 0;
 }
 
@@ -81,7 +81,7 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
   int y = offset / gc.width;
   int x = offset - y * gc.width;
-  io_write(AM_GPU_FBDRAW, x, y, buf, 100, 100, true);
+  io_write(AM_GPU_FBDRAW, x, y, buf, rect_w, rect_h, true);
   return 0;
 }
 
