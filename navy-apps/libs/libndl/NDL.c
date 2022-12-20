@@ -41,6 +41,7 @@ int NDL_PollEvent(char *buf, int len) {
 // 如果*w和*h均为0, 则将系统全屏幕作为画布, 并将*w和*h分别设为系统屏幕的大小
 void NDL_OpenCanvas(int *w, int *h) {
   //如果运行环境是NWM_APP
+  printf("isnot\n");
   if (getenv("NWM_APP")) {
     printf("is\n");
     int fbctl = 4;//frame buffer control 的文件号
