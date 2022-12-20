@@ -60,7 +60,7 @@ static void parse(char* buf)
     }
     cur++;
   }
-  printf("screen_w = %d, h = %d\n",screen_h,screen_w);
+  printf("screen_w = %d, h = %d\n",screen_w,screen_h);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
