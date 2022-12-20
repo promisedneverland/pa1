@@ -28,7 +28,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
 
   assert(buf != NULL);
-  //绝对不能io_read().keycode这么用 ？？？？？？
+  //绝对不能io_read().keycode这么用 
   // printf("%x\n",buf);
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   int keycode = ev.keycode;
@@ -54,6 +54,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
+  // gc.width =
+  sprintf(buf,"WIDTH : %d\nHEIGHT:%d\n",gc.width,gc.height);
+  return 0;
+}
+
+size_t fbctr_write(const void *buf, size_t offset, size_t len) {
+
   return 0;
 }
 
@@ -65,11 +73,11 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 
 int sys_gettimeofday(struct timeval *tv, struct timezone *tz) 
 {
-  long long uptime;//微秒数
+  AM_TIMER_UPTIME_T uptime;//微秒数
   ioe_read(AM_TIMER_UPTIME,&uptime);
   // printf("%d sec, %d usec");
-  tv->tv_sec = uptime / 1000000;
-  tv->tv_usec = uptime % 1000000;
+  tv->tv_sec = uptime.us / 1000000;
+  tv->tv_usec = uptime.us % 1000000;
   return 0;
 }
 void init_device() {

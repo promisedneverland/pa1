@@ -5,6 +5,9 @@ size_t events_read(void *buf, size_t offset, size_t len);
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+size_t fbctr_write(const void *buf, size_t offset, size_t len);
+
 
 typedef struct {
   char *name;
@@ -15,7 +18,7 @@ typedef struct {
   size_t open_offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENT, FD_FB, };
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENT, FD_FBCTR, FD_FB, FD_DISIN, FD_END };
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -34,7 +37,10 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout",       0, 0, invalid_read, serial_write },
   [FD_STDERR] = {"stderr",       0, 0, invalid_read, invalid_write},
   [FD_EVENT]  = {"/dev/events",  0, 0, events_read, invalid_write},
+  [FD_FBCTR]  = {"/dev/fbctr" ,  0, 0, invalid_read, fbctr_write},
   [FD_FB]     = {"/dev/fb"    ,  0, 0, invalid_read, fb_write},
+  [FD_DISIN]  = {"/proc/dispinfo",0, 0, dispinfo_read, fb_write},
+  [FD_END]    = {"nothing",      0, 0, invalid_read, invalid_write},
 #include "files.h"
 };
 
@@ -64,7 +70,7 @@ int fs_open(const char *path, int flags, unsigned int mode)
 
 int fs_read(int fd, void *buf, int len)
 {
-  if(fd == FD_EVENT)
+  if(fd <= FD_END)
   {
     return file_table[fd].read(buf,0,len);
   }
@@ -102,12 +108,9 @@ size_t fs_write(int fd, const void *buf, size_t len)
   //   return len;
   // }
   
-  if(fd <= FD_FB)
-  {
+  if(fd <= FD_END)
     return file_table[fd].write(buf,0,len);
-  }
-
-
+  
   int ret = 0;
   // printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
   //文件偏移量超过了文件大小
