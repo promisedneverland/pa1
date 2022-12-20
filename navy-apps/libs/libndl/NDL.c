@@ -120,8 +120,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   char* buf;
   // sprintf(buf, "%d %d\n", w , h);
   // write(fbctr, buf, strlen(buf));
-  lseek(fbdev, (x + y * screen_w) , SEEK_SET);
-  write(fbdev, pixels, sizeof(pixels));
+  // lseek(fbdev, (x + y * screen_w) , SEEK_SET);
+  // write(fbdev, pixels, sizeof(pixels));
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
