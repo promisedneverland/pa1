@@ -8,70 +8,7 @@ void printstr(const char* str);
 void swap(char* a, char* b);
 #define PRINT_BUF_SIZE 6550
 static const int N = 2147483647;
-//改成65536会出错？？？？？？？？？为什么啊，太大了吗
-#define PRINTF_HANDLE(charout, out, n) { \
-  va_list ap; \
-  int d; \
-  long long l;\
-  char c; \
-  char *s; \
-  char buffer[PRINT_BUF_SIZE]; \
-  va_start(ap, fmt); \
-  while (*fmt && charout <= n) \
-  {\
-    if(*fmt == '%')\
-    {\
-      fmt++;\
-      switch (*fmt) {\
-      case 's':\
-        s = va_arg(ap, char *);\
-        strncpy(out + charout, s, n - charout);\
-        charout += strlen(s);\
-        break;\
-      case 'l':\
-        l = va_arg(ap, long long);\
-        itoa(l,buffer,10);\
-        strncpy(out + charout, buffer, n - charout);\
-        charout += strlen(buffer) ;\
-        break;\
-      case 'd':\
-        d = va_arg(ap, int);\
-        itoa(d,buffer,10);\
-        strncpy(out + charout, buffer, n - charout);\
-        charout += strlen(buffer) ;\
-        break;\
-      case 'c':\
-        if(charout < n) { \
-          c = (char) va_arg(ap, int);\
-          out[charout] = c;\
-          charout++;\
-        }\
-        break;\
-      case 'p':\
-        d = va_arg(ap, int);\
-        itoa(d,buffer,16);\
-        strncpy(out + charout, buffer, n - charout);\
-        charout += strlen(buffer) ;\
-        break;\
-      case 'x':\
-        d = va_arg(ap, int);\
-        itoa(d,buffer,16);\
-        strncpy(out + charout, buffer, n - charout);\
-        charout += strlen(buffer) ;\
-        break;\
-      }\
-      fmt++;\
-    }\
-    else if(charout < n)\
-    {\
-      out[charout] = *fmt;\
-      fmt++;\
-      charout++;\
-    }\
-  }\
-  va_end(ap);\
-  out[charout] = '\0';\
-}
+
 
 //__NATIVE_USE_KLIB__即为用自己写的KLIB
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
@@ -90,23 +27,24 @@ int printf(const char *fmt, ...) {
   // int len = sprintf(str_tobe_print, fmt, ...);
   // printstr(str_tobe_print);
   // return len;
-  int charout = 0;
   char out[PRINT_BUF_SIZE];
-  
-  PRINTF_HANDLE(charout, out, N);
-
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsprintf(out, fmt, ap);
+  va_end(ap);
   printstr(out);
-  return charout;
+  return ret;
 }
+
 void swap(char* a, char* b)
 {
   char tmp = *a;
   *a = *b;
   *b = tmp;
-
 }
+
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented");
+  return vsnprintf(out, N, fmt, ap);
 }
 // void itoa(long long integer, char* out, int base)//only base = 10 is valid
 // {
@@ -144,83 +82,90 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   //panic("please implement me");
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsprintf(out, fmt, ap);
+  va_end(ap);
+  return ret;
 
-  int charout = 0;
-  
-  PRINTF_HANDLE(charout, out, N);
-  // int charout = 0;
-  // va_list ap;
-  // int d;
-  // char c;
-  // char *s;
-  // long long l;
-  // char buffer[PRINT_BUF_SIZE];
-  // va_start(ap, fmt);
-  // printstr(fmt);
-  // while (*fmt)
-  // {
-  //   if(*fmt == '%')
-  //   {
-  //     fmt++;
-  //     switch (*fmt) {
-  //     case 's':              /* string */
-  //       s = va_arg(ap, char *);
-  //       strcpy(out+charout,s);
-  //       charout += strlen(s) + 1;//\0
-  //       break;
-  //     case 'l':
-  //       l = va_arg(ap, long long);
-  //       itoa(l,buffer,10);
-  //       strcpy(out+charout,buffer);
-  //       charout += strlen(buffer) ;
-  //       break;
-  //     case 'd':              /* int */
-  //       //putch('d');
-  //       //putch(':');
-  //       d = va_arg(ap, int);
-  //       itoa(d,buffer,10);
-  //       //printstr("buffer = ");
-  //       //printstr(buffer);
-  //       strcpy(out+charout,buffer);
-  //       //printstr("out = ");
-  //       //printstr(out);
-  //       charout += strlen(buffer) ;
-  //       break;
-  //     case 'c':              /* char */
-  //       /* need a cast here since va_arg only takes fully promoted types */
-  //       c = (char) va_arg(ap, int);
-  //       out[charout] = c;
-  //       charout++;
-  //       break;
-  //     }
-  //     fmt++;
-  //   }
-  //   else
-  //   {
-  //     out[charout] = *fmt;
-  //     fmt++;
-  //     charout++;
-  //   }
-  // }
-  // va_end(ap);
-  // out[charout] = '\0';
-  
-  //printstr(out);
-  //printf("12345\n");
-  return charout;
+
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  int charout = 0;
-  PRINTF_HANDLE(charout, out, n - 1);//末尾必须有NULL
-  if(n < charout)
-    return n;
-  else
-    return charout;
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = vsnprintf(out, n, fmt, ap);
+  va_end(ap);
+  return ret;
 }
 
-int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
-  panic("Not implemented");
+int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
+  char out[PRINT_BUF_SIZE];
+  int charout = 0;
+  int d; 
+  long long l;
+  char c; 
+  char *s; 
+  char buffer[PRINT_BUF_SIZE]; 
+  while (*fmt) 
+  {
+    if(*fmt == '%')\
+    {
+      fmt++;
+      switch (*fmt) {\
+      case 's': 
+        s = va_arg(ap, char *); 
+        strcpy(out + charout, s); 
+        charout += strlen(s); 
+        break; 
+      case 'l': 
+        l = va_arg(ap, long long); 
+        itoa(l,buffer,10); 
+        strcpy(out + charout, buffer); 
+        charout += strlen(buffer) ; 
+        break; 
+      case 'd': 
+        d = va_arg(ap, int); 
+        itoa(d,buffer,10); 
+        strcpy(out + charout, buffer); 
+        charout += strlen(buffer) ; 
+        break; 
+      case 'c': 
+        if(charout < n) {  
+          c = (char) va_arg(ap, int); 
+          out[charout] = c; 
+          charout++; 
+        } 
+        break; 
+      case 'p': 
+        d = va_arg(ap, int); 
+        itoa(d,buffer,16); 
+        strcpy(out + charout, buffer); 
+        charout += strlen(buffer) ; 
+        break; 
+      case 'x': 
+        d = va_arg(ap, int); 
+        itoa(d,buffer,16); 
+        strcpy(out + charout, buffer); 
+        charout += strlen(buffer) ; 
+        break; 
+      } 
+      fmt++; 
+    } 
+    else  
+    { 
+      out[charout] = *fmt; 
+      fmt++; 
+      charout++; 
+    } 
+  } 
+  va_end(ap); 
+  out[charout] = '\0'; 
+
+  for(int i = 0 ; i <= charout; i++)
+    final[i] = out[i];
+  
+  return charout;
 }
 
 #endif
