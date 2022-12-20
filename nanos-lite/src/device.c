@@ -62,8 +62,16 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   return 0;
 }
 
+static int rect_w = 0, rect_h = 0;
 size_t fbctr_write(const void *buf, size_t offset, size_t len) {
- 
+  char* cbuf = (char*)buf;
+  rect_w = atoi(cbuf);
+  int cur = 0;
+  while(cbuf[cur] != ' ')
+  {
+    cur++;
+  }
+  rect_h = atoi(cbuf + cur);
   return 0;
 }
 

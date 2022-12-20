@@ -6,7 +6,8 @@
 #include <sys/time.h>
 #include <assert.h>
 static int evtdev = -1;
-static int fbdev = -1;
+static int fbdev = 5;
+static int fbctr = 4;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
 static int canvas_x = 0, canvas_y = 0;
@@ -116,12 +117,11 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
-  for(int i = 0; i < h; i++)
-  {
-    lseek(fbdev, (x + (i + y) * screen_w) , SEEK_SET);
-    write(fbdev, pixels + 4 * i * w, sizeof(pixels) / h / 4);
-  }
-  
+  char* buf;
+  sprintf(buf, "%d %d\n", w , h);
+  write(fbctr, buf, strlen(buf));
+  lseek(fbdev, (x + y * screen_w) , SEEK_SET);
+  write(fbdev, pixels, sizeof(pixels));
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
