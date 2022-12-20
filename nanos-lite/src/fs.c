@@ -50,6 +50,7 @@ void init_fs() {
   file_num = sizeof(file_table) / sizeof(Finfo);
   AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
   file_table[FD_FB].size = gc.height * gc.width + 5;
+  printf("%d\n",file_table[FD_FB].size);
 }
 
 int fs_open(const char *path, int flags, unsigned int mode)
