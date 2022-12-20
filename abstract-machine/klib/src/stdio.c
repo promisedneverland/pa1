@@ -109,10 +109,10 @@ int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
   char buffer[PRINT_BUF_SIZE]; 
   while (*fmt) 
   {
-    if(*fmt == '%')\
+    if(*fmt == '%')
     {
       fmt++;
-      switch (*fmt) {\
+      switch (*fmt) {
       case 's': 
         s = va_arg(ap, char *); 
         strcpy(out + charout, s); 
