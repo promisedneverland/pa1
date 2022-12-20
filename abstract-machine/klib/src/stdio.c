@@ -161,8 +161,8 @@ int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
   // } 
   // out[charout] = '\0'; 
 
-  for(int i = 0 ; i <= charout; i++)
-    final[i] = out[i];
+  // for(int i = 0 ; i <= charout; i++)
+  //   final[i] = out[i];
   
   return charout;
 }
