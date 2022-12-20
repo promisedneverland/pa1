@@ -70,8 +70,8 @@ void NDL_OpenCanvas(int *w, int *h) {
   char buf[64];
   read(dispinfo, buf, 64);
   parse(buf);
-  canvas_x = 0;
-  canvas_y = 0;
+  canvas_x = 10;
+  canvas_y = 10;
   if(*w == 0 && *h == 0)
   {
     canvas_h = screen_h;
@@ -122,7 +122,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   printf("x = %d,y = %d, w = %d , h = %d\n",x,y,w,h);
   sprintf(buf, "%d %d\n", w , h);
   write(fbctr, buf, strlen(buf));
-  lseek(fbdev, (x + (y) * screen_w) , SEEK_SET);
+  lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
   write(fbdev, pixels, sizeof(pixels));
 }
 
