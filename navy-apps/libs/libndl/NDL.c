@@ -116,8 +116,12 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
-  lseek(fbdev, (x + y * screen_w) , SEEK_SET);
-  write(fbdev, pixels, sizeof(pixels));
+  for(int i = 0; i < h; i++)
+  {
+    lseek(fbdev, (x + (i + y) * screen_w) , SEEK_SET);
+    write(fbdev, pixels + i * w, sizeof(pixels) / h);
+  }
+  
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
