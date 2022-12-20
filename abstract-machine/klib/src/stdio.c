@@ -106,7 +106,7 @@ int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
   long long l;
   char c; 
   char *s; 
-  char * buffer; 
+  char buffer[PRINT_BUF_SIZE];
   while (*fmt) 
   {
     if(*fmt == '%')
