@@ -66,26 +66,26 @@ static void parse(char* buf)
 
 void NDL_OpenCanvas(int *w, int *h) {
   
-  int dispinfo = 6;
-  char buf[64];
-  read(dispinfo, buf, 64);
-  parse(buf);
-  canvas_x = 0;
-  canvas_y = 0;
-  if(*w == 0 && *h == 0)
-  {
-    canvas_h = screen_h;
-    canvas_w = screen_w;
-  }
-  else
-  {
-    canvas_h = *h;
-    canvas_w = *w;
-  }
+  // int dispinfo = 6;
+  // char buf[64];
+  // read(dispinfo, buf, 64);
+  // parse(buf);
+  // canvas_x = 0;
+  // canvas_y = 0;
+  // if(*w == 0 && *h == 0)
+  // {
+  //   canvas_h = screen_h;
+  //   canvas_w = screen_w;
+  // }
+  // else
+  // {
+  //   canvas_h = *h;
+  //   canvas_w = *w;
+  // }
   
-  printf("%s\n",buf);
-  fbdev = 5;
-  evtdev = 3;
+  // printf("%s\n",buf);
+  // fbdev = 5;
+  // evtdev = 3;
   //默认不进入这个分支
   
   if (getenv("NWM_APP")) {
