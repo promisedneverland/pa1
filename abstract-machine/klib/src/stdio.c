@@ -27,7 +27,7 @@ int printf(const char *fmt, ...) {
   // int len = sprintf(str_tobe_print, fmt, ...);
   // printstr(str_tobe_print);
   // return len;
-  char out[PRINT_BUF_SIZE];
+  char* out;
   va_list ap;
   va_start(ap, fmt);
   int ret = vsprintf(out, fmt, ap);
