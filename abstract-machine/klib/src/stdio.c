@@ -137,18 +137,18 @@ int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
           charout++; 
         } 
         break; 
-      case 'p': 
-        d = va_arg(ap, int); 
-        itoa(d,buffer,16); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
-      case 'x': 
-        d = va_arg(ap, int); 
-        itoa(d,buffer,16); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
+      // case 'p': 
+      //   d = va_arg(ap, int); 
+      //   itoa(d,buffer,16); 
+      //   strcpy(out + charout, buffer); 
+      //   charout += strlen(buffer) ; 
+      //   break; 
+      // case 'x': 
+      //   d = va_arg(ap, int); 
+      //   itoa(d,buffer,16); 
+      //   strcpy(out + charout, buffer); 
+      //   charout += strlen(buffer) ; 
+      //   break; 
       } 
       fmt++; 
     } 
