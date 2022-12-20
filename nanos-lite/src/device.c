@@ -80,11 +80,12 @@ size_t fbctr_write(const void *buf, size_t offset, size_t len) {
 size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
   int y = offset / gc.width;
-  y += 100;
-  printf("y=%d\n",y);
+  // y += 100;
+  // printf("y=%d\n",y);
   int x = offset - y * gc.width + 10;
-  printf("y=%d\n",y);
-  io_write(AM_GPU_FBDRAW, x, 100 + y, buf, rect_w, rect_h, true);
+  // printf("y=%d\n",y);
+  
+  io_write(AM_GPU_FBDRAW, x, 200, buf, rect_w, rect_h, true);
   return 0;
 }
 
