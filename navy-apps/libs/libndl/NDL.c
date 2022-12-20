@@ -70,8 +70,8 @@ void NDL_OpenCanvas(int *w, int *h) {
   char buf[64];
   read(dispinfo, buf, 64);
   parse(buf);
-  canvas_x = 0;
-  canvas_y = 0;
+  canvas_x = 10;
+  canvas_y = 10;
   if(*w == 0 && *h == 0)
   {
     canvas_h = screen_h;
