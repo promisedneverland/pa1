@@ -83,6 +83,7 @@ size_t fb_write(void *buf, size_t offset, size_t len) {
   y += 100;
   printf("y=%d\n",y);
   int x = offset - y * gc.width + 10;
+  printf("y=%d\n",y);
   io_write(AM_GPU_FBDRAW, x, y, buf, rect_w, rect_h, true);
   return 0;
 }
