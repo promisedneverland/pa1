@@ -42,9 +42,10 @@ int NDL_PollEvent(char *buf, int len) {
 void NDL_OpenCanvas(int *w, int *h) {
   //如果运行环境是NWM_APP
   if (getenv("NWM_APP")) {
+    printf("is\n");
     int fbctl = 4;//frame buffer control 的文件号
     fbdev = 5; // frame buffer 文件号
-
+    // int dispinfo = 6;
     //画布宽w，高h
     // let NWM resize the window and create the frame buffer
     screen_w = *w; screen_h = *h;

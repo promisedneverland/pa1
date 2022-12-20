@@ -16,7 +16,7 @@
 #include <common.h>
 #include <device/map.h>
 
-//宽高信息
+//宽高信息,默认400*300
 #define SCREEN_W (MUXDEF(CONFIG_VGA_SIZE_800x600, 800, 400))
 #define SCREEN_H (MUXDEF(CONFIG_VGA_SIZE_800x600, 600, 300))
 
