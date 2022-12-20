@@ -100,6 +100,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 
 int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
+  //字符数组不可以改成字符指针
   char out[PRINT_BUF_SIZE];
   int charout = 0;
   int d; 
