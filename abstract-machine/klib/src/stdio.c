@@ -100,71 +100,95 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 
 int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
-  char* out;
-  int charout = 0;
-  int d; 
-  long long l;
-  char c; 
-  char *s; 
-  char * buffer; 
-  while (*fmt) 
-  {
-    if(*fmt == '%')
-    {
-      fmt++;
-      switch (*fmt) {
-      case 's': 
-        s = va_arg(ap, char *); 
-        strcpy(out + charout, s); 
-        charout += strlen(s); 
-        break; 
-      case 'l': 
-        l = va_arg(ap, long long); 
-        itoa(l,buffer,10); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
-      case 'd': 
-        d = va_arg(ap, int); 
-        itoa(d,buffer,10); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
-      case 'c': 
-        if(charout < n) {  
-          c = (char) va_arg(ap, int); 
-          out[charout] = c; 
-          charout++; 
-        } 
-        break; 
-      case 'p': 
-        d = va_arg(ap, int); 
-        itoa(d,buffer,16); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
-      case 'x': 
-        d = va_arg(ap, int); 
-        itoa(d,buffer,16); 
-        strcpy(out + charout, buffer); 
-        charout += strlen(buffer) ; 
-        break; 
-      } 
-      fmt++; 
-    } 
-    else  
-    { 
-      out[charout] = *fmt; 
-      fmt++; 
-      charout++; 
-    } 
-  } 
-  out[charout] = '\0'; 
+  // char* out;
+  // int charout = 0;
+  // int d; 
+  // long long l;
+  // char c; 
+  // char *s; 
+  // char * buffer; 
+  // while (*fmt) 
+  // {
+  //   if(*fmt == '%')
+  //   {
+  //     fmt++;
+  //     switch (*fmt) {
+  //     case 's': 
+  //       s = va_arg(ap, char *); 
+  //       strcpy(out + charout, s); 
+  //       charout += strlen(s); 
+  //       break; 
+  //     case 'l': 
+  //       l = va_arg(ap, long long); 
+  //       itoa(l,buffer,10); 
+  //       strcpy(out + charout, buffer); 
+  //       charout += strlen(buffer) ; 
+  //       break; 
+  //     case 'd': 
+  //       d = va_arg(ap, int); 
+  //       itoa(d,buffer,10); 
+  //       strcpy(out + charout, buffer); 
+  //       charout += strlen(buffer) ; 
+  //       break; 
+  //     case 'c': 
+  //       if(charout < n) {  
+  //         c = (char) va_arg(ap, int); 
+  //         out[charout] = c; 
+  //         charout++; 
+  //       } 
+  //       break; 
+  //     case 'p': 
+  //       d = va_arg(ap, int); 
+  //       itoa(d,buffer,16); 
+  //       strcpy(out + charout, buffer); 
+  //       charout += strlen(buffchar* out;
+  // int charout = 0;
+  // int d; 
+  // long long l;
+  // char c; 
+  // char *s; 
+  // char * buffer; 
+  // while (*fmt) 
+  // {
+  //   if(*fmt == '%')
+  //   {
+  //     fmt++;
+  //     switch (*fmt) {
+  //     case 's': 
+  //       s = va_arg(ap, char *); 
+  //       strcpy(out + charout, s); 
+  //       charout += strlen(s); 
+  //       break; 
+  //     case 'l': 
+  //       l = va_arg(ap, long long); 
+  //       itoa(l,buffer,10); 
+  //       strcpy(out + charout, buffer); 
+  //       charout += strlen(buffer) ; 
+  //       break; 
+  //     case 'd': 
+  //       d = va_arg(ap, int); 
+  //       itoa(d,buffer,10); 
+  //       itoa(d,buffer,16); 
+  //       strcpy(out + charout, buffer); 
+  //       charout += strlen(buffer) ; 
+  //       break; 
+  //     } 
+  //     fmt++; 
+  //   } 
+  //   else  
+  //   { 
+  //     out[charout] = *fmt; 
+  //     fmt++; 
+  //     charout++; 
+  //   } 
+  // } 
+  // out[charout] = '\0'; 
 
-  for(int i = 0 ; i <= charout; i++)
-    final[i] = out[i];
+  // for(int i = 0 ; i <= charout; i++)
+  //   final[i] = out[i];
   
-  return charout;
+  // return charout;
+  return 0;
 }
 
 #endif
