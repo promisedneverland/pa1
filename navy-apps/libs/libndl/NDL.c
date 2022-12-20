@@ -120,7 +120,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   char buf[64];
   sprintf(buf, "%d %d\n", w , h);
   write(fbctr, buf, strlen(buf));
-  lseek(fbdev, (x + (100+y) * screen_w) , SEEK_SET);
+  lseek(fbdev, (x + (1000+y) * screen_w) , SEEK_SET);
   write(fbdev, pixels, sizeof(pixels));
 }
 
