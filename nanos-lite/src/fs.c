@@ -4,6 +4,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t events_read(void *buf, size_t offset, size_t len);
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -33,7 +34,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout",       0, 0, invalid_read, serial_write },
   [FD_STDERR] = {"stderr",       0, 0, invalid_read, invalid_write},
   [FD_EVENT]  = {"/dev/events",  0, 0, events_read, invalid_write},
-  [FD_FB]     = {"/dev/fb"    ,  0, 0, events_read, invalid_write},
+  [FD_FB]     = {"/dev/fb"    ,  0, 0, invalid_read, fb_write},
 #include "files.h"
 };
 
@@ -41,6 +42,7 @@ static int file_num; //文件数量
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   file_num = sizeof(file_table) / sizeof(Finfo);
+  file_table[FD_FB].size = 800*600 + 5;
 }
 
 int fs_open(const char *path, int flags, unsigned int mode)
@@ -100,7 +102,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
   //   return len;
   // }
   
-  if(fd == FD_STDIN || fd == FD_STDOUT)
+  if(fd <= FD_FB)
   {
     return file_table[fd].write(buf,0,len);
   }
