@@ -27,7 +27,7 @@ int printf(const char *fmt, ...) {
   // int len = sprintf(str_tobe_print, fmt, ...);
   // printstr(str_tobe_print);
   // return len;
-  char* out;
+  char out[PRINT_BUF_SIZE];
   va_list ap;
   va_start(ap, fmt);
   int ret = vsprintf(out, fmt, ap);
@@ -100,7 +100,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 
 int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
-  char* out;
+  char out[PRINT_BUF_SIZE];
   int charout = 0;
   int d; 
   long long l;
