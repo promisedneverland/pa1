@@ -50,13 +50,13 @@ static void parse(char* buf)
     {
       while(buf[cur] > '9' || buf[cur] < '0')
         cur++;
-      screen_h = atoi(buf);
+      screen_h = atoi(buf + cur);
     }
     if(buf[cur] == 'W')
     {
       while(buf[cur] > '9' || buf[cur] < '0')
         cur++;
-      screen_w = atoi(buf);
+      screen_w = atoi(buf + cur);
     }
     cur++;
   }
