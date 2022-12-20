@@ -48,7 +48,8 @@ static int file_num; //文件数量
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   file_num = sizeof(file_table) / sizeof(Finfo);
-  file_table[FD_FB].size = 800*600 + 5;
+  AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
+  file_table[FD_FB].size = gc.height * gc.width + 5;
 }
 
 int fs_open(const char *path, int flags, unsigned int mode)
