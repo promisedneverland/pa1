@@ -7,8 +7,9 @@ void itoa(int integer, char* out, int radix);//only base = 10 is valid
 void printstr(const char* str);
 void swap(char* a, char* b);
 #define PRINT_BUF_SIZE 6550
+static const int N = 2147483647;
 //改成65536会出错？？？？？？？？？为什么啊，太大了吗
-#define PRINTF_HANDLE(charout,out) { \
+#define PRINTF_HANDLE(charout, out, n) { \
   va_list ap; \
   int d; \
   long long l;\
@@ -16,7 +17,7 @@ void swap(char* a, char* b);
   char *s; \
   char buffer[PRINT_BUF_SIZE]; \
   va_start(ap, fmt); \
-  while (*fmt) \
+  while (*fmt && charout <= n) \
   {\
     if(*fmt == '%')\
     {\
@@ -24,42 +25,44 @@ void swap(char* a, char* b);
       switch (*fmt) {\
       case 's':\
         s = va_arg(ap, char *);\
-        strcpy(out+charout,s);\
+        strncpy(out + charout, s, n - charout);\
         charout += strlen(s);\
         break;\
       case 'l':\
         l = va_arg(ap, long long);\
         itoa(l,buffer,10);\
-        strcpy(out+charout,buffer);\
+        strncpy(out + charout, buffer, n - charout);\
         charout += strlen(buffer) ;\
         break;\
       case 'd':\
         d = va_arg(ap, int);\
         itoa(d,buffer,10);\
-        strcpy(out+charout,buffer);\
+        strncpy(out + charout, buffer, n - charout);\
         charout += strlen(buffer) ;\
         break;\
       case 'c':\
-        c = (char) va_arg(ap, int);\
-        out[charout] = c;\
-        charout++;\
+        if(charout < n) { \
+          c = (char) va_arg(ap, int);\
+          out[charout] = c;\
+          charout++;\
+        }\
         break;\
       case 'p':\
         d = va_arg(ap, int);\
         itoa(d,buffer,16);\
-        strcpy(out+charout,buffer);\
+        strncpy(out + charout, buffer, n - charout);\
         charout += strlen(buffer) ;\
         break;\
       case 'x':\
         d = va_arg(ap, int);\
         itoa(d,buffer,16);\
-        strcpy(out+charout,buffer);\
+        strncpy(out + charout, buffer, n - charout);\
         charout += strlen(buffer) ;\
         break;\
       }\
       fmt++;\
     }\
-    else\
+    else if(charout < n)\
     {\
       out[charout] = *fmt;\
       fmt++;\
@@ -90,7 +93,7 @@ int printf(const char *fmt, ...) {
   int charout = 0;
   char out[PRINT_BUF_SIZE];
   
-  PRINTF_HANDLE(charout,out);
+  PRINTF_HANDLE(charout, out, N);
 
   printstr(out);
   return charout;
@@ -144,7 +147,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   int charout = 0;
   
-  PRINTF_HANDLE(charout,out);
+  PRINTF_HANDLE(charout, out, N);
   // int charout = 0;
   // va_list ap;
   // int d;
@@ -208,7 +211,12 @@ int sprintf(char *out, const char *fmt, ...) {
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+  int charout = 0;
+  PRINTF_HANDLE(charout, out, n - 1);//末尾必须有NULL
+  if(n < charout)
+    return n;
+  else
+    return charout;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
