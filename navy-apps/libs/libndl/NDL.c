@@ -82,7 +82,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     canvas_w = *w;
   }
   
-  // printf("%s\n",buf);
+  printf("%s\n",buf);
   fbdev = 5;
   evtdev = 3;
   //默认不进入这个分支
