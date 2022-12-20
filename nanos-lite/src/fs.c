@@ -74,7 +74,7 @@ int fs_read(int fd, void *buf, int len)
 {
   if(fd <= FD_END)
   {
-    return file_table[fd].read(buf,0,len);
+    return file_table[fd].read(buf,file_table[fd].open_offset,len);
   }
 
   int ret = 0;
