@@ -154,7 +154,7 @@ int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
   //   } 
   //   else  
   //   { 
-  //     // out[charout] = *fmt; 
+  //     out[charout] = *fmt; 
   //     fmt++; 
   //     charout++; 
   //   } 
