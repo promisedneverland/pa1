@@ -100,7 +100,7 @@ int snprintf(char *out, size_t n, const char *fmt, ...) {
 }
 
 int vsnprintf(char *final, size_t n, const char *fmt, va_list ap) {
-  char out[PRINT_BUF_SIZE];
+  char* out;
   int charout = 0;
   int d; 
   long long l;
