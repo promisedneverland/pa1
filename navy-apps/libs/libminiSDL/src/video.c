@@ -36,8 +36,9 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     SDL_Rect rct;
     dstrect = &rct;
     dstrect->x = 0;
-    assert(dstrect->x == 1);
+    
     dstrect->y = 0;
+    assert(dstrect->x == 0);
     dstrect->h = dst->h;
     dstrect->w = dst->w;
   }
