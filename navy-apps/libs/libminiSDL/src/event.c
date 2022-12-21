@@ -34,7 +34,7 @@ int SDL_PollEvent(SDL_Event *ev) {
         ev->key.type = SDL_KEYDOWN;
       }
       ev->key.keysym.sym = atoi(buf + 3);
-      printf("%s\n",buf);
+      printf("%d\n",ev->key.keysym.sym);
       return 1;
     }
     
