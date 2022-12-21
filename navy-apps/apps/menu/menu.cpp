@@ -75,10 +75,10 @@ int main(int argc, char *argv[], char *envp[]) {
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
   set_i_max();
-  assert(0);
+  
   while (1) {
     display_menu(i_max);
-
+    assert(0);
     SDL_Event e;
     do {
       SDL_WaitEvent(&e);
