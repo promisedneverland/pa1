@@ -50,10 +50,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       // dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
       // dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
 
-      dst->pixels[(x + y * dst->w) + 0] = 0;
-      dst->pixels[ (x + y * dst->w) + 1] = 0xff;
-      dst->pixels[ (x + y * dst->w) + 2] = 0xff;
-      dst->pixels[ (x + y * dst->w) + 3] = 0xff;
+      dst->pixels[4* (x + y * dst->w) + 0] = 0;
+      dst->pixels[4* (x + y * dst->w) + 1] = 0xff;
+      dst->pixels[4* (x + y * dst->w) + 2] = 0xff;
+      dst->pixels[4* (x + y * dst->w) + 3] = 0xff;
     }
   }
   printf("%x\n",dst->pixels[0]);
