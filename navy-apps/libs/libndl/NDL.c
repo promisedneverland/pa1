@@ -150,7 +150,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   {
     // printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
     lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
-    write(fbdev, pixels + 4 * i * w, w * 4);
+    write(fbdev, pixels + i * w, w * 4);
   }
   // lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
   // write(fbdev, pixels, w *h * 4);
