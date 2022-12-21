@@ -125,7 +125,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
-  printf("size of pixels = %d\n",sizeof(pixels));
+  printf("size of pixels = %d\n",w*h);
   char buf[64];
   fbdev = open("/dev/fb",0,0);
   fbctr = open("/dev/fbctr",0,0);
