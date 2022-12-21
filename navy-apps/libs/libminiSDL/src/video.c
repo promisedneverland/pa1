@@ -26,7 +26,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         dst->pixels[dstrect->x + x + dstrect->w * (dstrect->y + y)] = src->pixels[srcrect->x + x + srcrect->w * (srcrect->y + y)];
       }
     }
-  SDL_UpdateRect(dst, 0,0, dstrect->w, dstrect->h);
+  SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
@@ -50,7 +50,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
     }
   }
-  SDL_UpdateRect(dst, 0,0, dstrect->w, dstrect->h);
+  SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   // printf("dej\n");
 }
 
