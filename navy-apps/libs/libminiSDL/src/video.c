@@ -45,10 +45,15 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     {
       // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) (0xFF);
       // printf("fisrt = %x\n",dst->pixels[4 * (x + y * dst->w) + 0]);
-      dst->pixels[4 * (x + y * dst->w) + 0] = ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
-      dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
-      dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
-      dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
+      // dst->pixels[4 * (x + y * dst->w) + 0] = ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
+      // dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
+      // dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
+      // dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
+
+      dst->pixels[(x + y * dst->w) + 0] = 0;
+      // dst->pixels[ (x + y * dst->w) + 1] = 0xff;
+      // dst->pixels[ (x + y * dst->w) + 2] = 0xff;
+      // dst->pixels[ (x + y * dst->w) + 3] = 0xff;
     }
   }
   SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
