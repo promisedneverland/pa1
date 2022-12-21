@@ -6,8 +6,9 @@
 #include <sys/time.h>
 #include <assert.h>
 static int evtdev = -1;
-static int fbdev = 5;
-static int fbctr = 4;
+static int fbdev = -1;
+static int fbctr = -1;
+static int dispinfo = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
 static int canvas_x = 0, canvas_y = 0;
@@ -66,12 +67,17 @@ static void parse(char* buf)
 
 void NDL_OpenCanvas(int *w, int *h) {
   
-  int dispinfo = 6;
+  dispinfo = open("/proc/dispinfo",0,0);
+  // fbdev = open("/dev/fb",0,0);
+
+  // evtdev = 3;
+
   char buf[64];
+  
   read(dispinfo, buf, 64);
   parse(buf);
-  canvas_x = 10;
-  canvas_y = 10;
+  canvas_x = 0;
+  canvas_y = 0;
   if(*w == 0 && *h == 0)
   {
     canvas_h = screen_h;
@@ -85,8 +91,9 @@ void NDL_OpenCanvas(int *w, int *h) {
   
   printf("%s\n",buf);
   printf("canvas w = %d , h = %d\n",*w,*h);
-  fbdev = 5;
-  evtdev = 3;
+  
+  close(dispinfo);
+  // close(fbdev);
   //默认不进入这个分支
   
   if (getenv("NWM_APP")) {
@@ -118,13 +125,21 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
+  printf("size of pixels = %d\n",sizeof(pixels));
   char buf[64];
+  fbdev = open("/dev/fb",0,0);
+  fbctr = open("/dev/fbctr",0,0);
+
   printf("x = %d,y = %d, w = %d , h = %d\n",x,y,w,h);
   sprintf(buf, "%d %d\n", w , h);
   write(fbctr, buf, strlen(buf));
   printf("offset = %d\n",(canvas_x + x + (canvas_y + y) * screen_w));
   lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
+  
   write(fbdev, pixels, sizeof(pixels));
+  
+  close(fbctr);
+  close(fbdev);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
