@@ -22,18 +22,18 @@ int SDL_PollEvent(SDL_Event *ev) {
     if(buf[0] == 'k')
     {
       
-      if(buf[1] == 'u')
-      {
-        ev->type = SDL_KEYUP;
-        ev->key.type = SDL_KEYUP;
+      // if(buf[1] == 'u')
+      // {
+      //   ev->type = SDL_KEYUP;
+      //   ev->key.type = SDL_KEYUP;
         
-      }
-      else
-      {
-        ev->type = SDL_KEYDOWN;
-        ev->key.type = SDL_KEYDOWN;
-      }
-      // ev->key.keysym.sym = buf + 3;
+      // }
+      // else
+      // {
+      //   ev->type = SDL_KEYDOWN;
+      //   ev->key.type = SDL_KEYDOWN;
+      // }
+      // // ev->key.keysym.sym = buf + 3;
       printf("%s\n",buf);
       return 1;
     }
