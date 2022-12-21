@@ -80,9 +80,9 @@ size_t fbctr_write(const void *buf, size_t offset, size_t len) {
 size_t fb_write(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T gc = io_read(AM_GPU_CONFIG);
   // printf("nano offset = %d\n",offset);
- 
-  int y = offset / gc.width / 4;
-  int x = (offset - y * gc.width) / 4;
+  offset /= 4;
+  int y = offset / gc.width ;
+  int x = (offset - y * gc.width) ;
 
   io_write(AM_GPU_FBDRAW, x, y, buf, len / 4, 1, true);
   // io_write(AM_GPU_FBDRAW, x, y, buf, rect_w, rect_h, true);
