@@ -34,13 +34,14 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   {
     // assert(0);
     SDL_Rect rct;
-    dstrect = &rct ;
+    dstrect = &rct;
     dstrect->x = 0;
+    assert(dstrect->x == 1);
     dstrect->y = 0;
     dstrect->h = dst->h;
     dstrect->w = dst->w;
   }
-  assert(dstrect->x == 1);
+  
   for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
   {
     for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
