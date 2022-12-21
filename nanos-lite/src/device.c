@@ -29,7 +29,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 //len 一般为1024
 size_t events_read(void *buf, size_t offset, size_t len) {
-  
+  printf("ok\n");
   assert(buf != NULL);
   //绝对不能io_read().keycode这么用 
   // printf("%x\n",buf);
