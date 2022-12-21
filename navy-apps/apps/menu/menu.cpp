@@ -155,8 +155,9 @@ static void display_menu(int n) {
     auto *item = &items[page * 10 + i];
     sprintf(buf, "  [%d] %s", i, item->name);
     draw_text_row(buf, i);
+     while(1) {;}
   }
-  while(1) {;}
+ 
   i = 11;
 
   sprintf(buf, "  page = %2d, #total apps = %d", page, nitems);
