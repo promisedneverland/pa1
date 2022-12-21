@@ -109,7 +109,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
   //   }
   //   return len;
   // }
-  printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
+  
   if(fd <= FD_END)
     return file_table[fd].write(buf,file_table[fd].open_offset,len);
   
