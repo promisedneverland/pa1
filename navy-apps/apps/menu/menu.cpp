@@ -74,7 +74,7 @@ int main(int argc, char *argv[], char *envp[]) {
   screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
 
   font = new BDF_Font(font_fname);
-  logo_sf = SDL_LoadBMP("/share/slides/slides-1.bmp");
+  logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
   set_i_max();
   
@@ -144,7 +144,7 @@ static void draw_text_row(char *s, int r) {
 static void display_menu(int n) {
   clear_display();
   SDL_Rect rect = { .x = screen->w - logo_sf->w, .y = 0 };
-  SDL_BlitSurface(logo_sf, NULL, screen, &rect);
+  // SDL_BlitSurface(logo_sf, NULL, screen, &rect);
 
   
   printf("Available applications:\n");
