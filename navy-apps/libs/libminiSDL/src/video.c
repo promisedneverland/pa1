@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <stdio.h>
 static inline int maskToShift(uint32_t mask) {
   switch (mask) {
     case 0x000000ff: return 0;
@@ -56,7 +56,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       // dst->pixels[ (x + y * dst->w) + 3] = 0xff;
     }
   }
-  assert(dst->pixels[0] == 0);
+  printf("%x\n",dst->pixels[0]);
   SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   // printf("dej\n");
 }
