@@ -125,18 +125,25 @@ void NDL_OpenCanvas(int *w, int *h) {
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
-  printf("size of pixels = %d\n",w*h);
+  // printf("size of pixels = %d\n",w*h);
   char buf[64];
   fbdev = open("/dev/fb",0,0);
   fbctr = open("/dev/fbctr",0,0);
-
+  // screen_w = 1600;
+  //用am native 打开的屏幕宽度是1600
   printf("x = %d,y = %d, w = %d , h = %d\n",x,y,w,h);
   sprintf(buf, "%d %d\n", w , h);
-  // write(fbctr, buf, strlen(buf));
+  write(fbctr, buf, strlen(buf));
   printf("offset = %d\n",(canvas_x + x + (canvas_y + y) * screen_w));
-  lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
-  
-  write(fbdev, pixels, w*h*8);
+  for(int i = 0 ; i <= h ; i++)
+  {
+    printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
+    lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
+
+    write(fbdev, pixels + i * w, w * 4);
+  }
+  // lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
+  // write(fbdev, pixels, w *h * 4);
   
   close(fbctr);
   close(fbdev);
