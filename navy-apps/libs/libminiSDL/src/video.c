@@ -34,7 +34,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     {
       for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
       {
-        // printf("offset = %d\n",4 * (x + y * dst->w));
+        printf("offset = %d\n",4);
         // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
         // dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
         // dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
