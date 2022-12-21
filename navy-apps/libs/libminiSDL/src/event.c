@@ -21,12 +21,10 @@ int SDL_PollEvent(SDL_Event *ev) {
     // printf("%s\n",buf);
     if(buf[0] == 'k')
     {
-      
       if(buf[1] == 'u')
       {
         ev->type = SDL_KEYUP;
         ev->key.type = SDL_KEYUP;
-        
       }
       else
       {
@@ -34,7 +32,7 @@ int SDL_PollEvent(SDL_Event *ev) {
         ev->key.type = SDL_KEYDOWN;
       }
       ev->key.keysym.sym = atoi(buf + 3);
-      printf("%d\n",ev->key.keysym.sym);
+      // printf("%d\n",ev->key.keysym.sym);
       return 1;
     }
     
