@@ -114,7 +114,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
     return file_table[fd].write(buf,file_table[fd].open_offset,len);
   
   int ret = 0;
-  // printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
+  printf("fs_write fd = %d , open_offset = %x, len = %d\n",fd,file_table[fd].open_offset,len);
   //文件偏移量超过了文件大小
   if(file_table[fd].open_offset >= file_table[fd].size)
   {
