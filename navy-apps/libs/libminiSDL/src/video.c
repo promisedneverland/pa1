@@ -26,7 +26,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   
     for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
     {
-      for(int x = dstrect->x; x < dstrect->x + dstrect->w; y++)
+      for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
       {
         // dst->pixels[4 * (x + y * dst->w)    ] = (color & DEFAULT_AMASK >> maskToShift(DEFAULT_AMASK));
         // dst->pixels[4 * (x + y * dst->w) + 1] = (color & DEFAULT_RMASK >> maskToShift(DEFAULT_RMASK));
