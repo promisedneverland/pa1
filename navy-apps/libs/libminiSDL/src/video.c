@@ -4,6 +4,17 @@
 #include <string.h>
 #include <stdlib.h>
 
+static inline int maskToShift(uint32_t mask) {
+  switch (mask) {
+    case 0x000000ff: return 0;
+    case 0x0000ff00: return 8;
+    case 0x00ff0000: return 16;
+    case 0xff000000: return 24;
+    case 0x00000000: return 24; // hack
+    default: assert(0);
+  }
+}
+
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -13,7 +24,16 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   for(int i = 0 ; i < dstrect->h; i++)
   {
-    
+    for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
+    {
+      for(int x = dstrect->x; x < dstrect->x + dstrect->w; y++)
+      {
+        dst->pixels[4 * (x + y * dst->w)    ] = (color & DEFAULT_AMASK >> maskToShift(DEFAULT_AMASK));
+        dst->pixels[4 * (x + y * dst->w) + 1] = (color & DEFAULT_RMASK >> maskToShift(DEFAULT_RMASK));
+        dst->pixels[4 * (x + y * dst->w) + 2] = (color & DEFAULT_GMASK >> maskToShift(DEFAULT_GMASK));
+        dst->pixels[4 * (x + y * dst->w) + 3] = (color & DEFAULT_BMASK >> maskToShift(DEFAULT_BMASK));
+      }
+    }
   }
 }
 
@@ -33,16 +53,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
 
 // APIs below are already implemented.
 
-static inline int maskToShift(uint32_t mask) {
-  switch (mask) {
-    case 0x000000ff: return 0;
-    case 0x0000ff00: return 8;
-    case 0x00ff0000: return 16;
-    case 0xff000000: return 24;
-    case 0x00000000: return 24; // hack
-    default: assert(0);
-  }
-}
+
 
 SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int depth,
     uint32_t Rmask, uint32_t Gmask, uint32_t Bmask, uint32_t Amask) {
