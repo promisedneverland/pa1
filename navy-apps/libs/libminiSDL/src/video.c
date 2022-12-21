@@ -32,7 +32,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   if(dstrect == NULL)
   {
-    assert(0);
+    // assert(0);
     SDL_Rect rct;
     dstrect = &rct ;
     dstrect->x = 0;
