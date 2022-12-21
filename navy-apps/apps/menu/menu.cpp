@@ -65,6 +65,7 @@ static void prev() {
 
 static void clear_display(void) {
   SDL_FillRect(screen, NULL, 0xffffff);
+  assert(0);
 }
 
 int main(int argc, char *argv[], char *envp[]) {
@@ -144,7 +145,7 @@ static void display_menu(int n) {
   SDL_Rect rect = { .x = screen->w - logo_sf->w, .y = 0 };
   SDL_BlitSurface(logo_sf, NULL, screen, &rect);
 
-  assert(0);
+  
   printf("Available applications:\n");
   char buf[80];
   int i;
