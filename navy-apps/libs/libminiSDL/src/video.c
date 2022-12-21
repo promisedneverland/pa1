@@ -18,7 +18,14 @@ static inline int maskToShift(uint32_t mask) {
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  assert(0);
+  // assert(0);
+  for(int y = 0; y < dstrect->h; y++)
+    {
+      for(int x = 0; x < 4 * dstrect->w; x++)
+      {
+        dst->pixels[dstrect->x + x + dstrect->w * (dstrect->y + y)] = src->pixels[srcrect->x + x + srcrect->w * (srcrect->y + y)];
+      }
+    }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
