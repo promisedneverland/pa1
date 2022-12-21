@@ -37,10 +37,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         // dst->pixels[4 * (dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
         // dst->pixels[4 * (dstrect->x + x + srcrect->w * (dstrect->y + y)) + 3] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 3];
 
-        dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
-        dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
-        dst->pixels[4* (x + y * srcrect->w) + 2] = 0x80;//R
-        dst->pixels[4* (x + y * srcrect->w) + 3] = 0xff;//A
+        // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
+        // dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
+        // dst->pixels[4* (x + y * srcrect->w) + 2] = 0x80;//R
+        // dst->pixels[4* (x + y * srcrect->w) + 3] = 0xff;//A
       }
     }
   // assert(0);
