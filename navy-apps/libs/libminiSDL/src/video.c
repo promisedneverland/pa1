@@ -88,6 +88,8 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   // printf("dej\n");
 }
 
+//和 NDL_DrawRect 等价
+//提供的是surface的pixel
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   NDL_OpenCanvas(&w,&h);
   if(w == 0 && h == 0)
