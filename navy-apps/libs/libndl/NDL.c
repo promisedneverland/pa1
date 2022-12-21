@@ -134,8 +134,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // screen_w = 1600;
   //用am native 打开的屏幕宽度是1600
   printf("x = %d,y = %d, w = %d , h = %d\n",x,y,w,h);
-  // sprintf(buf, "%d %d\n", w , h);
-  // write(fbctr, buf, strlen(buf));
+  sprintf(buf, "%d %d\n", w , h);
+  write(fbctr, buf, strlen(buf));
   printf("offset = %d\n",(canvas_x + x + (canvas_y + y) * screen_w));
   // for(int i = 0 ; i < h ; i++)
   // {
@@ -146,15 +146,15 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // }
   // lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
   // write(fbdev, temp , w * 4);
-  // for(int i = 0 ; i < h ; i++)
-  // {
-  //   // printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
-  //   lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
+  for(int i = 0 ; i < h ; i++)
+  {
+    // printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
+    lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
 
-  //   write(fbdev, pixels + i * w, w * 4);
-  // }
-  lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
-  write(fbdev, pixels, w *h * 4);
+    write(fbdev, pixels + i * w, w * 4);
+  }
+  // lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
+  // write(fbdev, pixels, w *h * 4);
   
   close(fbctr);
   close(fbdev);
