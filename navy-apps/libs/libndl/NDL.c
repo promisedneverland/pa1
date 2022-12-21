@@ -90,7 +90,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   
   
   printf("%s\n",buf);
-  printf("canvas w = %d , h = %d\n",*w,*h);
+  // printf("canvas w = %d , h = %d\n",*w,*h);
   
   close(dispinfo);
   // close(fbdev);
