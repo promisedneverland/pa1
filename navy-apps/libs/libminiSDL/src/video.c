@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <stdio.h> 
 static inline int maskToShift(uint32_t mask) {
   switch (mask) {
     case 0x000000ff: return 0;
