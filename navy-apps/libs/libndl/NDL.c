@@ -123,6 +123,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 // 向画布`(x, y)`坐标处绘制`w*h`的矩形图像, 并将该绘制区域同步到屏幕上
 // 图像像素按行优先方式存储在`pixels`中, 每个像素用32位整数以`00RRGGBB`的方式描述颜色
+// 这里的pixels只是矩形的
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
   // printf("size of pixels = %d\n",w*h);
@@ -137,7 +138,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   printf("offset = %d\n",(canvas_x + x + (canvas_y + y) * screen_w));
   for(int i = 0 ; i < h ; i++)
   {
-    printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
+    // printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
     lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
 
     write(fbdev, pixels + i * w, w * 4);
