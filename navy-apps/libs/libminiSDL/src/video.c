@@ -33,17 +33,12 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   SDL_Rect rct;
   if(dstrect == NULL)
   {
-    // assert(0);
     dstrect = &rct;
     dstrect->x = 0;
-    
     dstrect->y = 0;
-    assert(dstrect->x == 0);
     dstrect->h = dst->h;
     dstrect->w = dst->w;
-    assert(dstrect->x == 0);
   }
-  assert(dstrect->x == 0);
   for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
   {
     for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
@@ -61,7 +56,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       // dst->pixels[ (x + y * dst->w) + 3] = 0xff;
     }
   }
-
+  assert(dst->pixels[0] == 0);
   SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   // printf("dej\n");
 }
