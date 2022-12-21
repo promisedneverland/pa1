@@ -33,7 +33,7 @@ int SDL_PollEvent(SDL_Event *ev) {
         ev->type = SDL_KEYDOWN;
         ev->key.type = SDL_KEYDOWN;
       }
-      ev->key.keysym.sym = buf + 3;
+      ev->key.keysym.sym = atoi(buf + 3);
       printf("%s\n",buf);
       return 1;
     }
