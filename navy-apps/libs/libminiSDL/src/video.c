@@ -48,7 +48,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
     }
   }
-  
+  SDL_UpdateRect(dst, 0,0, dstrect->w, dstrect->h);
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
