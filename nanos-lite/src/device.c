@@ -66,7 +66,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 
 static int rect_w = 0, rect_h = 0;
 size_t fbctr_write(const void *buf, size_t offset, size_t len) {
-  printf("buf %s\n",buf);
+  // printf("buf %s\n",buf);
   char* cbuf = (char*)buf;
   rect_w = atoi(cbuf);
   int cur = 0;
