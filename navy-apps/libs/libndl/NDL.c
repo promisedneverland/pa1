@@ -128,7 +128,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // read();
   // printf("size of pixels = %d\n",w*h);
   char buf[64];
-  char temp[65500];
+  // char temp[65500];
   fbdev = open("/dev/fb",0,0);
   fbctr = open("/dev/fbctr",0,0);
   // screen_w = 1600;
@@ -150,7 +150,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   {
     // printf("pos = %d\n",(canvas_x + x + (i + canvas_y + y) * screen_w));
     lseek(fbdev, 4 * (canvas_x + x + (i + canvas_y + y) * screen_w) , SEEK_SET);
-
     write(fbdev, pixels + i * w, w * 4);
   }
   // lseek(fbdev, (canvas_x + x + (canvas_y + y) * screen_w) , SEEK_SET);
