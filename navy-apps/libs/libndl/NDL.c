@@ -26,16 +26,16 @@ extern int open(const char *path, int flags, ...);
 // 读出一条事件信息, 将其写入`buf`中, 最长写入`len`字节
 // 若读出了有效的事件, 函数返回1, 否则返回0
 int NDL_PollEvent(char *buf, int len) {
-  FILE *fp = fopen("/dev/events", "r+");
-  assert(fp);
-  fseek(fp, 0, SEEK_SET);
+  // FILE *fp = fopen("/dev/events", "r+");
+  // assert(fp);
+  // fseek(fp, 0, SEEK_SET);
 
   // fscanf(fp, "%s", (char*)buf);
-  // int fd = open("/dev/events",0,0);
-  fread(buf,1,len,fp);
-  // read(fd,buf,len);
+  int fd = open("/dev/events",0,0);
+  // fread(buf,1,len,fp);
+  read(fd,buf,len);
   // printf("navy\n");
-
+  close(fd);
   // fclose(fp);
   // if(strlen(buf))
   //   printf("%d\n",strlen(buf));
