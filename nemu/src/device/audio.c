@@ -31,7 +31,7 @@ enum {
 //流缓冲区
 // static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
-static uint8_t *l_sbuf = NULL;
+// static uint8_t *l_sbuf = NULL;
 // static uint8_t *r_sbuf = NULL;
 //stream ： 要往声卡输出的
 //len ： buffer(stream)的长度
