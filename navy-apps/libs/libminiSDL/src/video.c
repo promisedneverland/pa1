@@ -32,15 +32,15 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     {
       for(int x = 0; x < srcrect->w ; x++)
       {
-        dst->pixels[4 * ( x + srcrect->w * (y)) + 0] = src->pixels[4 * (x + srcrect->w * (y)) + 0];
-        dst->pixels[4 * ( x + srcrect->w * (y)) + 1] = src->pixels[4 * (x + srcrect->w * (y)) + 1];
-        dst->pixels[4 * ( x + srcrect->w * (y)) + 2] = src->pixels[4 * (x + srcrect->w * (y)) + 2];
-        dst->pixels[4 * ( x + srcrect->w * (y)) + 3] = src->pixels[4 * (x + srcrect->w * (y)) + 3];
-
-        // dst->pixels[4 * ( x + srcrect->w * ( y)) + 0] = 0x00;
-        // dst->pixels[4 * ( x + srcrect->w * (y)) + 1] = 0x80;
-        // dst->pixels[4 * ( x + srcrect->w * ( y)) + 2] = 0x80;
-        // dst->pixels[4 * ( x + srcrect->w * ( y)) + 3] = 0xff;
+        // dst->pixels[4 * ( x + srcrect->w * (y)) + 0] = src->pixels[4 * (x + srcrect->w * (y)) + 0];
+        // dst->pixels[4 * ( x + srcrect->w * (y)) + 1] = src->pixels[4 * (x + srcrect->w * (y)) + 1];
+        // dst->pixels[4 * ( x + srcrect->w * (y)) + 2] = src->pixels[4 * (x + srcrect->w * (y)) + 2];
+        // dst->pixels[4 * ( x + srcrect->w * (y)) + 3] = src->pixels[4 * (x + srcrect->w * (y)) + 3];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 0] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 1] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 1];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 3] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 3];
+      
         // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
         // dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
         // dst->pixels[4* (x + y * srcrect->w) + 2] = 0x80;//R
@@ -48,7 +48,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
   // assert(0);
-  printf("xd = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
+  // printf("xd = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
   SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
   // while(1)
   // {;}
@@ -64,6 +64,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
     dstrect->h = dst->h;
     dstrect->w = dst->w;
   }
+  //更新矩形位置处的pixels
   for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
   {
     for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
@@ -96,12 +97,17 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   {
     w = s->w;
     h = s->h;
+    NDL_DrawRect(s->pixels, x, y, w, h);
+    return ;
   }
+  
+  NDL_DrawRect(s->pixels, x, y, w, h);
   // for(int i = 0 ; i < h; i++)
   // {
   //   NDL_DrawRect(s->pixels + )
   // }
-  NDL_DrawRect(s->pixels, x, y, w, h);
+  // uint8_t temp[65536];
+  // NDL_DrawRect(temp, x, y, w, h);
 }
 
 // APIs below are already implemented.
