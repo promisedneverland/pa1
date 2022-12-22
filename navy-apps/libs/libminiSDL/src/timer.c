@@ -17,6 +17,13 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
-  return ;
-  assert(0);
+  uint32_t begin = NDL_GetTicks();
+  while(1)
+  {
+    uint32_t new = NDL_GetTicks();
+    if(new - begin > ms)
+    {
+      break;
+    } 
+  }
 }
