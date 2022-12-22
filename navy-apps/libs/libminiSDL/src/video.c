@@ -36,10 +36,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 1] = src->pixels[4 * (x + srcrect->w * (y)) + 1];
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 2] = src->pixels[4 * (x + srcrect->w * (y)) + 2];
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 3] = src->pixels[4 * (x + srcrect->w * (y)) + 3];
-        // dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 0] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0];
-        // dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 1] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 1];
-        // dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
-        // dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 3] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 3];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 0] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 1] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 1];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
+        dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 3] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 3];
       
         dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
         dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
@@ -48,7 +48,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       }
     }
   // assert(0);
-  // printf("xd = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
+  printf("xd = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
   // SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
   SDL_UpdateRect(dst,0,0,0,0);
   // while(1)
