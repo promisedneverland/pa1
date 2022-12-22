@@ -69,7 +69,7 @@ static void clear_display(void) {
   
   SDL_FillRect(screen, NULL, 0xffffff);
   // printf("screen w = %d, h = %d\n",screen->w,screen->h);
-  while(1) {;}
+
   for(int y = 0 ; y < screen->h; y++)
   {
     for(int x = 0 ; x < screen -> w; x++)
