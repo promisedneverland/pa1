@@ -19,10 +19,18 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
   // assert(0);
-  SDL_Rect rct;
+  SDL_Rect srct;
+  SDL_Rect drct;
+
+  if(dstrect == NULL)
+  {
+    dstrect = &drct;
+    dstrect -> x = 0;
+    dstrect -> y = 0;
+  }
   if(srcrect == NULL)
   {
-    srcrect = &rct;
+    srcrect = &srct;
     srcrect->x = 0;
     srcrect->y = 0;
     srcrect->h = src->h;
