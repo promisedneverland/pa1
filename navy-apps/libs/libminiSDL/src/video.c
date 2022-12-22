@@ -21,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // assert(0);
   SDL_Rect srct;
   SDL_Rect drct;
-
+  // SDL_SetPalette(dst, int flags, SDL_Color *colors, int firstcolor, int ncolors)
   if(dstrect == NULL)
   {
     dstrect = &drct;
@@ -135,11 +135,11 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
     for(int j = 0 ; j < w ; j++)
     {
-      u_int32_t color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]].val;
-      tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 0);
-      tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 8);
-      tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 16);
-      tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 24);
+      SDL_Color color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]];
+      tmp[4 * ( (i) * w + j ) + 0] = color.b;
+      tmp[4 * ( (i) * w + j ) + 1] = color.g;
+      tmp[4 * ( (i) * w + j ) + 2] = color.r;
+      tmp[4 * ( (i) * w + j ) + 3] = color.a;
 
     }
     
