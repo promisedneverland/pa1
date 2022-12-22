@@ -136,10 +136,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for(int j = 0 ; j < w ; j++)
     {
       u_int32_t color = s->pixels[( (y + i) * s->w + x + j )];
-      tmp[4 * ( (i) * w + j ) + 0] = 0x00;
-      tmp[4 * ( (i) * w + j ) + 1] = 0x80;
-      tmp[4 * ( (i) * w + j ) + 2] = 0x80;
-      tmp[4 * ( (i) * w + j ) + 3] = 0xff;
+      tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 24);
+      tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 16);
+      tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 8);
+      tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 0);
 
     }
     
