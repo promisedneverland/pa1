@@ -116,6 +116,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       tmp[4 * ( (i) * w + j ) + 1] = s->pixels[4 * ( (y + i) * w + x + j ) + 1];
       tmp[4 * ( (i) * w + j ) + 2] = s->pixels[4 * ( (y + i) * w + x + j ) + 2];
       tmp[4 * ( (i) * w + j ) + 3] = s->pixels[4 * ( (y + i) * w + x + j ) + 3];
+      if(tmp[4 * ( (i) * w + j ) + 0] != 0xff && tmp[4 * ( (i) * w + j ) + 1] != 0xff && tmp[4 * ( (i) * w + j ) + 2] != 0xff && tmp[4 * ( (i) * w + j ) + 3] != 0x00)
+        printf("not white i = %d, j = %d\n",i,j);
     }
     
   } 
