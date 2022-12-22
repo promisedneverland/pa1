@@ -75,7 +75,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //   }
   // assert(0);
   // printf("blit x = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
-  SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
+  // SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
   // SDL_UpdateRect(dst, 0,0,0,0);
   // while(1)
   // {;}
