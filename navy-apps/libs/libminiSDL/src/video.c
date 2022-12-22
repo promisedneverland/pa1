@@ -99,6 +99,11 @@ uint8_t tmp[300 * 400 * 4];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   // printf("updaterect x = %d, y = %d, w = %d, h = %d\n",x,y,w,h);
   
+  if(w == 0 && h == 0)
+  {
+    w = s -> w;
+    h = s -> h;
+  }
   NDL_OpenCanvas(&w,&h);
   // if(w == s->w && h == s->h)
   // {
