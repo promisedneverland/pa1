@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define W 58
+#define W 48
 #define H 16
 
 class Terminal {
