@@ -83,7 +83,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  printf("okkk\n");
+  
   SDL_Rect rct;
   if(dstrect == NULL)
   {
@@ -123,7 +123,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 uint8_t tmp[300 * 400 * 4];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   // printf("updaterect x = %d, y = %d, w = %d, h = %d\n",x,y,w,h);
-  
+  printf("okkk\n");
   if(w == 0 && h == 0)
   {
     w = s -> w;
