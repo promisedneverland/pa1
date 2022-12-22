@@ -91,6 +91,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
 //和 NDL_DrawRect 等价
 //提供的是surface的pixel
+uint8_t tmp[300 * 400 * 4];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   NDL_OpenCanvas(&w,&h);
   if(w == 0 && h == 0)
@@ -100,9 +101,18 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(s->pixels, x, y, w, h);
     return ;
   }
+  
   for(int i = 0; i < h; i++)
   {
-    NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
+    // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
+    for(int j = 0 ; j < w ; j++)
+    {
+      tmp[4 * ( (i) * w + j ) + 0] = s->pixels[4 * ( (y + i) * w + x + j ) + 0];
+      tmp[4 * ( (i) * w + j ) + 1] = s->pixels[4 * ( (y + i) * w + x + j ) + 1];
+      tmp[4 * ( (i) * w + j ) + 2] = s->pixels[4 * ( (y + i) * w + x + j ) + 2];
+      tmp[4 * ( (i) * w + j ) + 3] = s->pixels[4 * ( (y + i) * w + x + j ) + 3];
+    }
+    
   } 
   
   // for(int i = 0 ; i < h; i++)
@@ -110,7 +120,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //   NDL_DrawRect(s->pixels + )
   // }
   // uint8_t temp[65536];
-  // NDL_DrawRect(temp, x, y, w, h);
+  NDL_DrawRect(tmp, x, y, w, h);
 }
 
 // APIs below are already implemented.
