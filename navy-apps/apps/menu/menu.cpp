@@ -75,6 +75,9 @@ static void clear_display(void) {
     for(int x = 0 ; x < screen -> w; x++)
     {
       assert(screen->pixels[4 * (y * screen->w + x) + 0 ] == 0xff);
+      assert(screen->pixels[4 * (y * screen->w + x) + 1 ] == 0xff);
+      assert(screen->pixels[4 * (y * screen->w + x) + 2 ] == 0xff);
+      assert(screen->pixels[4 * (y * screen->w + x) + 3 ] == 0x00);
       // if([y * screen->w + x] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
       if(screen->pixels[4 * (y * screen->w + x) + 0 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 1 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 2 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 3 ] != 0x00 || )
       {
