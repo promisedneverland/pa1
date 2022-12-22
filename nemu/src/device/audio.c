@@ -29,13 +29,13 @@ enum {
 };
 
 //流缓冲区
-static uint8_t *sbuf = NULL;
+// static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 static uint8_t *l_sbuf = NULL;
 // static uint8_t *r_sbuf = NULL;
 //stream ： 要往声卡输出的
 //len ： buffer(stream)的长度
-static void audio_play(void *userdata, uint8_t *stream, int len) {
+// static void audio_play(void *userdata, uint8_t *stream, int len) {
   //nread：将从sbuf中读出的缓存字节数
   // int nread = len;
 
@@ -65,7 +65,7 @@ static void audio_play(void *userdata, uint8_t *stream, int len) {
   //     sbuf[i] = 0;
   //   }
   // }
-}
+// }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
   // if(audio_base[reg_init] == 1)
@@ -97,7 +97,7 @@ void init_audio() {
   add_mmio_map("audio", CONFIG_AUDIO_CTL_MMIO, audio_base, space_size, audio_io_handler);
 #endif
 
-  sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
-  add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
+  // sbuf = (uint8_t *)new_space(CONFIG_SB_SIZE);
+  // add_mmio_map("audio-sbuf", CONFIG_SB_ADDR, sbuf, CONFIG_SB_SIZE, NULL);
 
 }
