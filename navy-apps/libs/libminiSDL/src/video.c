@@ -82,36 +82,36 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  SDL_Rect rct;
-  if(dstrect == NULL)
-  {
-    dstrect = &rct;
-    dstrect->x = 0;
-    dstrect->y = 0;
-    dstrect->h = dst->h;
-    dstrect->w = dst->w;
-  }
-  //更新矩形位置处的pixels
-  for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
-  {
-    for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
-    {
-      // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) (0xFF);
-      // printf("fisrt = %x\n",dst->pixels[4 * (x + y * dst->w) + 0]);
-      dst->pixels[4 * (x + y * dst->w) + 0] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
-      dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
-      dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
-      dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
+  // SDL_Rect rct;
+  // if(dstrect == NULL)
+  // {
+  //   dstrect = &rct;
+  //   dstrect->x = 0;
+  //   dstrect->y = 0;
+  //   dstrect->h = dst->h;
+  //   dstrect->w = dst->w;
+  // }
+  // //更新矩形位置处的pixels
+  // for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
+  // {
+  //   for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
+  //   {
+  //     // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) (0xFF);
+  //     // printf("fisrt = %x\n",dst->pixels[4 * (x + y * dst->w) + 0]);
+  //     dst->pixels[4 * (x + y * dst->w) + 0] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
+  //     dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
+  //     dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
+  //     dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
 
-      // dst->pixels[4* (x + y * dst->w) + 0] = 0x00;//b
-      // dst->pixels[4* (x + y * dst->w) + 1] = 0x80;//G
-      // dst->pixels[4* (x + y * dst->w) + 2] = 0x80;//R
-      // dst->pixels[4* (x + y * dst->w) + 3] = 0xff;//A
-    }
-  }
-  // printf("%x\n",dst->pixels[0]);
+  //     // dst->pixels[4* (x + y * dst->w) + 0] = 0x00;//b
+  //     // dst->pixels[4* (x + y * dst->w) + 1] = 0x80;//G
+  //     // dst->pixels[4* (x + y * dst->w) + 2] = 0x80;//R
+  //     // dst->pixels[4* (x + y * dst->w) + 3] = 0xff;//A
+  //   }
+  // }
+  // // printf("%x\n",dst->pixels[0]);
   
-  SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
+  // SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   
   // printf("dej\n");
 }
