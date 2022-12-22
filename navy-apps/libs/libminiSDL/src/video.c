@@ -118,10 +118,10 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
     for(int j = 0 ; j < w ; j++)
     {
-      tmp[4 * ( (i) * w + j ) + 0] = s->pixels[4 * ( (y + i) * w + x + j ) + 0];
-      tmp[4 * ( (i) * w + j ) + 1] = s->pixels[4 * ( (y + i) * w + x + j ) + 1];
-      tmp[4 * ( (i) * w + j ) + 2] = s->pixels[4 * ( (y + i) * w + x + j ) + 2];
-      tmp[4 * ( (i) * w + j ) + 3] = s->pixels[4 * ( (y + i) * w + x + j ) + 3];
+      tmp[4 * ( (i) * w + j ) + 0] = s->pixels[4 * ( (y + i) * s->w + x + j ) + 0];
+      tmp[4 * ( (i) * w + j ) + 1] = s->pixels[4 * ( (y + i) * s->w + x + j ) + 1];
+      tmp[4 * ( (i) * w + j ) + 2] = s->pixels[4 * ( (y + i) * s->w + x + j ) + 2];
+      tmp[4 * ( (i) * w + j ) + 3] = s->pixels[4 * ( (y + i) * s->w + x + j ) + 3];
       // if(tmp[4 * ( (i) * w + j ) + 0] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
       //   printf("not white i = %d, j = %d\n",i,j);
     }
