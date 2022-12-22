@@ -39,22 +39,22 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // printf("blit x = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
 
   //8-bit
-    for(int y = 0; y < srcrect->h ; y++)
-    {
-      for(int x = 0; x < srcrect->w ; x++)
-      {
+    // for(int y = 0; y < srcrect->h ; y++)
+    // {
+    //   for(int x = 0; x < srcrect->w ; x++)
+    //   {
         
-        // printf("offset = %d\n",4 * ( dstrect->x + x + dst->w * (dstrect->y + y)) + 0 );
-        // printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
-        dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
+    //     // printf("offset = %d\n",4 * ( dstrect->x + x + dst->w * (dstrect->y + y)) + 0 );
+    //     // printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
+    //     dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
 
       
-        // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
-        // dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
-        // dst->pixels[4* (x + y * srcrect->w) + 2] = 0x80;//R
-        // dst->pixels[4* (x + y * srcrect->w) + 3] = 0xff;//A
-      }
-    }
+    //     // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
+    //     // dst->pixels[4* (x + y * srcrect->w) + 1] = 0x80;//G
+    //     // dst->pixels[4* (x + y * srcrect->w) + 2] = 0x80;//R
+    //     // dst->pixels[4* (x + y * srcrect->w) + 3] = 0xff;//A
+    //   }
+    // }
   // for(int y = 0; y < srcrect->h ; y++)
   //   {
   //     for(int x = 0; x < srcrect->w ; x++)
