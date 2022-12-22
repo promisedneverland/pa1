@@ -130,20 +130,20 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   NDL_OpenCanvas(&w,&h);
 
   //8-bit
-  for(int i = 0; i < h; i++)
-  {
-    // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
-    for(int j = 0 ; j < w ; j++)
-    {
-      u_int32_t color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]].val;
-      tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 0);
-      tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 8);
-      tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 16);
-      tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 24);
+  // for(int i = 0; i < h; i++)
+  // {
+  //   // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
+  //   for(int j = 0 ; j < w ; j++)
+  //   {
+  //     u_int32_t color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]].val;
+  //     tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 0);
+  //     tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 8);
+  //     tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 16);
+  //     tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 24);
 
-    }
+  //   }
     
-  } 
+  // } 
   // if(w == s->w && h == s->h)
   // {
   //   printf("ok\n");
@@ -171,7 +171,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //   NDL_DrawRect(s->pixels + )
   // }
   // uint8_t temp[65536];
-  NDL_DrawRect(tmp, x, y, w, h);
+  // NDL_DrawRect(tmp, x, y, w, h);
 }
 
 // APIs below are already implemented.
