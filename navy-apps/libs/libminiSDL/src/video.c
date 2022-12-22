@@ -16,26 +16,26 @@ static inline int maskToShift(uint32_t mask) {
 }
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
-  // assert(dst && src);
-  // assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  // // assert(0);
-  // SDL_Rect srct;
-  // SDL_Rect drct;
+  assert(dst && src);
+  assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  // assert(0);
+  SDL_Rect srct;
+  SDL_Rect drct;
 
-  // if(dstrect == NULL)
-  // {
-  //   dstrect = &drct;
-  //   dstrect -> x = 0;
-  //   dstrect -> y = 0;
-  // }
-  // if(srcrect == NULL)
-  // {
-  //   srcrect = &srct;
-  //   srcrect->x = 0;
-  //   srcrect->y = 0;
-  //   srcrect->h = src->h;
-  //   srcrect->w = src->w;
-  // }
+  if(dstrect == NULL)
+  {
+    dstrect = &drct;
+    dstrect -> x = 0;
+    dstrect -> y = 0;
+  }
+  if(srcrect == NULL)
+  {
+    srcrect = &srct;
+    srcrect->x = 0;
+    srcrect->y = 0;
+    srcrect->h = src->h;
+    srcrect->w = src->w;
+  }
   // printf("blit x = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
 
   //8-bit
@@ -46,7 +46,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         
         // printf("offset = %d\n",4 * ( dstrect->x + x + dst->w * (dstrect->y + y)) + 0 );
         // printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
-        // dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
+        dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
 
       
         // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
@@ -75,43 +75,43 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   //   }
   // assert(0);
   // printf("blit x = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
-  // SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
+  SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
   // SDL_UpdateRect(dst, 0,0,0,0);
   // while(1)
   // {;}
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
-  // SDL_Rect rct;
-  // if(dstrect == NULL)
-  // {
-  //   dstrect = &rct;
-  //   dstrect->x = 0;
-  //   dstrect->y = 0;
-  //   dstrect->h = dst->h;
-  //   dstrect->w = dst->w;
-  // }
-  // //更新矩形位置处的pixels
-  // for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
-  // {
-  //   for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
-  //   {
-  //     // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) (0xFF);
-  //     // printf("fisrt = %x\n",dst->pixels[4 * (x + y * dst->w) + 0]);
-  //     dst->pixels[4 * (x + y * dst->w) + 0] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
-  //     dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
-  //     dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
-  //     dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
+  SDL_Rect rct;
+  if(dstrect == NULL)
+  {
+    dstrect = &rct;
+    dstrect->x = 0;
+    dstrect->y = 0;
+    dstrect->h = dst->h;
+    dstrect->w = dst->w;
+  }
+  //更新矩形位置处的pixels
+  for(int y = dstrect->y; y < dstrect->y + dstrect->h; y++)
+  {
+    for(int x = dstrect->x; x < dstrect->x + dstrect->w; x++)
+    {
+      // dst->pixels[4 * (x + y * dst->w)    ] = (uint8_t) (0xFF);
+      // printf("fisrt = %x\n",dst->pixels[4 * (x + y * dst->w) + 0]);
+      dst->pixels[4 * (x + y * dst->w) + 0] = (uint8_t) ((color & DEFAULT_BMASK) >> maskToShift(DEFAULT_BMASK));
+      dst->pixels[4 * (x + y * dst->w) + 1] = (uint8_t) ((color & DEFAULT_GMASK) >> maskToShift(DEFAULT_GMASK));
+      dst->pixels[4 * (x + y * dst->w) + 2] = (uint8_t) ((color & DEFAULT_RMASK) >> maskToShift(DEFAULT_RMASK));
+      dst->pixels[4 * (x + y * dst->w) + 3] = (uint8_t) ((color & DEFAULT_AMASK) >> maskToShift(DEFAULT_AMASK));
 
-  //     // dst->pixels[4* (x + y * dst->w) + 0] = 0x00;//b
-  //     // dst->pixels[4* (x + y * dst->w) + 1] = 0x80;//G
-  //     // dst->pixels[4* (x + y * dst->w) + 2] = 0x80;//R
-  //     // dst->pixels[4* (x + y * dst->w) + 3] = 0xff;//A
-  //   }
-  // }
-  // // printf("%x\n",dst->pixels[0]);
+      // dst->pixels[4* (x + y * dst->w) + 0] = 0x00;//b
+      // dst->pixels[4* (x + y * dst->w) + 1] = 0x80;//G
+      // dst->pixels[4* (x + y * dst->w) + 2] = 0x80;//R
+      // dst->pixels[4* (x + y * dst->w) + 3] = 0xff;//A
+    }
+  }
+  // printf("%x\n",dst->pixels[0]);
   
-  // SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
+  SDL_UpdateRect(dst, dstrect->x, dstrect->y, dstrect->w, dstrect->h);
   
   // printf("dej\n");
 }
@@ -130,20 +130,20 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   NDL_OpenCanvas(&w,&h);
 
   //8-bit
-  // for(int i = 0; i < h; i++)
-  // {
-  //   // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
-  //   for(int j = 0 ; j < w ; j++)
-  //   {
-  //     u_int32_t color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]].val;
-  //     tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 0);
-  //     tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 8);
-  //     tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 16);
-  //     tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 24);
+  for(int i = 0; i < h; i++)
+  {
+    // NDL_DrawRect(s->pixels + 4 * ((i + y) * w + x) , x, y + i, w, 1);
+    for(int j = 0 ; j < w ; j++)
+    {
+      u_int32_t color = s->format->palette->colors[s->pixels[( (y + i) * s->w + x + j )]].val;
+      tmp[4 * ( (i) * w + j ) + 0] = (uint8_t)(color >> 0);
+      tmp[4 * ( (i) * w + j ) + 1] = (uint8_t)(color >> 8);
+      tmp[4 * ( (i) * w + j ) + 2] = (uint8_t)(color >> 16);
+      tmp[4 * ( (i) * w + j ) + 3] = (uint8_t)(color >> 24);
 
-  //   }
+    }
     
-  // } 
+  } 
   // if(w == s->w && h == s->h)
   // {
   //   printf("ok\n");
@@ -171,7 +171,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //   NDL_DrawRect(s->pixels + )
   // }
   // uint8_t temp[65536];
-  // NDL_DrawRect(tmp, x, y, w, h);
+  NDL_DrawRect(tmp, x, y, w, h);
 }
 
 // APIs below are already implemented.
