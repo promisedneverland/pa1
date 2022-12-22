@@ -74,6 +74,7 @@ static void clear_display(void) {
   {
     for(int x = 0 ; x < screen -> w; x++)
     {
+      assert(screen->pixels[4 * (y * screen->w + x) + 0 ] == 0xff);
       // if([y * screen->w + x] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
       if(screen->pixels[4 * (y * screen->w + x) + 0 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 1 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 2 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 3 ] != 0x00 || )
       {
@@ -197,6 +198,18 @@ static void display_menu(int n) {
   // while(1)
   // {;}
   
+  // for(int y = 0 ; y < screen->h; y++)
+  // {
+  //   for(int x = 0 ; x < screen -> w; x++)
+  //   {
+  //     // if([y * screen->w + x] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
+  //     if(screen->pixels[4 * (y * screen->w + x) + 0 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 1 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 2 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 3 ] != 0x00 || )
+  //     {
+  //       printf("not white x = %d, y = %d\n",x,y);
+  //     }
+  //   }
+  // }
+
   SDL_UpdateRect(screen, 0, 0, 0, 0);
   // NDL_DrawRect(screen->pixels, 0, 0, screen->w, screen->h);
   printf("========================================\n");
