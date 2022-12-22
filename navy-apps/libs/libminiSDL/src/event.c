@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <assert.h>
 #define keyname(k) #k,
-
+uint8_t keystate[100];
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
@@ -21,6 +21,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     // printf("%s\n",buf);
     if(buf[0] == 'k')
     {
+      ev->key.keysym.sym = atoi(buf + 3);
       if(buf[1] == 'u')
       {
         ev->type = SDL_KEYUP;
@@ -31,7 +32,6 @@ int SDL_PollEvent(SDL_Event *ev) {
         ev->type = SDL_KEYDOWN;
         ev->key.type = SDL_KEYDOWN;
       }
-      ev->key.keysym.sym = atoi(buf + 3);
       // printf("%d\n",ev->key.keysym.sym);
       return 1;
     }
@@ -59,6 +59,12 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  // assert(0);
-  return NULL;
+  
+  if(numkeys)
+    *numkeys = sizeof(keyname) / sizeof(keyname[0]);
+  
+  int numkey = sizeof(keyname) / sizeof(keyname[0]);
+ 
+ 
+  return keystate;
 }
