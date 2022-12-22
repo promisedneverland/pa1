@@ -10,7 +10,7 @@ int main() {
   void *bmp = BMP_Load("/share/pictures/projectn.bmp", &w, &h);
   assert(bmp);
   NDL_OpenCanvas(&w, &h);
-  NDL_DrawRect(bmp, 20, 10, w, h);
+  NDL_DrawRect(bmp, 0, 0, 0, 0);
   free(bmp);
   NDL_Quit();
   printf("Test ends! Spinning...\n");
