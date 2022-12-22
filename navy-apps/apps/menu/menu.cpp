@@ -67,7 +67,17 @@ static void clear_display(void) {
   // printf("start\n");
   // assert(0);
   SDL_FillRect(screen, NULL, 0xffffff);
-  
+  for(int y = 0 ; y < screen->h; y++)
+  {
+    for(int x = 0 ; x < screen -> w; x++)
+    {
+      if(screen->pixels[y * screen->w + x] != 0xffffff)
+      {
+        printf("not white x = %d, y = %d\n",x,y);
+      }
+    }
+  }
+  while(1) {;}
 }
 
 int main(int argc, char *argv[], char *envp[]) {
