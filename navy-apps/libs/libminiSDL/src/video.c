@@ -37,8 +37,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 2] = src->pixels[4 * (x + srcrect->w * (y)) + 2];
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 3] = src->pixels[4 * (x + srcrect->w * (y)) + 3];
         
-        printf("offset = %d\n",4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) );
-        printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
+        // printf("offset = %d\n",4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) );
+        // printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 0] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0];
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 1] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 1];
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
@@ -52,8 +52,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     }
   // assert(0);
   printf("blit x = %d,y = %d, w = %d , h = %d\n",dstrect->x,dstrect->y,srcrect->w,srcrect->h);
-  SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
-  // SDL_UpdateRect(dst,0,0,0,0);
+  // SDL_UpdateRect(dst, dstrect->x, dstrect->y, srcrect->w, srcrect->h);
+  SDL_UpdateRect(dst, 0,0,0,0);
   // while(1)
   // {;}
 }
@@ -100,12 +100,12 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   printf("updaterect x = %d, y = %d, w = %d, h = %d\n",x,y,w,h);
   
   NDL_OpenCanvas(&w,&h);
-  if(w == s->w && h == s->h)
-  {
-    printf("ok\n");
-    NDL_DrawRect(s->pixels, 0, 0, w, h);
-    return ;
-  }
+  // if(w == s->w && h == s->h)
+  // {
+  //   printf("ok\n");
+  //   NDL_DrawRect(s->pixels, 0, 0, w, h);
+  //   return ;
+  // }
   
   for(int i = 0; i < h; i++)
   {
