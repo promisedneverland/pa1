@@ -93,6 +93,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 //提供的是surface的pixel
 uint8_t tmp[300 * 400 * 4];
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  printf("updaterect\n");
   NDL_OpenCanvas(&w,&h);
   if(w == 0 && h == 0)
   {
