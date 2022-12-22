@@ -24,11 +24,13 @@ int SDL_PollEvent(SDL_Event *ev) {
       ev->key.keysym.sym = atoi(buf + 3);
       if(buf[1] == 'u')
       {
+        keystate[ev->key.keysym.sym] = 0;
         ev->type = SDL_KEYUP;
         ev->key.type = SDL_KEYUP;
       }
       else
       {
+        keystate[ev->key.keysym.sym] = 1;
         ev->type = SDL_KEYDOWN;
         ev->key.type = SDL_KEYDOWN;
       }
