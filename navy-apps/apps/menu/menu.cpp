@@ -81,6 +81,7 @@ static void clear_display(void) {
       }
     }
   }
+  printf("compliet\n");
   while(1) {;}
 }
 
