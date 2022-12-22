@@ -70,17 +70,17 @@ static void clear_display(void) {
   SDL_FillRect(screen, NULL, 0xffffff);
   // printf("screen w = %d, h = %d\n",screen->w,screen->h);
 
-  for(int y = 0 ; y < screen->h; y++)
-  {
-    for(int x = 0 ; x < screen -> w; x++)
-    {
-      // if([y * screen->w + x] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
-      if(screen->pixels[4 * (y * screen->w + x) + 0 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 1 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 2 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 3 ] != 0x00 || )
-      {
-        printf("not white x = %d, y = %d\n",x,y);
-      }
-    }
-  }
+  // for(int y = 0 ; y < screen->h; y++)
+  // {
+  //   for(int x = 0 ; x < screen -> w; x++)
+  //   {
+  //     // if([y * screen->w + x] != 0xff || tmp[4 * ( (i) * w + j ) + 1] != 0xff || tmp[4 * ( (i) * w + j ) + 2] != 0xff || tmp[4 * ( (i) * w + j ) + 3] != 0x00)
+  //     if(screen->pixels[4 * (y * screen->w + x) + 0 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 1 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 2 ] != 0xff || screen->pixels[4 * (y * screen->w + x) + 3 ] != 0x00 || )
+  //     {
+  //       printf("not white x = %d, y = %d\n",x,y);
+  //     }
+  //   }
+  // }
   printf("compliet\n");
   // while(1) {;}
 }
