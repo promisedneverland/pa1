@@ -212,7 +212,7 @@ static void display_menu(int n) {
       }
     }
   }
-
+  while(1){;}
   SDL_UpdateRect(screen, 0, 0, 0, 0);
   // NDL_DrawRect(screen->pixels, 0, 0, screen->w, screen->h);
   printf("========================================\n");
