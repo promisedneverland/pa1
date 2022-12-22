@@ -21,7 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // assert(0);
   SDL_Rect srct;
   SDL_Rect drct;
-  SDL_SetPalette(dst, 1, src->format->palette->colors, 0, src->format->palette->ncolors);
+  SDL_SetPalette(dst, 1, src->format->palette->colors, 1, src->format->palette->ncolors);
   if(dstrect == NULL)
   {
     dstrect = &drct;
