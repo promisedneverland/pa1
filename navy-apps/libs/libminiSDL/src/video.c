@@ -36,8 +36,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 1] = src->pixels[4 * (x + srcrect->w * (y)) + 1];
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 2] = src->pixels[4 * (x + srcrect->w * (y)) + 2];
         // dst->pixels[4 * ( x + srcrect->w * (y)) + 3] = src->pixels[4 * (x + srcrect->w * (y)) + 3];
-        if(x==0&&y==0)
+        
         printf("offset = %d\n",4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) );
+        printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 0] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0];
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 1] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 1];
         dst->pixels[4 * ( dstrect->x + x + srcrect->w * (dstrect->y + y)) + 2] = src->pixels[4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 2];
