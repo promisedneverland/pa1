@@ -178,10 +178,10 @@ static void display_menu(int n) {
   sprintf(buf, "  0-9 Choose");
   draw_text_row(buf, i);
   i ++;
-  while(1)
-  {;}
-  SDL_UpdateRect(screen, 0, 0, 0, 0);
-
+  // while(1)
+  // {;}
+  // SDL_UpdateRect(screen, 0, 0, 0, 0);
+  // NDL_DrawRect(screen->pixels, 0, 0, screen->w, screen->h);
   printf("========================================\n");
   printf("Please Choose.\n");
   fflush(stdout);
