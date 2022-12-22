@@ -32,6 +32,6 @@ void SDL_LockAudio() {
 }
 
 void SDL_UnlockAudio() {
-  assert(0);
+  // assert(0);
 }
 
