@@ -82,7 +82,7 @@ static void clear_display(void) {
     }
   }
   printf("compliet\n");
-  while(1) {;}
+  // while(1) {;}
 }
 
 int main(int argc, char *argv[], char *envp[]) {
