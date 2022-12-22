@@ -46,7 +46,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
         
         // printf("offset = %d\n",4 * ( dstrect->x + x + dst->w * (dstrect->y + y)) + 0 );
         // printf("offsets = %d\n",4 * 4 * (srcrect->x + x + srcrect->w * (srcrect->y + y)) + 0 );
-        dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
+        // dst->pixels[( dstrect->x + x + dst->w * (dstrect->y + y))] = src->pixels[(srcrect->x + x + srcrect->w * (srcrect->y + y))];
 
       
         // dst->pixels[4* (x + y * srcrect->w) + 0] = 0x00;//b
@@ -171,7 +171,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //   NDL_DrawRect(s->pixels + )
   // }
   // uint8_t temp[65536];
-  // NDL_DrawRect(tmp, x, y, w, h);
+  NDL_DrawRect(tmp, x, y, w, h);
 }
 
 // APIs below are already implemented.
